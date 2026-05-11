@@ -1,0 +1,145 @@
+[gd_scene load_steps=21 format=3 uid="uid://dt3fu2wae22rx"]
+
+[ext_resource type="Texture2D" uid="uid://dyssn4k5vsgck" path="res://placeholder/Sprite-0001.png" id="1_a36q4"]
+[ext_resource type="Script" uid="uid://bo7hj3uilrot6" path="res://units/eritrosit/Eritrosit.gd" id="1_fy8y3"]
+[ext_resource type="Resource" uid="uid://cf25g44yutudu" path="res://units/eritrosit/eritrosit_stats.tres" id="2_4tik8"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fy8y3"]
+atlas = ExtResource("1_a36q4")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4tik8"]
+atlas = ExtResource("1_a36q4")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sgjfp"]
+atlas = ExtResource("1_a36q4")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jc66u"]
+atlas = ExtResource("1_a36q4")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ca7ys"]
+atlas = ExtResource("1_a36q4")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_knvcl"]
+atlas = ExtResource("1_a36q4")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pp2yq"]
+atlas = ExtResource("1_a36q4")
+region = Rect2(384, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wlvsv"]
+atlas = ExtResource("1_a36q4")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vc3c6"]
+atlas = ExtResource("1_a36q4")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0ctcp"]
+atlas = ExtResource("1_a36q4")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gbb8n"]
+atlas = ExtResource("1_a36q4")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dsxy5"]
+atlas = ExtResource("1_a36q4")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a632t"]
+atlas = ExtResource("1_a36q4")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f42wq"]
+atlas = ExtResource("1_a36q4")
+region = Rect2(384, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wlvsv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fy8y3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4tik8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sgjfp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jc66u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ca7ys")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_knvcl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pp2yq")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wlvsv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vc3c6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0ctcp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gbb8n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dsxy5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a632t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f42wq")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vc3c6"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0ctcp"]
+radius = 700.0
+
+[node name="Eritrosit" type="CharacterBody2D"]
+collision_mask = 2
+script = ExtResource("1_fy8y3")
+stats = ExtResource("2_4tik8")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -29)
+sprite_frames = SubResource("SpriteFrames_wlvsv")
+animation = &"walk"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_vc3c6")
+
+[node name="OxygenDetector" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="OxygenDetector"]
+shape = SubResource("CircleShape2D_0ctcp")
+
+[node name="OxygenLabel" type="Label" parent="."]
+offset_left = -20.0
+offset_top = -60.0
+offset_right = 20.0
+offset_bottom = -37.0

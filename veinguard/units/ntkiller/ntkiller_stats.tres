@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="UnitStats" load_steps=2 format=3 uid="uid://1vgwyx8unpx1"]
+
+[ext_resource type="Script" uid="uid://c5gbukkn4s3uk" path="res://core/resources/UnitStats.gd" id="1_h7lgi"]
+
+[resource]
+script = ExtResource("1_h7lgi")
+unit_name = "NTKiller"
+max_hp = 80.0
+move_speed = 90.0
+damage = 25.0
+attack_range = 50.0
+attack_speed = 1.0
+cost = 100
+metadata/_custom_type_script = "uid://c5gbukkn4s3uk"

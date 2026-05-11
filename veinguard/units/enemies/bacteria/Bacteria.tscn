@@ -1,0 +1,85 @@
+[gd_scene load_steps=13 format=3 uid="uid://s5r3qqln8w3p"]
+
+[ext_resource type="Script" uid="uid://b2nyqdgfnsxq6" path="res://units/enemies/bacteria/Bacteria.gd" id="1_4exmm"]
+[ext_resource type="Resource" uid="uid://t4v613e4mubm" path="res://units/enemies/bacteria/bacteria_stats.tres" id="2_ibuh6"]
+[ext_resource type="Texture2D" uid="uid://usdlxwtl3go4" path="res://placeholder/Rectangle 2.png" id="3_dmd0q"]
+[ext_resource type="Texture2D" uid="uid://4wxy0sc0rn78" path="res://placeholder/Rectangle 2 (1).png" id="4_jeqa1"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_axsbs"]
+atlas = ExtResource("3_dmd0q")
+region = Rect2(0, 0, 500, 500)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_04ray"]
+atlas = ExtResource("4_jeqa1")
+region = Rect2(0, 0, 500, 500)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qnksy"]
+atlas = ExtResource("4_jeqa1")
+region = Rect2(0, 0, 500, 500)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gb222"]
+atlas = ExtResource("3_dmd0q")
+region = Rect2(0, 0, 500, 500)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_04ray"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_axsbs")
+}],
+"loop": true,
+"name": &"die",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_04ray")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qnksy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gb222")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qnksy"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gb222"]
+radius = 600.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6cpp1"]
+radius = 30.0
+
+[node name="Bacteria" type="CharacterBody2D"]
+collision_layer = 2
+script = ExtResource("1_4exmm")
+stats = ExtResource("2_ibuh6")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -27)
+scale = Vector2(0.1, 0.1)
+sprite_frames = SubResource("SpriteFrames_04ray")
+animation = &"die"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_qnksy")
+
+[node name="AggroArea" type="Area2D" parent="."]
+collision_layer = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AggroArea"]
+shape = SubResource("CircleShape2D_gb222")
+
+[node name="AttackArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea"]
+shape = SubResource("CircleShape2D_6cpp1")

@@ -1,0 +1,50 @@
+[gd_scene load_steps=11 format=3 uid="uid://dgxhd6jxpjlhl"]
+
+[ext_resource type="Script" uid="uid://csswcok05plac" path="res://core/lane/PlayerBase.gd" id="1_b4d85"]
+[ext_resource type="Script" uid="uid://8pjxqrfnemi2" path="res://core/lane/Lane.gd" id="1_j8vas"]
+[ext_resource type="Texture2D" uid="uid://usdlxwtl3go4" path="res://placeholder/Rectangle 2.png" id="2_1t5db"]
+[ext_resource type="Script" uid="uid://dwjdpphfdhktx" path="res://core/lane/EnemyBase.gd" id="2_4q2cr"]
+[ext_resource type="PackedScene" uid="uid://s5r3qqln8w3p" path="res://units/enemies/bacteria/Bacteria.tscn" id="3_1t5db"]
+[ext_resource type="Script" uid="uid://blq3ovx38etgo" path="res://core/lane/OxygenSpawner.gd" id="4_ldus6"]
+[ext_resource type="Texture2D" uid="uid://4wxy0sc0rn78" path="res://placeholder/Rectangle 2 (1).png" id="5_ldus6"]
+[ext_resource type="PackedScene" uid="uid://ddi01j1pjcjsi" path="res://core/lane/oxygen.tscn" id="7_ldus6"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2lv14"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mschv"]
+
+[node name="Lane" type="Node2D"]
+script = ExtResource("1_j8vas")
+bacteria_scene = ExtResource("3_1t5db")
+
+[node name="Background" type="Sprite2D" parent="."]
+
+[node name="PlayerBase" type="Area2D" parent="." groups=["player_base"]]
+position = Vector2(540, 1020)
+script = ExtResource("1_b4d85")
+
+[node name="Sprite2D" type="Sprite2D" parent="PlayerBase"]
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("2_1t5db")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerBase"]
+shape = SubResource("RectangleShape2D_2lv14")
+
+[node name="EnemyBase" type="Area2D" parent="." groups=["enemy_base"]]
+position = Vector2(540, 200)
+script = ExtResource("2_4q2cr")
+enemy_scene = ExtResource("3_1t5db")
+
+[node name="Sprite2D" type="Sprite2D" parent="EnemyBase"]
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("5_ldus6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyBase"]
+shape = SubResource("RectangleShape2D_mschv")
+
+[node name="UnitSpawnPoint" type="Marker2D" parent="."]
+position = Vector2(0, -10)
+
+[node name="OxygenSpawner" type="Node2D" parent="."]
+script = ExtResource("4_ldus6")
+oxygen_scene = ExtResource("7_ldus6")
