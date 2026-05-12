@@ -13,6 +13,10 @@ enum State { IDLE, MOVE, ATTACK, DIE, PATCHING }
 var current_state : State = State.IDLE
 
 # --- Runtime ---
+var _proj_velocity  : Vector2 = Vector2.ZERO
+var _is_projectile  : bool    = false
+var _gravity        : Vector2 = Vector2(0, 980.0)
+
 var current_hp     : float
 var current_target : Node2D = null  # musuh yang sedang diincar
 
@@ -21,6 +25,9 @@ var current_target : Node2D = null  # musuh yang sedang diincar
 @onready var aggro_area  : Area2D
 @onready var attack_area : Area2D
 
+# --- Health Bar ---
+var _health_bar : Node = null   # HealthBar node (lazy-found)
+
 
 func _ready() -> void:
 	if stats == null:
@@ -28,6 +35,10 @@ func _ready() -> void:
 		return
 	current_hp = stats.max_hp
 	_on_ready()  # hook untuk child class
+	# Temukan HealthBar child jika ada
+	_health_bar = get_node_or_null("HealthBar")
+	if _health_bar:
+		_health_bar.setup(stats.max_hp)
 
 
 # Override ini di child class untuk setup tambahan
@@ -36,6 +47,16 @@ func _on_ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
+	if _is_projectile:
+		_proj_velocity += _gravity * delta
+		velocity        = _proj_velocity
+		move_and_slide()
+		if sprite: sprite.rotation = velocity.angle()
+		var base := get_tree().get_first_node_in_group("player_base")
+		if base and _proj_velocity.y > 0 and \
+		   global_position.distance_to(base.global_position) > 150.0:
+			_land()
+		return
 	match current_state:
 		State.IDLE:     _process_idle(delta)
 		State.MOVE:     _process_move(delta)
@@ -67,6 +88,9 @@ func take_damage(amount: float) -> void:
 		return
 	current_hp -= amount
 	_play_hit_effect()
+	# Update health bar
+	if _health_bar:
+		_health_bar.update(current_hp, stats.max_hp)
 	if current_hp <= 0.0:
 		change_state(State.DIE)
 
@@ -77,24 +101,6 @@ func launch(direction: Vector2, speed: float) -> void:
 	_launch_velocity = direction * speed
 	_is_launched     = true
 	change_state(State.MOVE)
-
-func _process_move(delta: float) -> void:
-	# Kalau baru diluncurkan, pakai launch velocity dulu
-	# lalu perlahan beralih ke move_speed normal
-	if _is_launched:
-		velocity         = _launch_velocity
-		_launch_velocity  = _launch_velocity.move_toward(
-			Vector2(0, -stats.move_speed),  # target velocity normal
-			300.0 * delta                  # kecepatan transisi
-		)
-		# Selesai meluncur saat kecepatan sudah hampir normal
-		if _launch_velocity.distance_to(Vector2(stats.move_speed, 0)) < 5.0:
-			_is_launched = false
-	else:
-		velocity = Vector2(stats.move_speed, 0)
-
-	move_and_slide()
-	
 
 func _play_hit_effect() -> void:
 	if not sprite:
@@ -115,3 +121,35 @@ func _process_die(_delta: float) -> void:
 		sprite.play("die")
 	await get_tree().create_timer(0.5).timeout
 	queue_free()
+
+func launch_projectile(vel: Vector2) -> void:
+	_proj_velocity = vel
+	_is_projectile = true
+	change_state(State.MOVE)
+	
+
+func _process_move(delta: float) -> void:
+	if _is_projectile:
+		_proj_velocity += _gravity * delta
+		velocity        = _proj_velocity
+		move_and_slide()
+
+		# Landing: velocity mulai ke bawah & sudah jauh dari base
+		var base := get_tree().get_first_node_in_group("player_base")
+		if base and _proj_velocity.y > 0 and \
+		   global_position.distance_to(base.global_position) > 150.0:
+			_land()
+	else:
+		velocity = Vector2(0, -stats.move_speed)
+		move_and_slide()
+
+
+func _land() -> void:
+	_is_projectile = false
+	_proj_velocity = Vector2.ZERO
+	if sprite: sprite.rotation = 0.0
+	if sprite:
+		var tween := create_tween()
+		tween.tween_property(sprite, "scale", Vector2(1.4, 0.6), 0.08)
+		tween.tween_property(sprite, "scale", Vector2(1.0, 1.0), 0.15)\
+			 .set_trans(Tween.TRANS_BOUNCE).set_ease(Tween.EASE_OUT)

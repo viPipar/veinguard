@@ -17,3 +17,4 @@ func _ready() -> void:
 		var b = bacteria_scene.instantiate()
 		add_child(b)
 		b.global_position = Vector2(540, 200)
+		enemy_base.start_spawning()

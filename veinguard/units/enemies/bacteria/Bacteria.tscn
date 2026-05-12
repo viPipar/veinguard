@@ -4,17 +4,14 @@
 [ext_resource type="Resource" uid="uid://t4v613e4mubm" path="res://units/enemies/bacteria/bacteria_stats.tres" id="2_ibuh6"]
 [ext_resource type="Texture2D" uid="uid://usdlxwtl3go4" path="res://placeholder/Rectangle 2.png" id="3_dmd0q"]
 [ext_resource type="Texture2D" uid="uid://4wxy0sc0rn78" path="res://placeholder/Rectangle 2 (1).png" id="4_jeqa1"]
+[ext_resource type="PackedScene" path="res://core/ui/HealthBar.tscn" id="5_hbbar"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_axsbs"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_ibuh6"]
+atlas = ExtResource("4_jeqa1")
+region = Rect2(125, 250, 125, 125)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dmd0q"]
 atlas = ExtResource("3_dmd0q")
-region = Rect2(0, 0, 500, 500)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_04ray"]
-atlas = ExtResource("4_jeqa1")
-region = Rect2(0, 0, 500, 500)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_qnksy"]
-atlas = ExtResource("4_jeqa1")
 region = Rect2(0, 0, 500, 500)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gb222"]
@@ -25,24 +22,21 @@ region = Rect2(0, 0, 500, 500)
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_axsbs")
+"texture": SubResource("AtlasTexture_ibuh6")
 }],
-"loop": true,
+"loop": false,
 "name": &"die",
 "speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_04ray")
+"texture": SubResource("AtlasTexture_dmd0q")
 }],
 "loop": true,
 "name": &"idle",
-"speed": 6.0
+"speed": 5.0
 }, {
 "frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_qnksy")
-}, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_gb222")
 }],
@@ -52,6 +46,7 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qnksy"]
+radius = 5.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_gb222"]
 radius = 600.0
@@ -80,6 +75,10 @@ collision_layer = 4
 shape = SubResource("CircleShape2D_gb222")
 
 [node name="AttackArea" type="Area2D" parent="."]
+collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea"]
 shape = SubResource("CircleShape2D_6cpp1")
+
+[node name="HealthBar" parent="." instance=ExtResource("5_hbbar")]
+position = Vector2(-24, -60)

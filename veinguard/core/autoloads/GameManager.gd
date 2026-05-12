@@ -11,7 +11,17 @@ var wave_number    : int  = 0
 var is_game_over   : bool = false
 var is_wave_active : bool = false  # ← INI YANG KURANG, tambahkan di sini!
 
+# --- Passive Oxygen Config ---
+@export var passive_oxygen_rate : int = 1      # Berapa banyak oxygen yang didapat
+@export var passive_oxygen_interval : float = 0.5 # Setiap berapa detik
+var _passive_oxygen_timer : float = 0.0
 
+func _process(delta: float) -> void:
+	if not is_game_over:
+		_passive_oxygen_timer += delta
+		if _passive_oxygen_timer >= passive_oxygen_interval:
+			_passive_oxygen_timer = 0.0
+			add_oxygen(passive_oxygen_rate)
 func add_oxygen(amount: int) -> void:
 	oxygen_points += amount
 	oxygen_changed.emit(oxygen_points)

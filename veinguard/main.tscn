@@ -61,4 +61,4 @@ width = 3.0
 texture_mode = 1
 
 [node name="Eritrosit" parent="." instance=ExtResource("7_4c57u")]
-position = Vector2(572, 679)
+position = Vector2(547, 685)

@@ -1,8 +1,14 @@
-[gd_scene load_steps=21 format=3 uid="uid://dt3fu2wae22rx"]
+[gd_scene load_steps=24 format=3 uid="uid://dt3fu2wae22rx"]
 
 [ext_resource type="Texture2D" uid="uid://dyssn4k5vsgck" path="res://placeholder/Sprite-0001.png" id="1_a36q4"]
 [ext_resource type="Script" uid="uid://bo7hj3uilrot6" path="res://units/eritrosit/Eritrosit.gd" id="1_fy8y3"]
 [ext_resource type="Resource" uid="uid://cf25g44yutudu" path="res://units/eritrosit/eritrosit_stats.tres" id="2_4tik8"]
+[ext_resource type="Texture2D" uid="uid://4wxy0sc0rn78" path="res://placeholder/Rectangle 2 (1).png" id="3_jc66u"]
+[ext_resource type="PackedScene" path="res://core/ui/HealthBar.tscn" id="5_hbbar"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l62lu"]
+atlas = ExtResource("3_jc66u")
+region = Rect2(0, 0, 500, 500)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fy8y3"]
 atlas = ExtResource("1_a36q4")
@@ -62,6 +68,14 @@ region = Rect2(384, 0, 64, 64)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_wlvsv"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l62lu")
+}],
+"loop": false,
+"name": &"die",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_fy8y3")
@@ -128,7 +142,8 @@ stats = ExtResource("2_4tik8")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -29)
 sprite_frames = SubResource("SpriteFrames_wlvsv")
-animation = &"walk"
+animation = &"die"
+autoplay = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_vc3c6")
@@ -143,3 +158,6 @@ offset_left = -20.0
 offset_top = -60.0
 offset_right = 20.0
 offset_bottom = -37.0
+
+[node name="HealthBar" parent="." instance=ExtResource("5_hbbar")]
+position = Vector2(-24, -75)

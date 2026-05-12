@@ -1,14 +1,12 @@
-# EnemyBase.gd
-# Sumber spawn musuh + target PATCHING Trombosit
-
 class_name EnemyBase
 extends Area2D
 
-@export var enemy_scene  : PackedScene
-@export var spawn_interval: float = 5.0  # detik antar spawn musuh
+@export var enemy_scene     : PackedScene
+@export var spawn_interval  : float = 5.0
+@export var max_enemies     : int   = 10
 
-var _timer : float = 0.0
-var _is_patched : bool = false
+var _timer      : float = 0.0
+var _is_patched : bool  = false
 
 
 func _process(delta: float) -> void:
@@ -24,13 +22,18 @@ func _process(delta: float) -> void:
 func _spawn_enemy() -> void:
 	if enemy_scene == null:
 		return
+	if get_tree().get_nodes_in_group("enemies").size() >= max_enemies:
+		return
+
 	var enemy = enemy_scene.instantiate()
 	get_parent().add_child(enemy)
 	enemy.global_position = global_position
 
 
-# Dipanggil oleh Trombosit saat PATCHING selesai
 func get_patched() -> void:
 	_is_patched = true
 	GameManager.trigger_win()
-	print("Enemy Base berhasil di-PATCH!")
+
+
+func start_spawning() -> void:
+	GameManager.start_wave()
