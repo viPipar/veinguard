@@ -1,0 +1,170 @@
+[gd_scene load_steps=24 format=3 uid="uid://dtsqs174qnk20"]
+
+[ext_resource type="Script" uid="uid://dqncehgnlw2b3" path="res://units/trombosit/Trombosit.gd" id="1_lmxmk"]
+[ext_resource type="Texture2D" uid="uid://3u8wbcnxjg8t" path="res://placeholder/knight-sprite.png" id="2_ajjid"]
+[ext_resource type="Resource" uid="uid://drsdgfrxdjmrc" path="res://units/trombosit/trombosit_stats.tres" id="2_us5lr"]
+[ext_resource type="PackedScene" path="res://core/ui/HealthBar.tscn" id="3_ajjid"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_us5lr"]
+atlas = ExtResource("2_ajjid")
+region = Rect2(0, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ya1kv"]
+atlas = ExtResource("2_ajjid")
+region = Rect2(64, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w8el4"]
+atlas = ExtResource("2_ajjid")
+region = Rect2(128, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qjbii"]
+atlas = ExtResource("2_ajjid")
+region = Rect2(192, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x04ga"]
+atlas = ExtResource("2_ajjid")
+region = Rect2(256, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ra4bb"]
+atlas = ExtResource("2_ajjid")
+region = Rect2(320, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gxiqh"]
+atlas = ExtResource("2_ajjid")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6w3bp"]
+atlas = ExtResource("2_ajjid")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6vb74"]
+atlas = ExtResource("2_ajjid")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7qhx3"]
+atlas = ExtResource("2_ajjid")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4xevy"]
+atlas = ExtResource("2_ajjid")
+region = Rect2(0, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5dbh3"]
+atlas = ExtResource("2_ajjid")
+region = Rect2(64, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m7kub"]
+atlas = ExtResource("2_ajjid")
+region = Rect2(128, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0mr7f"]
+atlas = ExtResource("2_ajjid")
+region = Rect2(192, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3ut5g"]
+atlas = ExtResource("2_ajjid")
+region = Rect2(256, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dp6my"]
+atlas = ExtResource("2_ajjid")
+region = Rect2(320, 128, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_umuie"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_us5lr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ya1kv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w8el4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qjbii")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x04ga")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ra4bb")
+}],
+"loop": false,
+"name": &"die",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gxiqh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6w3bp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6vb74")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7qhx3")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4xevy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5dbh3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m7kub")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0mr7f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3ut5g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dp6my")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 8.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_njjdm"]
+radius = 15.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_nbw4i"]
+radius = 600.0
+
+[node name="Trombosit" type="CharacterBody2D"]
+collision_mask = 2
+script = ExtResource("1_lmxmk")
+stats = ExtResource("2_us5lr")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_umuie")
+animation = &"idle"
+frame_progress = 0.279196
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_njjdm")
+
+[node name="AggroArea" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AggroArea"]
+shape = SubResource("CircleShape2D_nbw4i")
+
+[node name="HealthBar" parent="." instance=ExtResource("3_ajjid")]
+
+[node name="PatchProgress" type="ProgressBar" parent="."]
+offset_left = -20.0
+offset_top = 40.0
+offset_right = 40.0
+offset_bottom = 67.0

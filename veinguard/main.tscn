@@ -1,25 +1,31 @@
-[gd_scene load_steps=12 format=3 uid="uid://c2pm0k2i5gjy6"]
+[gd_scene load_steps=17 format=3 uid="uid://c2pm0k2i5gjy6"]
 
-[ext_resource type="PackedScene" uid="uid://dgxhd6jxpjlhl" path="res://core/lane/Lane.tscn" id="1_lquwl"]
-[ext_resource type="Script" uid="uid://bgwe5hm4yfknu" path="res://core/ui/HUD.gd" id="2_4c57u"]
-[ext_resource type="Script" uid="uid://daxdoq036ajg1" path="res://core/ui/UnitCard.gd" id="2_7mycd"]
-[ext_resource type="Texture2D" uid="uid://jjsbuqdrln1e" path="res://placeholder/12_CardCut.png" id="2_272bh"]
-[ext_resource type="PackedScene" uid="uid://dcliw5u6vkqgh" path="res://units/ntkiller/NTKiller.tscn" id="3_272bh"]
-[ext_resource type="Resource" uid="uid://1vgwyx8unpx1" path="res://units/ntkiller/ntkiller_stats.tres" id="4_5vw27"]
-[ext_resource type="Script" uid="uid://dy4myjf16eds1" path="res://core/SlingshotController.gd" id="5_kek77"]
-[ext_resource type="Texture2D" uid="uid://dykw680pil8ap" path="res://placeholder/54_CardCut.png" id="6_kek77"]
-[ext_resource type="PackedScene" uid="uid://dt3fu2wae22rx" path="res://units/eritrosit/Eritrosit.tscn" id="7_4c57u"]
-[ext_resource type="Resource" uid="uid://cf25g44yutudu" path="res://units/eritrosit/eritrosit_stats.tres" id="8_efxa6"]
+[ext_resource type="PackedScene" uid="uid://dgxhd6jxpjlhl" path="res://core/lane/Lane.tscn" id="1_c2ibq"]
+[ext_resource type="Script" uid="uid://lleuox8u80ym" path="res://Main.gd" id="1_main"]
+[ext_resource type="Script" uid="uid://bgwe5hm4yfknu" path="res://core/ui/HUD.gd" id="2_j4qnp"]
+[ext_resource type="Texture2D" uid="uid://jjsbuqdrln1e" path="res://placeholder/12_CardCut.png" id="3_fpfj3"]
+[ext_resource type="Script" uid="uid://daxdoq036ajg1" path="res://core/ui/UnitCard.gd" id="4_sc1dx"]
+[ext_resource type="PackedScene" uid="uid://dcliw5u6vkqgh" path="res://units/ntkiller/NTKiller.tscn" id="5_kjvhd"]
+[ext_resource type="Resource" uid="uid://1vgwyx8unpx1" path="res://units/ntkiller/ntkiller_stats.tres" id="6_5tuhn"]
+[ext_resource type="Texture2D" uid="uid://dykw680pil8ap" path="res://placeholder/54_CardCut.png" id="7_2gh4u"]
+[ext_resource type="PackedScene" uid="uid://dt3fu2wae22rx" path="res://units/eritrosit/Eritrosit.tscn" id="8_devvj"]
+[ext_resource type="Resource" uid="uid://cf25g44yutudu" path="res://units/eritrosit/eritrosit_stats.tres" id="9_3b0ty"]
+[ext_resource type="Texture2D" uid="uid://bpvyohpb7wa6a" path="res://placeholder/26_CardCut.png" id="10_bg4s2"]
+[ext_resource type="PackedScene" uid="uid://dtsqs174qnk20" path="res://units/trombosit/Trombosit.tscn" id="11_hhcpw"]
+[ext_resource type="Resource" uid="uid://drsdgfrxdjmrc" path="res://units/trombosit/trombosit_stats.tres" id="12_mxvw5"]
+[ext_resource type="Script" uid="uid://dy4myjf16eds1" path="res://core/SlingshotController.gd" id="13_xrxkg"]
+[ext_resource type="PackedScene" uid="uid://cruegtmrysxc7" path="res://core/ui/GameOverScreen.tscn" id="14_sqvbp"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_efxa6"]
 font_size = 64
 
 [node name="Main" type="Node2D"]
+script = ExtResource("1_main")
 
-[node name="Lane" parent="." instance=ExtResource("1_lquwl")]
+[node name="Lane" parent="." instance=ExtResource("1_c2ibq")]
 
 [node name="HUD" type="CanvasLayer" parent="."]
-script = ExtResource("2_4c57u")
+script = ExtResource("2_j4qnp")
 
 [node name="NTKillerCard" type="TextureButton" parent="HUD" groups=["unit_cards"]]
 offset_left = 400.0
@@ -27,10 +33,10 @@ offset_top = 1634.0
 offset_right = 1450.0
 offset_bottom = 3044.0
 scale = Vector2(0.2, 0.2)
-texture_normal = ExtResource("2_272bh")
-script = ExtResource("2_7mycd")
-unit_scene = ExtResource("3_272bh")
-unit_stats = ExtResource("4_5vw27")
+texture_normal = ExtResource("3_fpfj3")
+script = ExtResource("4_sc1dx")
+unit_scene = ExtResource("5_kjvhd")
+unit_stats = ExtResource("6_5tuhn")
 
 [node name="EritrositCard" type="TextureButton" parent="HUD" groups=["unit_cards"]]
 offset_left = 700.0
@@ -38,14 +44,21 @@ offset_top = 1634.0
 offset_right = 1750.0
 offset_bottom = 3044.0
 scale = Vector2(0.2, 0.2)
-texture_normal = ExtResource("6_kek77")
-script = ExtResource("2_7mycd")
-unit_scene = ExtResource("7_4c57u")
-unit_stats = ExtResource("8_efxa6")
+texture_normal = ExtResource("7_2gh4u")
+script = ExtResource("4_sc1dx")
+unit_scene = ExtResource("8_devvj")
+unit_stats = ExtResource("9_3b0ty")
 
-[node name="TrombositCard" type="TextureButton" parent="HUD"]
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="TrombositCard" type="TextureButton" parent="HUD" groups=["unit_cards"]]
+offset_left = 100.0
+offset_top = 1634.0
+offset_right = 1150.0
+offset_bottom = 3044.0
+scale = Vector2(0.2, 0.2)
+texture_normal = ExtResource("10_bg4s2")
+script = ExtResource("4_sc1dx")
+unit_scene = ExtResource("11_hhcpw")
+unit_stats = ExtResource("12_mxvw5")
 
 [node name="OxygenLabel" type="Label" parent="HUD"]
 offset_right = 40.0
@@ -54,11 +67,13 @@ label_settings = SubResource("LabelSettings_efxa6")
 
 [node name="SlingshotController" type="Node2D" parent="."]
 position = Vector2(540, 1020)
-script = ExtResource("5_kek77")
+script = ExtResource("13_xrxkg")
 
 [node name="PreviewLine" type="Line2D" parent="SlingshotController"]
 width = 3.0
 texture_mode = 1
 
-[node name="Eritrosit" parent="." instance=ExtResource("7_4c57u")]
+[node name="Eritrosit" parent="." instance=ExtResource("8_devvj")]
 position = Vector2(547, 685)
+
+[node name="GameOverScreen" parent="." instance=ExtResource("14_sqvbp")]

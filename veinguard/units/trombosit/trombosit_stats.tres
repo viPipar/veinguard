@@ -4,11 +4,11 @@
 
 [resource]
 script = ExtResource("1_anfj4")
-unit_name = "Unknown Unit"
+unit_name = "Trombosit"
 max_hp = 120.0
 move_speed = 60.0
 damage = 0.0
 attack_range = 0.0
 attack_speed = 0.0
-cost = 200
+cost = 100
 metadata/_custom_type_script = "uid://c5gbukkn4s3uk"
