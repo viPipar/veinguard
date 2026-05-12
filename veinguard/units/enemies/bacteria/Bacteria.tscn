@@ -8,15 +8,15 @@
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ibuh6"]
 atlas = ExtResource("4_jeqa1")
-region = Rect2(125, 250, 125, 125)
+region = Rect2(0, 0, 125, 125)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dmd0q"]
 atlas = ExtResource("3_dmd0q")
-region = Rect2(0, 0, 500, 500)
+region = Rect2(250, 125, 125, 125)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_gb222"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_jeqa1"]
 atlas = ExtResource("3_dmd0q")
-region = Rect2(0, 0, 500, 500)
+region = Rect2(125, 125, 125, 125)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_04ray"]
 animations = [{
@@ -38,7 +38,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_gb222")
+"texture": SubResource("AtlasTexture_jeqa1")
 }],
 "loop": true,
 "name": &"walk",
@@ -61,9 +61,8 @@ stats = ExtResource("2_ibuh6")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -27)
-scale = Vector2(0.1, 0.1)
 sprite_frames = SubResource("SpriteFrames_04ray")
-animation = &"die"
+animation = &"idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_qnksy")

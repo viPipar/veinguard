@@ -2,8 +2,8 @@ class_name EnemyBase
 extends Area2D
 
 @export var enemy_scene     : PackedScene
-@export var spawn_interval  : float = 5.0
-@export var max_enemies     : int   = 10
+@export var spawn_interval  : float = 10.0
+@export var max_enemies     : int   = 5
 
 var _timer      : float = 0.0
 var _is_patched : bool  = false
