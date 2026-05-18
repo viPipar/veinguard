@@ -13,15 +13,15 @@ func _ready() -> void:
 
 
 func show_win() -> void:
-	result_label.text  = "MENANG! 🎉"
-	result_label.modulate = Color.GREEN
+	result_label.text  = "MENANG!"
+	result_label.modulate = Color.GHOST_WHITE
 	message_label.text = "Infeksi berhasil dihentikan!\nTubuh aman!"
 	show()
 	get_tree().paused = true
 
 
 func show_lose() -> void:
-	result_label.text  = "KALAH! 💀"
+	result_label.text  = "KALAH!"
 	result_label.modulate = Color.RED
 	message_label.text = "Infeksi menyebar ke organ!\nCoba lagi!"
 	show()

@@ -1,20 +1,23 @@
-[gd_scene load_steps=17 format=3 uid="uid://c2pm0k2i5gjy6"]
+[gd_scene load_steps=20 format=3 uid="uid://c2pm0k2i5gjy6"]
 
 [ext_resource type="PackedScene" uid="uid://dgxhd6jxpjlhl" path="res://core/lane/Lane.tscn" id="1_c2ibq"]
 [ext_resource type="Script" uid="uid://lleuox8u80ym" path="res://Main.gd" id="1_main"]
 [ext_resource type="Script" uid="uid://bgwe5hm4yfknu" path="res://core/ui/HUD.gd" id="2_j4qnp"]
 [ext_resource type="Texture2D" uid="uid://jjsbuqdrln1e" path="res://placeholder/12_CardCut.png" id="3_fpfj3"]
 [ext_resource type="Script" uid="uid://daxdoq036ajg1" path="res://core/ui/UnitCard.gd" id="4_sc1dx"]
-[ext_resource type="PackedScene" uid="uid://dcliw5u6vkqgh" path="res://units/ntkiller/NTKiller.tscn" id="5_kjvhd"]
-[ext_resource type="Resource" uid="uid://1vgwyx8unpx1" path="res://units/ntkiller/ntkiller_stats.tres" id="6_5tuhn"]
+[ext_resource type="PackedScene" uid="uid://dcliw5u6vkqgh" path="res://units/player/natural_killer/NKiller.tscn" id="5_kjvhd"]
+[ext_resource type="Resource" uid="uid://1vgwyx8unpx1" path="res://units/player/natural_killer/nkiller_stats.tres" id="6_5tuhn"]
 [ext_resource type="Texture2D" uid="uid://dykw680pil8ap" path="res://placeholder/54_CardCut.png" id="7_2gh4u"]
-[ext_resource type="PackedScene" uid="uid://dt3fu2wae22rx" path="res://units/eritrosit/Eritrosit.tscn" id="8_devvj"]
-[ext_resource type="Resource" uid="uid://cf25g44yutudu" path="res://units/eritrosit/eritrosit_stats.tres" id="9_3b0ty"]
+[ext_resource type="PackedScene" uid="uid://dt3fu2wae22rx" path="res://units/player/eritrosit/Eritrosit.tscn" id="8_devvj"]
+[ext_resource type="Resource" uid="uid://cf25g44yutudu" path="res://units/player/eritrosit/eritrosit_stats.tres" id="9_3b0ty"]
 [ext_resource type="Texture2D" uid="uid://bpvyohpb7wa6a" path="res://placeholder/26_CardCut.png" id="10_bg4s2"]
-[ext_resource type="PackedScene" uid="uid://dtsqs174qnk20" path="res://units/trombosit/Trombosit.tscn" id="11_hhcpw"]
-[ext_resource type="Resource" uid="uid://drsdgfrxdjmrc" path="res://units/trombosit/trombosit_stats.tres" id="12_mxvw5"]
+[ext_resource type="PackedScene" uid="uid://dtsqs174qnk20" path="res://units/player/trombosit/Trombosit.tscn" id="11_hhcpw"]
+[ext_resource type="Resource" uid="uid://drsdgfrxdjmrc" path="res://units/player/trombosit/trombosit_stats.tres" id="12_mxvw5"]
 [ext_resource type="Script" uid="uid://dy4myjf16eds1" path="res://core/SlingshotController.gd" id="13_xrxkg"]
+[ext_resource type="Texture2D" uid="uid://gfbk6eux0vob" path="res://placeholder/40_CardCut.png" id="14_kjvhd"]
 [ext_resource type="PackedScene" uid="uid://cruegtmrysxc7" path="res://core/ui/GameOverScreen.tscn" id="14_sqvbp"]
+[ext_resource type="PackedScene" uid="uid://mxg0a1c0ubdh" path="res://units/player/killer_t/KillerT.tscn" id="15_5tuhn"]
+[ext_resource type="Resource" uid="uid://rlohoqwexckv" path="res://units/player/killer_t/killert_stats.tres" id="16_2gh4u"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_efxa6"]
 font_size = 64
@@ -27,10 +30,10 @@ script = ExtResource("1_main")
 [node name="HUD" type="CanvasLayer" parent="."]
 script = ExtResource("2_j4qnp")
 
-[node name="NTKillerCard" type="TextureButton" parent="HUD" groups=["unit_cards"]]
-offset_left = 400.0
+[node name="NKillerCard" type="TextureButton" parent="HUD" groups=["unit_cards"]]
+offset_left = 463.0
 offset_top = 1634.0
-offset_right = 1450.0
+offset_right = 1513.0
 offset_bottom = 3044.0
 scale = Vector2(0.2, 0.2)
 texture_normal = ExtResource("3_fpfj3")
@@ -39,9 +42,9 @@ unit_scene = ExtResource("5_kjvhd")
 unit_stats = ExtResource("6_5tuhn")
 
 [node name="EritrositCard" type="TextureButton" parent="HUD" groups=["unit_cards"]]
-offset_left = 700.0
+offset_left = 696.0
 offset_top = 1634.0
-offset_right = 1750.0
+offset_right = 1746.0
 offset_bottom = 3044.0
 scale = Vector2(0.2, 0.2)
 texture_normal = ExtResource("7_2gh4u")
@@ -50,9 +53,9 @@ unit_scene = ExtResource("8_devvj")
 unit_stats = ExtResource("9_3b0ty")
 
 [node name="TrombositCard" type="TextureButton" parent="HUD" groups=["unit_cards"]]
-offset_left = 100.0
+offset_left = 229.0
 offset_top = 1634.0
-offset_right = 1150.0
+offset_right = 1279.0
 offset_bottom = 3044.0
 scale = Vector2(0.2, 0.2)
 texture_normal = ExtResource("10_bg4s2")
@@ -60,10 +63,42 @@ script = ExtResource("4_sc1dx")
 unit_scene = ExtResource("11_hhcpw")
 unit_stats = ExtResource("12_mxvw5")
 
+[node name="KillerTCard" type="TextureButton" parent="HUD" groups=["unit_cards"]]
+offset_top = 1634.0
+offset_right = 1050.0
+offset_bottom = 3044.0
+scale = Vector2(0.2, 0.2)
+texture_normal = ExtResource("14_kjvhd")
+script = ExtResource("4_sc1dx")
+unit_scene = ExtResource("15_5tuhn")
+unit_stats = ExtResource("16_2gh4u")
+
 [node name="OxygenLabel" type="Label" parent="HUD"]
 offset_right = 40.0
 offset_bottom = 23.0
 label_settings = SubResource("LabelSettings_efxa6")
+
+[node name="OxygenBar" type="ProgressBar" parent="HUD"]
+offset_top = 1500.0
+offset_right = 400.0
+offset_bottom = 1550.0
+show_percentage = false
+
+[node name="TimerLabel" type="Label" parent="HUD"]
+offset_left = 540.0
+offset_top = 100.0
+offset_right = 580.0
+offset_bottom = 123.0
+theme_override_font_sizes/font_size = 50
+
+[node name="OvertimeLabel" type="Label" parent="HUD"]
+offset_left = 340.0
+offset_top = 1000.0
+offset_right = 850.0
+offset_bottom = 1083.0
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_font_sizes/font_size = 60
+text = "⚡ OVERTIME! ⚡"
 
 [node name="SlingshotController" type="Node2D" parent="."]
 position = Vector2(540, 1020)
@@ -77,3 +112,13 @@ texture_mode = 1
 position = Vector2(547, 685)
 
 [node name="GameOverScreen" parent="." instance=ExtResource("14_sqvbp")]
+
+[node name="OvertimeLabel" type="Label" parent="."]
+visible = false
+offset_left = 340.0
+offset_top = 1000.0
+offset_right = 850.0
+offset_bottom = 1083.0
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_font_sizes/font_size = 60
+text = "⚡ OVERTIME! ⚡"

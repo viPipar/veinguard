@@ -37,3 +37,10 @@ func get_patched() -> void:
 
 func start_spawning() -> void:
 	GameManager.start_wave()
+	GameManager.overtime_started.connect(_on_overtime)
+
+
+func _on_overtime() -> void:
+	spawn_interval = max(3.0, spawn_interval / 2.0)
+	max_enemies   += 2
+	print("⚡ EnemyBase: spawn sekarang tiap %.1fs, max %d musuh" % [spawn_interval, max_enemies])

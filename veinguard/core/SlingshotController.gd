@@ -24,18 +24,22 @@ func _ready() -> void:
 
 
 func _connect_card(card: UnitCard) -> void:
-	if not card.card_selected.is_connected(_on_card_selected):
-		card.card_selected.connect(_on_card_selected)
+	if not card.card_toggled.is_connected(_on_card_toggled):
+		card.card_toggled.connect(_on_card_toggled)
 
 
-func _on_card_selected(scene: PackedScene, stats: UnitStats) -> void:
-	_selected_scene = scene
-	_selected_stats = stats
-	_phase          = Phase.WAITING_TOUCH
-	print("Kartu dipilih, tunggu drag...")
+func _on_card_toggled(card: UnitCard, is_selected: bool) -> void:
+	if is_selected:
+		_selected_scene = card.unit_scene
+		_selected_stats = card.unit_stats
+		_phase          = Phase.WAITING_TOUCH
+		print("Kartu dipilih, tunggu drag...")
+	else:
+		_reset()
+		print("Kartu di-deselect")
 
 
-func _input(event: InputEvent) -> void:
+func _unhandled_input(event: InputEvent) -> void:
 	match _phase:
 		Phase.WAITING_TOUCH:
 			if _is_press(event):
@@ -57,6 +61,13 @@ func _get_launch_vector(touch_pos: Vector2) -> Vector2:
 
 func _update_arc_preview(touch_pos: Vector2) -> void:
 	var launch_vel := _get_launch_vector(touch_pos)
+	
+	if launch_vel.length() < 100.0:
+		preview_line.visible = false
+		return
+	else:
+		preview_line.visible = true
+
 	var gravity    := Vector2(0, 980.0)
 	var pos        := player_base.global_position
 	var vel        := launch_vel
@@ -97,6 +108,7 @@ func _reset() -> void:
 	_selected_scene = null
 	_selected_stats = null
 	_phase          = Phase.IDLE
+	get_tree().call_group("unit_cards", "set_focus", false)
 
 
 func _is_press(e: InputEvent) -> bool:

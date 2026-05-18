@@ -1,7 +1,7 @@
 [gd_scene load_steps=13 format=3 uid="uid://s5r3qqln8w3p"]
 
-[ext_resource type="Script" uid="uid://b2nyqdgfnsxq6" path="res://units/enemies/bacteria/Bacteria.gd" id="1_4exmm"]
-[ext_resource type="Resource" uid="uid://t4v613e4mubm" path="res://units/enemies/bacteria/bacteria_stats.tres" id="2_ibuh6"]
+[ext_resource type="Script" uid="uid://b2nyqdgfnsxq6" path="res://units/enemies/bacteria/Streptococcus_pneumoniae/Bacteria.gd" id="1_4exmm"]
+[ext_resource type="Resource" uid="uid://t4v613e4mubm" path="res://units/enemies/bacteria/Streptococcus_pneumoniae/bacteria_stats.tres" id="2_ibuh6"]
 [ext_resource type="Texture2D" uid="uid://usdlxwtl3go4" path="res://placeholder/Rectangle 2.png" id="3_dmd0q"]
 [ext_resource type="Texture2D" uid="uid://4wxy0sc0rn78" path="res://placeholder/Rectangle 2 (1).png" id="4_jeqa1"]
 [ext_resource type="PackedScene" path="res://core/ui/HealthBar.tscn" id="5_hbbar"]

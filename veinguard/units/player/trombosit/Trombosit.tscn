@@ -1,8 +1,8 @@
 [gd_scene load_steps=24 format=3 uid="uid://dtsqs174qnk20"]
 
-[ext_resource type="Script" uid="uid://dqncehgnlw2b3" path="res://units/trombosit/Trombosit.gd" id="1_lmxmk"]
+[ext_resource type="Script" uid="uid://dqncehgnlw2b3" path="res://units/player/trombosit/Trombosit.gd" id="1_lmxmk"]
 [ext_resource type="Texture2D" uid="uid://3u8wbcnxjg8t" path="res://placeholder/knight-sprite.png" id="2_ajjid"]
-[ext_resource type="Resource" uid="uid://drsdgfrxdjmrc" path="res://units/trombosit/trombosit_stats.tres" id="2_us5lr"]
+[ext_resource type="Resource" uid="uid://drsdgfrxdjmrc" path="res://units/player/trombosit/trombosit_stats.tres" id="2_us5lr"]
 [ext_resource type="PackedScene" path="res://core/ui/HealthBar.tscn" id="3_ajjid"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_us5lr"]

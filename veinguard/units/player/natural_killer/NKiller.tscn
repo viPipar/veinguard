@@ -1,8 +1,8 @@
 [gd_scene load_steps=33 format=3 uid="uid://dcliw5u6vkqgh"]
 
 [ext_resource type="Texture2D" uid="uid://shh6ywph4oeu" path="res://placeholder/Sprite-0002.png" id="1_davrk"]
-[ext_resource type="Script" uid="uid://di041uaty3mi0" path="res://units/ntkiller/NTKiller.gd" id="1_tro6y"]
-[ext_resource type="Resource" uid="uid://1vgwyx8unpx1" path="res://units/ntkiller/ntkiller_stats.tres" id="2_ptmiq"]
+[ext_resource type="Script" uid="uid://di041uaty3mi0" path="res://units/player/natural_killer/NKiller.gd" id="1_tro6y"]
+[ext_resource type="Resource" uid="uid://1vgwyx8unpx1" path="res://units/player/natural_killer/nkiller_stats.tres" id="2_ptmiq"]
 [ext_resource type="Texture2D" uid="uid://4wxy0sc0rn78" path="res://placeholder/Rectangle 2 (1).png" id="3_mpnxv"]
 [ext_resource type="PackedScene" path="res://core/ui/HealthBar.tscn" id="5_hbbar"]
 

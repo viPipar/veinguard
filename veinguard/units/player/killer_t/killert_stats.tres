@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="UnitStats" load_steps=2 format=3 uid="uid://rlohoqwexckv"]
+
+[ext_resource type="Script" uid="uid://c5gbukkn4s3uk" path="res://core/resources/UnitStats.gd" id="1_xwsf3"]
+
+[resource]
+script = ExtResource("1_xwsf3")
+unit_name = "Killer T"
+max_hp = 100.0
+move_speed = 80.0
+damage = 10.0
+attack_range = 50.0
+attack_speed = 1.0
+cost = 100
+metadata/_custom_type_script = "uid://c5gbukkn4s3uk"

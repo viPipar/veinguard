@@ -1,10 +1,10 @@
 [gd_resource type="Resource" script_class="UnitStats" load_steps=2 format=3 uid="uid://t4v613e4mubm"]
 
-[ext_resource type="Script" uid="uid://c5gbukkn4s3uk" path="res://core/resources/UnitStats.gd" id="1_8tywn"]
+[ext_resource type="Script" uid="uid://c5gbukkn4s3uk" path="res://core/resources/UnitStats.gd" id="1_isicu"]
 
 [resource]
-script = ExtResource("1_8tywn")
-unit_name = "Bacteria"
+script = ExtResource("1_isicu")
+unit_name = "Streptococcus pneumoniae"
 max_hp = 60.0
 move_speed = 50.0
 damage = 10.0
