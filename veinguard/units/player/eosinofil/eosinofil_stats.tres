@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="EosinophilStats" load_steps=2 format=3 uid="uid://dgbslmifeq7wl"]
+
+[ext_resource type="Script" uid="uid://bx18vuvqmrno0" path="res://units/player/eosinofil/EosinophilStats.gd" id="1_n10i2"]
+
+[resource]
+script = ExtResource("1_n10i2")
+knockback_force = 400.0
+dot_damage = 5.0
+dot_duration = 3.0
+unit_name = "Unknown Unit"
+max_hp = 100.0
+move_speed = 80.0
+damage = 10.0
+attack_range = 50.0
+attack_speed = 3.0
+cost = 100
