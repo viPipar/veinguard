@@ -8,13 +8,18 @@ var _direction     : Vector2
 var _target        : Node2D
 var _eo_stats      : EosinophilStats
 var _start_pos     : Vector2
-
+var _max_distance  : float
 
 func setup(dir: Vector2, target: Node2D, stats: EosinophilStats) -> void:
 	_direction = dir
 	_target    = target
 	_eo_stats  = stats
 	_start_pos = global_position
+	
+	if is_instance_valid(target):
+		_max_distance = _start_pos.distance_to(target.global_position)
+	else:
+		_max_distance = 1000.0 # Default jika musuh keburu mati
 	
 	# Memutar proyektil searah dengan arah terbang
 	rotation = _direction.angle()
@@ -28,8 +33,8 @@ func _process(delta: float) -> void:
 	# Bergerak lurus ke depan
 	position += _direction * speed * delta
 	
-	# Cek batas jangkauan. Jika terbang melebihi attack_range, meledak otomatis.
-	if _eo_stats and global_position.distance_to(_start_pos) >= _eo_stats.attack_range:
+	# Cek batas jangkauan. Meledak tepat di posisi musuh saat ditembakkan.
+	if global_position.distance_to(_start_pos) >= _max_distance:
 		_explode()
 
 

@@ -30,11 +30,7 @@ func _process_idle(_delta: float) -> void:
 
 func _process_move(_delta: float) -> void:
 	if not is_instance_valid(current_target):
-		# Jika tidak ada musuh, terus berjalan maju (ke atas)
-		velocity = Vector2(0, -stats.move_speed)
-		move_and_slide()
-		if sprite and sprite.sprite_frames.has_animation("walk"):
-			sprite.play("walk")
+		change_state(State.IDLE)
 		return
 		
 	var dir := global_position.direction_to(current_target.global_position)
@@ -50,18 +46,7 @@ func _process_attack(delta: float) -> void:
 		_pick_nearest_target()
 		return
 		
-	# Cek jarak
-	var dist := global_position.distance_to(current_target.global_position)
-	if dist > stats.attack_range:
-		# Kejar jika keluar jangkauan
-		var dir := global_position.direction_to(current_target.global_position)
-		velocity = dir * stats.move_speed
-		move_and_slide()
-		if sprite and sprite.sprite_frames.has_animation("walk"):
-			sprite.play("walk")
-		return
-		
-	# Di dalam jangkauan: STOP BERGERAK & BERSIAP NEMBAK
+	# Di dalam jangkauan radar: STOP BERGERAK & BERSIAP NEMBAK
 	velocity = Vector2.ZERO
 	move_and_slide()
 	
@@ -115,4 +100,4 @@ func _pick_nearest_target() -> void:
 	if current_target:
 		change_state(State.ATTACK)
 	else:
-		change_state(State.MOVE)
+		change_state(State.IDLE)
