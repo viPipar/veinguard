@@ -1,0 +1,147 @@
+[gd_scene load_steps=21 format=3 uid="uid://25mwi6q6opia"]
+
+[ext_resource type="Script" uid="uid://8j8meeyd8cox" path="res://units/player/Makrofag/Makrofag.gd" id="1_mkrfg"]
+[ext_resource type="Resource" uid="uid://drdoija4jh7pq" path="res://units/player/Makrofag/Makrofag_stat.tres" id="2_kws7w"]
+[ext_resource type="Texture2D" uid="uid://dyssn4k5vsgck" path="res://placeholder/Sprite-0001.png" id="4_avunn"]
+[ext_resource type="PackedScene" path="res://core/ui/HealthBar.tscn" id="4_mkrfg"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_buh0m"]
+atlas = ExtResource("4_avunn")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kws7w"]
+atlas = ExtResource("4_avunn")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_avunn"]
+atlas = ExtResource("4_avunn")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1o5jn"]
+atlas = ExtResource("4_avunn")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_poqoj"]
+atlas = ExtResource("4_avunn")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_po6b7"]
+atlas = ExtResource("4_avunn")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rmy3v"]
+atlas = ExtResource("4_avunn")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5vpn3"]
+atlas = ExtResource("4_avunn")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f5t6p"]
+atlas = ExtResource("4_avunn")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0t11x"]
+atlas = ExtResource("4_avunn")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i7dgn"]
+atlas = ExtResource("4_avunn")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cae38"]
+atlas = ExtResource("4_avunn")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_mkrfg"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_buh0m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kws7w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_avunn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1o5jn")
+}],
+"loop": false,
+"name": &"die",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_poqoj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_po6b7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rmy3v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5vpn3")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f5t6p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0t11x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i7dgn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cae38")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 8.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mkrfg"]
+radius = 18.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_aggro"]
+radius = 400.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_attack"]
+radius = 55.0
+
+[node name="Makrofag" type="CharacterBody2D"]
+collision_mask = 2
+script = ExtResource("1_mkrfg")
+stats = ExtResource("2_kws7w")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -28)
+sprite_frames = SubResource("SpriteFrames_mkrfg")
+animation = &"walk"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_mkrfg")
+
+[node name="AggroArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AggroArea"]
+shape = SubResource("CircleShape2D_aggro")
+
+[node name="AttackArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea"]
+shape = SubResource("CircleShape2D_attack")
+
+[node name="HealthBar" parent="." instance=ExtResource("4_mkrfg")]
+position = Vector2(-24, -60)

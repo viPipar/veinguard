@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://c2pm0k2i5gjy6"]
+[gd_scene load_steps=24 format=3 uid="uid://c2pm0k2i5gjy6"]
 
 [ext_resource type="PackedScene" uid="uid://dgxhd6jxpjlhl" path="res://core/lane/Lane.tscn" id="1_c2ibq"]
 [ext_resource type="Script" uid="uid://lleuox8u80ym" path="res://Main.gd" id="1_main"]
@@ -20,6 +20,8 @@
 [ext_resource type="Resource" uid="uid://rlohoqwexckv" path="res://units/player/killer_t/killert_stats.tres" id="16_2gh4u"]
 [ext_resource type="PackedScene" uid="uid://bjkffycbmqlbn" path="res://units/player/eosinofil/Eosinofil.tscn" id="17_2gh4u"]
 [ext_resource type="Resource" uid="uid://dgbslmifeq7wl" path="res://units/player/eosinofil/eosinofil_stats.tres" id="18_devvj"]
+[ext_resource type="PackedScene" uid="uid://25mwi6q6opia" path="res://units/player/Makrofag/Makrofag.tscn" id="19_ryguw"]
+[ext_resource type="Resource" uid="uid://drdoija4jh7pq" path="res://units/player/Makrofag/Makrofag_stat.tres" id="20_makrofag"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_efxa6"]
 font_size = 64
@@ -33,58 +35,70 @@ script = ExtResource("1_main")
 script = ExtResource("2_j4qnp")
 
 [node name="NKillerCard" type="TextureButton" parent="HUD" groups=["unit_cards"]]
-offset_left = 441.0
+offset_left = 365.0
 offset_top = 1634.0
-offset_right = 1491.0
+offset_right = 1415.0
 offset_bottom = 3044.0
-scale = Vector2(0.2, 0.2)
+scale = Vector2(0.165, 0.165)
 texture_normal = ExtResource("3_fpfj3")
 script = ExtResource("4_sc1dx")
 unit_scene = ExtResource("5_kjvhd")
 unit_stats = ExtResource("6_5tuhn")
 
 [node name="EritrositCard" type="TextureButton" parent="HUD" groups=["unit_cards"]]
-offset_left = 659.0
+offset_left = 540.0
 offset_top = 1634.0
-offset_right = 1709.0
+offset_right = 1590.0
 offset_bottom = 3044.0
-scale = Vector2(0.2, 0.2)
+scale = Vector2(0.165, 0.165)
 texture_normal = ExtResource("7_2gh4u")
 script = ExtResource("4_sc1dx")
 unit_scene = ExtResource("8_devvj")
 unit_stats = ExtResource("9_3b0ty")
 
 [node name="TrombositCard" type="TextureButton" parent="HUD" groups=["unit_cards"]]
-offset_left = 218.0
+offset_left = 190.0
 offset_top = 1634.0
-offset_right = 1268.0
+offset_right = 1240.0
 offset_bottom = 3044.0
-scale = Vector2(0.2, 0.2)
+scale = Vector2(0.165, 0.165)
 texture_normal = ExtResource("10_bg4s2")
 script = ExtResource("4_sc1dx")
 unit_scene = ExtResource("11_hhcpw")
 unit_stats = ExtResource("12_mxvw5")
 
 [node name="KillerTCard" type="TextureButton" parent="HUD" groups=["unit_cards"]]
+offset_left = 15.0
 offset_top = 1634.0
-offset_right = 1050.0
+offset_right = 1065.0
 offset_bottom = 3044.0
-scale = Vector2(0.2, 0.2)
+scale = Vector2(0.165, 0.165)
 texture_normal = ExtResource("14_kjvhd")
 script = ExtResource("4_sc1dx")
 unit_scene = ExtResource("15_5tuhn")
 unit_stats = ExtResource("16_2gh4u")
 
 [node name="EosinofilCard" type="TextureButton" parent="HUD" groups=["unit_cards"]]
-offset_left = 870.0
+offset_left = 715.0
 offset_top = 1634.0
-offset_right = 1920.0
+offset_right = 1765.0
 offset_bottom = 3044.0
-scale = Vector2(0.2, 0.2)
+scale = Vector2(0.165, 0.165)
 texture_normal = ExtResource("14_kjvhd")
 script = ExtResource("4_sc1dx")
 unit_scene = ExtResource("17_2gh4u")
 unit_stats = ExtResource("18_devvj")
+
+[node name="MakrofagCard" type="TextureButton" parent="HUD" groups=["unit_cards"]]
+offset_left = 890.0
+offset_top = 1634.0
+offset_right = 1940.0
+offset_bottom = 3044.0
+scale = Vector2(0.165, 0.165)
+texture_normal = ExtResource("14_kjvhd")
+script = ExtResource("4_sc1dx")
+unit_scene = ExtResource("19_ryguw")
+unit_stats = ExtResource("20_makrofag")
 
 [node name="OxygenLabel" type="Label" parent="HUD"]
 offset_right = 40.0

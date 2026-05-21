@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="UnitStats" load_steps=2 format=3 uid="uid://drdoija4jh7pq"]
+
+[ext_resource type="Script" uid="uid://c5gbukkn4s3uk" path="res://core/resources/UnitStats.gd" id="1_8p835"]
+
+[resource]
+script = ExtResource("1_8p835")
+unit_name = "Makrofag"
+max_hp = 250.0
+move_speed = 75.0
+damage = 9999.0
+attack_range = 55.0
+attack_speed = 0.2
+cost = 300
+metadata/_custom_type_script = "uid://c5gbukkn4s3uk"
