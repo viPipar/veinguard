@@ -5,6 +5,7 @@
 [resource]
 script = ExtResource("1_vdecg")
 unit_name = "Eritrosit"
+description = "ABCDEF"
 max_hp = 40.0
 move_speed = 110.0
 damage = 0.0

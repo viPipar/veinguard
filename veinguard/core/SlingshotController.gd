@@ -10,6 +10,7 @@ extends Node2D
 
 var _selected_scene : PackedScene = null
 var _selected_stats : UnitStats   = null
+var _selected_card  : UnitCard    = null   # ← referensi kartu yang dipilih
 
 enum Phase { IDLE, WAITING_TOUCH, DRAGGING }
 var _phase      : Phase   = Phase.IDLE
@@ -32,6 +33,7 @@ func _on_card_toggled(card: UnitCard, is_selected: bool) -> void:
 	if is_selected:
 		_selected_scene = card.unit_scene
 		_selected_stats = card.unit_stats
+		_selected_card  = card
 		_phase          = Phase.WAITING_TOUCH
 		print("Kartu dipilih, tunggu drag...")
 	else:
@@ -96,17 +98,40 @@ func _launch_unit(touch_pos: Vector2) -> void:
 		_reset()
 		return
 
+	# Spawn unit
 	var unit : UnitBase = _selected_scene.instantiate()
 	get_tree().current_scene.add_child(unit)
 	unit.global_position = player_base.global_position
 	unit.launch_projectile(launch_vel)
 	print("Unit diluncurkan!")
-	_reset()
+
+	# ── Simpan kartu yang akan di-discard ──────────────────────────────
+	var card_to_discard := _selected_card
+
+	# Reset state controller (tanpa defocus kartu yang akan dibuang)
+	_selected_scene = null
+	_selected_stats = null
+	_selected_card  = null
+	_phase          = Phase.IDLE
+
+	# Defocus kartu-kartu lain yang tersisa di tangan
+	for card in get_tree().get_nodes_in_group("unit_cards"):
+		if card != card_to_discard:
+			card.set_focus(false)
+
+	# Beritahu HandManager → animasi discard + draw kartu baru (async)
+	var hm := get_tree().get_first_node_in_group("hand_manager") as HandManager
+	if hm and card_to_discard:
+		hm.discard_and_draw(card_to_discard)
+	elif card_to_discard:
+		# Fallback jika HandManager tidak ditemukan
+		card_to_discard.set_focus(false)
 
 
 func _reset() -> void:
 	_selected_scene = null
 	_selected_stats = null
+	_selected_card  = null
 	_phase          = Phase.IDLE
 	get_tree().call_group("unit_cards", "set_focus", false)
 

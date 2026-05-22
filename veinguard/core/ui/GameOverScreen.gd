@@ -7,6 +7,7 @@ extends CanvasLayer
 
 
 func _ready() -> void:
+	layer        = 10   # Selalu di atas semua layer UI lainnya
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	restart_button.pressed.connect(_on_restart)
 	hide()

@@ -3,11 +3,18 @@ extends Node2D
 
 @onready var game_over_screen : GameOverScreen = $GameOverScreen
 
+var _hand_manager : HandManager
+
 
 func _ready() -> void:
 	GameManager.game_over.connect(_on_game_over)
 	GameManager.player_won.connect(_on_player_won)
 	$Lane/EnemyBase.start_spawning()
+
+	# Buat HandManager secara programatik (mengelola 3 kartu di tangan)
+	_hand_manager      = HandManager.new()
+	_hand_manager.name = "HandManager"
+	add_child(_hand_manager)
 
 
 func _on_game_over() -> void:
