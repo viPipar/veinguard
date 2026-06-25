@@ -18,6 +18,7 @@ var is_game_over   : bool = false
 var is_wave_active : bool = false
 var match_time     : float = 0.0
 var _is_overtime   : bool  = false
+var _has_played_last_second: bool = false
 
 # --- Passive Oxygen Config ---
 @export var passive_oxygen_rate     : int   = 10    # oxygen per tick
@@ -33,6 +34,10 @@ func _process(delta: float) -> void:
 	match_time += delta
 	var remaining: float = max(0.0, OVERTIME_THRESHOLD - match_time)
 	time_updated.emit(remaining)
+
+	if remaining <= 60.0 and not _has_played_last_second:
+		_has_played_last_second = true
+		AudioManager.play_last_second_sfx()
 
 	if match_time >= OVERTIME_THRESHOLD and not _is_overtime:
 		_is_overtime = true
@@ -80,6 +85,7 @@ func start_wave() -> void:
 	wave_number   += 1
 	match_time     = 0.0
 	_is_overtime   = false
+	_has_played_last_second = false
 	print("Wave %d dimulai!" % wave_number)
 
 

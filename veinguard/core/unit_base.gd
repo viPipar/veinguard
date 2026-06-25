@@ -160,6 +160,7 @@ func _process_move(delta: float) -> void:
 func _land() -> void:
 	_is_projectile = false
 	_proj_velocity = Vector2.ZERO
+	AudioManager.play_plop_sfx()
 	if sprite: sprite.rotation = 0.0
 	if sprite:
 		var tween := create_tween()

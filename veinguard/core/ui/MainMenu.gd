@@ -51,6 +51,7 @@ func _on_button_unhover(btn: Button) -> void:
 	tween.tween_property(btn, "modulate", Color(1.0, 1.0, 1.0, 1.0), 0.15)
 
 func _on_start_button_pressed() -> void:
+	AudioManager.play_select_sfx()
 	start_button.pivot_offset = start_button.size / 2.0
 	
 	# Add a click effect: scale down quickly, then fade out and start
@@ -67,6 +68,7 @@ func _on_start_button_pressed() -> void:
 	get_tree().change_scene_to_file("res://Main.tscn")
 
 func _on_encyclopedia_button_pressed() -> void:
+	AudioManager.play_select_sfx()
 	encyclopedia_button.pivot_offset = encyclopedia_button.size / 2.0
 	
 	# Bounce click effect
@@ -83,6 +85,7 @@ func _on_encyclopedia_button_pressed() -> void:
 	get_tree().change_scene_to_file("res://core/ui/Encyclopedia.tscn")
 
 func _on_credits_button_pressed() -> void:
+	AudioManager.play_select_sfx()
 	credits_popup.visible = true
 	# Center pivot offset
 	credits_popup.pivot_offset = credits_popup.size / 2.0
@@ -92,6 +95,7 @@ func _on_credits_button_pressed() -> void:
 	tween.tween_property(credits_popup, "scale", Vector2(1.0, 1.0), 0.25).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 
 func _on_exit_button_pressed() -> void:
+	AudioManager.play_select_sfx()
 	# Fade out and quit
 	var tween = create_tween()
 	tween.tween_property(self, "modulate:a", 0.0, 0.2)
@@ -99,6 +103,7 @@ func _on_exit_button_pressed() -> void:
 	get_tree().quit()
 
 func _on_close_credits_pressed() -> void:
+	AudioManager.play_select_sfx()
 	credits_popup.pivot_offset = credits_popup.size / 2.0
 	
 	var tween = create_tween().set_parallel(true)

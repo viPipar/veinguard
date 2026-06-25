@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://u6s7uw5bee05"
+path="res://.godot/imported/last second.mp3-93668fcecd4ab3d7f6e517655f1f7406.mp3str"
+
+[deps]
+
+source_file="res://audio/last second.mp3"
+dest_files=["res://.godot/imported/last second.mp3-93668fcecd4ab3d7f6e517655f1f7406.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

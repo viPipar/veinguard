@@ -7,7 +7,7 @@ valid=false
 
 [deps]
 
-source_file="res://assets/ui/map/menu_background.png"
+source_file="res://assets/ui/Map/menu_background.png"
 
 [params]
 

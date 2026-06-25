@@ -2,10 +2,10 @@
 
 [ext_resource type="Script" uid="uid://bo7hj3uilrot6" path="res://units/player/eritrosit/Eritrosit.gd" id="1_fy8y3"]
 [ext_resource type="Resource" uid="uid://cf25g44yutudu" path="res://units/player/eritrosit/eritrosit_stats.tres" id="2_4tik8"]
-[ext_resource type="Texture2D" uid="uid://c16rdai23btsf" path="res://assets/ui/character/eritrosit_walk.png" id="3_lx73t"]
-[ext_resource type="Texture2D" uid="uid://dmegmjqyh87n4" path="res://assets/ui/character/eritrosit_carry.png" id="4_carry"]
+[ext_resource type="Texture2D" uid="uid://cwvuhil2ut4bk" path="res://assets/ui/Character/eritrosit_walk.png" id="3_lx73t"]
+[ext_resource type="Texture2D" uid="uid://0ie3etqkened" path="res://assets/ui/Character/eritrosit_carry.png" id="4_carry"]
 [ext_resource type="PackedScene" path="res://core/ui/HealthBar.tscn" id="5_hbbar"]
-[ext_resource type="FontFile" uid="uid://bfxnglvi5ws5u" path="res://assets/ui/font/LilitaOne-Regular.ttf" id="6_font"]
+[ext_resource type="FontFile" uid="uid://bpuk0y8kyjxs2" path="res://assets/ui/Font/LilitaOne-Regular.ttf" id="6_font"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_carry1"]
 atlas = ExtResource("4_carry")
