@@ -12,12 +12,16 @@ var _back_tex  : Texture2D = null
 
 # ── Signals ───────────────────────────────────────────────────────────────
 signal card_toggled(card_node: UnitCard, is_selected: bool)
-signal card_inspect_requested(card_node: UnitCard)
 
 # ── State ─────────────────────────────────────────────────────────────────
 var is_focused    := false
 var base_scale    := Vector2.ONE
 var base_pos      := Vector2.ZERO
+
+var _is_flipped       := false
+var _is_swiping       := false
+var _was_swiped       := false
+var _swipe_start_pos  := Vector2.ZERO
 
 # Posisi & skala saat kartu dipilih (tengah layar)
 var _center_pos   := Vector2(200.0, 600.0)
@@ -34,26 +38,77 @@ func _ready() -> void:
 
 # Hitung posisi & skala tengah layar berdasarkan ukuran texture aktif
 func _recompute_center() -> void:
-	_center_scale = Vector2(0.32, 0.32)
 	var vp := get_viewport_rect().size
 	if texture_normal:
-		var tw := texture_normal.get_width()  * _center_scale.x
-		var th := texture_normal.get_height() * _center_scale.y
-		_center_pos = Vector2((vp.x - tw) * 0.5, (vp.y - th) * 0.5)
+		var tw := texture_normal.get_width()
+		var th := texture_normal.get_height()
+		# Paksa ukuran jadi 600x900 agar sama dengan inspect
+		_center_scale = Vector2(600.0 / tw, 900.0 / th)
+		var actual_w := tw * _center_scale.x
+		var actual_h := th * _center_scale.y
+		# Posisikan agak ke atas (-200 dari tengah)
+		_center_pos = Vector2((vp.x - actual_w) * 0.5, (vp.y - actual_h) * 0.5 - 200.0)
+		
+		# Set pivot di tengah agar saat flip (scale x mengecil) titik tengahnya tetap
+		pivot_offset = size / 2.0
 	else:
-		_center_pos = Vector2(200.0, 600.0)
+		_center_scale = Vector2(0.6, 0.6)
+		_center_pos = Vector2(200.0, 400.0)
+		pivot_offset = size / 2.0
 
 
 # ── Input ─────────────────────────────────────────────────────────────────
 func _gui_input(event: InputEvent) -> void:
-	# Klik kanan atau long-press (android) → buka inspect
-	if event is InputEventMouseButton:
-		if event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
-			accept_event()
-			card_inspect_requested.emit(self)
+	if not is_focused:
+		return
+		
+	# Klik kanan untuk flip
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
+		accept_event()
+		_flip_card()
+		return
+
+	# Swipe detection (Mouse atau Touch)
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+		if event.pressed:
+			_swipe_start_pos = event.position
+			_is_swiping = true
+			_was_swiped = false
+		else:
+			_is_swiping = false
+			
+	elif event is InputEventScreenTouch:
+		if event.pressed:
+			_swipe_start_pos = event.position
+			_is_swiping = true
+			_was_swiped = false
+		else:
+			_is_swiping = false
+			
+	elif event is InputEventMouseMotion or event is InputEventScreenDrag:
+		if _is_swiping:
+			var diff = event.position.x - _swipe_start_pos.x
+			if abs(diff) > 40.0: # Threshold swipe
+				_is_swiping = false
+				_was_swiped = true
+				_flip_card()
+
+
+func _flip_card() -> void:
+	var tween = create_tween()
+	tween.tween_property(self, "scale:x", 0.0, 0.15).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_QUAD)
+	tween.tween_callback(func():
+		_is_flipped = not _is_flipped
+		texture_normal = _back_tex if _is_flipped else _front_tex
+	)
+	tween.tween_property(self, "scale:x", _center_scale.x, 0.15).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
 
 
 func _on_pressed() -> void:
+	if _was_swiped:
+		_was_swiped = false
+		return # Abaikan klik karena ini adalah hasil dari swipe
+		
 	if is_focused:
 		# Klik kartu yang sudah di tengah → batal pilih
 		set_focus(false)
@@ -68,6 +123,11 @@ func _on_pressed() -> void:
 # ── Focus: kartu terbang ke tengah layar ─────────────────────────────────
 func set_focus(focused: bool) -> void:
 	is_focused = focused
+	
+	if not is_focused and _is_flipped:
+		_is_flipped = false
+		texture_normal = _front_tex
+		
 	var tween := create_tween().set_parallel(true)
 	if is_focused:
 		tween.tween_property(self, "position", _center_pos, 0.30) \

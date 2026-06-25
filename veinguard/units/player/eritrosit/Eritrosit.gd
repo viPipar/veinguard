@@ -82,8 +82,7 @@ func _process_die(_delta: float) -> void:
 		_carried_oxygen.drop_back(global_position)
 		_carried_oxygen = null
 	oxygen_label.visible = false
-	await get_tree().create_timer(0.5).timeout
-	queue_free()
+	super(_delta)
 
 
 func _on_oxygen_detected(area: Area2D) -> void:

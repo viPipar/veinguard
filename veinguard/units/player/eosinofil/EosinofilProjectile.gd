@@ -64,8 +64,10 @@ func _process(delta: float) -> void:
 
 
 func _on_body_entered(body: Node2D) -> void:
-	# Jika menabrak musuh, langsung meledak
+	# Jika menabrak musuh, berikan damage langsung lalu meledak (spawn cloud)
 	if body.is_in_group("enemies"):
+		if body.has_method("take_damage") and _eo_stats:
+			body.take_damage(_eo_stats.damage)
 		_explode()
 
 

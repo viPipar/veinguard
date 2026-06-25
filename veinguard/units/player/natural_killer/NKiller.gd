@@ -76,10 +76,6 @@ func _deal_damage() -> void:
 		current_target.take_damage(stats.damage)
 
 
-func _process_die(_delta: float) -> void:
-	sprite.play("die")
-	if not sprite.animation_finished.is_connected(queue_free):
-		sprite.animation_finished.connect(queue_free)
 
 
 func _pick_nearest_target() -> void:

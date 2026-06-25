@@ -60,7 +60,6 @@ const SLOT_X     : Array   = [140.0, 453.0, 766.0]
 var _pool               : Array        = []   # Array of {scene, stats, front_tex, back_tex}
 var _slots              : Array        = []   # 3 UnitCard nodes
 var _hand_indices       : Array        = [-1, -1, -1]  # index pool untuk tiap slot
-var _inspect_overlay    : CardInspectOverlay = null
 
 
 func _ready() -> void:
@@ -68,7 +67,6 @@ func _ready() -> void:
 	layer = 2   # Render di atas HUD (layer 1) tapi di bawah GameOver (layer 10)
 
 	_load_pool()
-	_create_inspect_overlay()
 	_create_card_slots()
 	_init_hand()
 
@@ -93,14 +91,7 @@ func _safe_load(path: String) -> Resource:
 	return null
 
 
-# ── Buat inspect overlay ──────────────────────────────────────────────────
-func _create_inspect_overlay() -> void:
-	_inspect_overlay      = CardInspectOverlay.new()
-	_inspect_overlay.name = "CardInspectOverlay"
-	add_child(_inspect_overlay)
-
-
-# ── Buat 3 slot kartu ─────────────────────────────────────────────────────
+# ── Buat 3 slot kartu ──────────────────────────────────────────────────────────
 func _create_card_slots() -> void:
 	for i in 3:
 		var card          := UnitCard.new()
@@ -108,7 +99,6 @@ func _create_card_slots() -> void:
 		card.scale         = CARD_SCALE
 		card.position      = Vector2(SLOT_X[i], CARD_Y)
 		add_child(card)   # _ready() kartu dipanggil di sini
-		card.card_inspect_requested.connect(_on_inspect_requested)
 		_slots.append(card)
 
 
@@ -171,12 +161,4 @@ func _assign_slot(slot_idx: int, pool_idx: int, animate: bool) -> void:
 		card.play_draw_animation()   # Fire-and-forget coroutine
 
 
-# ── Inspect overlay ───────────────────────────────────────────────────────
-func _on_inspect_requested(card: UnitCard) -> void:
-	var slot_idx : int = _slots.find(card)
-	if slot_idx == -1 or _hand_indices[slot_idx] == -1:
-		return
 
-	var data : Dictionary = _pool[_hand_indices[slot_idx]]
-	if card.unit_stats:
-		_inspect_overlay.open(card.unit_stats, data.front_tex, data.back_tex)

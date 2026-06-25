@@ -125,16 +125,6 @@ func _process_attack(delta: float) -> void:
 	_chew_timer = 0.0
 
 
-func _process_die(_delta: float) -> void:
-	if sprite:
-		sprite.scale = Vector2(1.0, 1.0)
-		sprite.modulate = Color.WHITE
-		if sprite.sprite_frames.has_animation("die"):
-			sprite.play("die")
-			if not sprite.animation_finished.is_connected(queue_free):
-				sprite.animation_finished.connect(queue_free)
-			return
-	queue_free()
 
 
 func _pick_nearest_target() -> void:

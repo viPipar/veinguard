@@ -157,11 +157,6 @@ func _end_dash() -> void:
 	_pick_nearest_target()
 
 
-func _process_die(_delta: float) -> void:
-	if sprite.sprite_frames.has_animation("die"):
-		sprite.play("die")
-	if not sprite.animation_finished.is_connected(queue_free):
-		sprite.animation_finished.connect(queue_free)
 
 
 func _pick_nearest_target() -> void:

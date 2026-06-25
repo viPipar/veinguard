@@ -129,7 +129,4 @@ func _on_body_entered(_body: Node2D) -> void:
 	pass
 
 
-func _process_die(_delta: float) -> void:
-	if sprite: sprite.play("die")
-	await get_tree().create_timer(0.5).timeout
-	queue_free()
+

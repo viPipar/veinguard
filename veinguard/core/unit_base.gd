@@ -118,10 +118,21 @@ func _play_hit_effect() -> void:
 	# Balik warna normal
 	tween.tween_callback(func(): sprite.modulate = Color.WHITE)
 
+var _is_dying : bool = false
+
 func _process_die(_delta: float) -> void:
-	if sprite and sprite.sprite_frames and sprite.sprite_frames.has_animation("die"):
-		sprite.play("die")
-	await get_tree().create_timer(0.5).timeout
+	if _is_dying:
+		return
+	_is_dying = true
+	if sprite:
+		# Stop current animation if any
+		sprite.stop()
+		var tween := create_tween()
+		# Perlahan berubah putih dan fade out
+		tween.tween_property(sprite, "modulate", Color(10, 10, 10, 0), 0.5)
+		await tween.finished
+	else:
+		await get_tree().create_timer(0.5).timeout
 	queue_free()
 
 func launch_projectile(vel: Vector2) -> void:

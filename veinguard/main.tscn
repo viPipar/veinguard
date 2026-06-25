@@ -18,6 +18,7 @@ font_size = 64
 script = ExtResource("1_main")
 
 [node name="MapBackground" type="Sprite2D" parent="."]
+z_index = -10
 position = Vector2(536, 954)
 scale = Vector2(1.1525, 1.15431)
 texture = ExtResource("7_272bh")
@@ -26,6 +27,7 @@ script = ExtResource("3_5vw27")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(540, 960)
+zoom = Vector2(1.25, 1.25)
 
 [node name="Lane" parent="." instance=ExtResource("1_c2ibq")]
 

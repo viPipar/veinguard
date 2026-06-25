@@ -54,10 +54,7 @@ func _process_attack(delta: float) -> void:
 		if is_instance_valid(current_target):
 			current_target.take_damage(stats.damage)
 
-func _process_die(_delta: float) -> void:
-	if sprite: sprite.play("die")
-	await get_tree().create_timer(0.5).timeout
-	queue_free()
+
 
 
 func _pick_nearest_target() -> void:
