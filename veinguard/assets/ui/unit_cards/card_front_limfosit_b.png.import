@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dmegmjqyh87n4"
-path="res://.godot/imported/Eritrosit-Carry.png-75144cff9be8e3385cb78fc3e2a6ac61.ctex"
+uid="uid://dppp5dhqo8wwr"
+path="res://.godot/imported/card_front_limfosit_b.png-ac9d1c98f979aadc556336d83753378c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ui/Character/Eritrosit-Carry.png"
-dest_files=["res://.godot/imported/Eritrosit-Carry.png-75144cff9be8e3385cb78fc3e2a6ac61.ctex"]
+source_file="res://assets/ui/unit_cards/card_front_limfosit_b.png"
+dest_files=["res://.godot/imported/card_front_limfosit_b.png-ac9d1c98f979aadc556336d83753378c.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bfykoyhbf338u"
-path="res://.godot/imported/Card Front Trombosit.png-ce7ddce557470f8b4bb1c5806fb0e2f2.ctex"
+uid="uid://cwvuhil2ut4bk"
+path="res://.godot/imported/eritrosit_walk.png-ca0515aec2ac2ddf642d07c839b6ff26.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ui/unit_cards/Card Front Trombosit.png"
-dest_files=["res://.godot/imported/Card Front Trombosit.png-ce7ddce557470f8b4bb1c5806fb0e2f2.ctex"]
+source_file="res://assets/ui/character/eritrosit_walk.png"
+dest_files=["res://.godot/imported/eritrosit_walk.png-ca0515aec2ac2ddf642d07c839b6ff26.ctex"]
 
 [params]
 

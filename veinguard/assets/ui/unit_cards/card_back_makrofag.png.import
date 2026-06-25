@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bkl7sjg5r5vyf"
-path="res://.godot/imported/Sel B.png-351891dee5ebcf1c59cf7747ff29b8dd.ctex"
+uid="uid://j6ui507gs2uo"
+path="res://.godot/imported/card_back_makrofag.png-a636b88bdd3e776a13b820019a749ad8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ui/Character/Sel B.png"
-dest_files=["res://.godot/imported/Sel B.png-351891dee5ebcf1c59cf7747ff29b8dd.ctex"]
+source_file="res://assets/ui/unit_cards/card_back_makrofag.png"
+dest_files=["res://.godot/imported/card_back_makrofag.png-a636b88bdd3e776a13b820019a749ad8.ctex"]
 
 [params]
 

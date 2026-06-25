@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://k1v5wxptfbtp"
-path="res://.godot/imported/Card Front T Killer.png-e8abb19e95d00975091c2ea6afa2c2a5.ctex"
+uid="uid://dogedf4f8e6km"
+path="res://.godot/imported/map_1.png-6010212be72ab12d35b554c379c43a66.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ui/unit_cards/Card Front T Killer.png"
-dest_files=["res://.godot/imported/Card Front T Killer.png-e8abb19e95d00975091c2ea6afa2c2a5.ctex"]
+source_file="res://assets/ui/map/map_1.png"
+dest_files=["res://.godot/imported/map_1.png-6010212be72ab12d35b554c379c43a66.ctex"]
 
 [params]
 

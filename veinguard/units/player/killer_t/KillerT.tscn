@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bcm1tm8nq2cun" path="res://units/player/killer_t/KillerT.gd" id="1_mqlqm"]
 [ext_resource type="Resource" uid="uid://rlohoqwexckv" path="res://units/player/killer_t/killert_stats.tres" id="2_21yiw"]
-[ext_resource type="Texture2D" uid="uid://dyeatk20cvvg0" path="res://assets/ui/Character/Sel T Killer.png" id="3_21yiw"]
+[ext_resource type="Texture2D" uid="uid://dyeatk20cvvg0" path="res://assets/ui/character/sel_t_killer.png" id="3_21yiw"]
 [ext_resource type="PackedScene" path="res://core/ui/HealthBar.tscn" id="4_21yiw"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qro4x"]

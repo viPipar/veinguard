@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bv12qsdsop7d6"
-path="res://.godot/imported/Card Back Trombosit.png-99e6266089d71d8fe0104331852790e7.ctex"
+uid="uid://xba7p8cw36nf"
+path="res://.godot/imported/bacillus.png-5bf4c5bf8f990ab11ee64a5beb50960d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ui/unit_cards/Card Back Trombosit.png"
-dest_files=["res://.godot/imported/Card Back Trombosit.png-99e6266089d71d8fe0104331852790e7.ctex"]
+source_file="res://assets/ui/character/bacillus.png"
+dest_files=["res://.godot/imported/bacillus.png-5bf4c5bf8f990ab11ee64a5beb50960d.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cqmonjmuiqcwt"
-path="res://.godot/imported/Trombosit-Throw.png-22ac9a7928b46630bfd08cf0fdfe3d34.ctex"
+uid="uid://ccx5g2hmd63dv"
+path="res://.godot/imported/card_front_eritrosit.png-9c22df8eccad720f71f18bafa60a5724.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ui/Character/Trombosit-Throw.png"
-dest_files=["res://.godot/imported/Trombosit-Throw.png-22ac9a7928b46630bfd08cf0fdfe3d34.ctex"]
+source_file="res://assets/ui/unit_cards/card_front_eritrosit.png"
+dest_files=["res://.godot/imported/card_front_eritrosit.png-9c22df8eccad720f71f18bafa60a5724.ctex"]
 
 [params]
 

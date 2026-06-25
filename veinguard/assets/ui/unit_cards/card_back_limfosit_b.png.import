@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b5odndm0tdews"
-path="res://.godot/imported/Card Back Eritrosit.png-e387d7ea51c1e34d0f8e317cffa49d3b.ctex"
+uid="uid://cn2l25cixcl4j"
+path="res://.godot/imported/card_back_limfosit_b.png-e3a7bf939a8f7103b5a945671d3828b3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ui/unit_cards/Card Back Eritrosit.png"
-dest_files=["res://.godot/imported/Card Back Eritrosit.png-e387d7ea51c1e34d0f8e317cffa49d3b.ctex"]
+source_file="res://assets/ui/unit_cards/card_back_limfosit_b.png"
+dest_files=["res://.godot/imported/card_back_limfosit_b.png-e3a7bf939a8f7103b5a945671d3828b3.ctex"]
 
 [params]
 

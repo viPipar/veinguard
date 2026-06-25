@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c31yfhblg8t3u"
-path="res://.godot/imported/Card Back Makrofag.png-7f6fbdda48deb2d42b63a68a934e82f2.ctex"
+uid="uid://c7x86jn5b8ahk"
+path="res://.godot/imported/card_back_eritrosit.png-3a9c9d49efda3e14861d7e1160c38756.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ui/unit_cards/Card Back Makrofag.png"
-dest_files=["res://.godot/imported/Card Back Makrofag.png-7f6fbdda48deb2d42b63a68a934e82f2.ctex"]
+source_file="res://assets/ui/unit_cards/card_back_eritrosit.png"
+dest_files=["res://.godot/imported/card_back_eritrosit.png-3a9c9d49efda3e14861d7e1160c38756.ctex"]
 
 [params]
 

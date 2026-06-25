@@ -2,9 +2,9 @@
 
 [ext_resource type="Script" uid="uid://dqncehgnlw2b3" path="res://units/player/trombosit/Trombosit.gd" id="1_lmxmk"]
 [ext_resource type="Resource" uid="uid://drsdgfrxdjmrc" path="res://units/player/trombosit/trombosit_stats.tres" id="2_us5lr"]
-[ext_resource type="Texture2D" uid="uid://cqmonjmuiqcwt" path="res://assets/ui/Character/Trombosit-Throw.png" id="3_7s5ke"]
+[ext_resource type="Texture2D" uid="uid://cqmonjmuiqcwt" path="res://assets/ui/character/trombosit_throw.png" id="3_7s5ke"]
 [ext_resource type="PackedScene" path="res://core/ui/HealthBar.tscn" id="3_ajjid"]
-[ext_resource type="Texture2D" uid="uid://bn1ha83rauy27" path="res://assets/ui/Character/Trombosite-Walk.png" id="4_6ti68"]
+[ext_resource type="Texture2D" uid="uid://bn1ha83rauy27" path="res://assets/ui/character/trombosit_walk.png" id="4_6ti68"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_so3we"]
 atlas = ExtResource("3_7s5ke")

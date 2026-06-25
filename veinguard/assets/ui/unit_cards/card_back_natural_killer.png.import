@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b23lxh728yma0"
-path="res://.godot/imported/Card Front Natural Killer.png-7426c76b43d4c98b20dd6d9feb9fa0fc.ctex"
+uid="uid://ds1wfd2h6orrd"
+path="res://.godot/imported/card_back_natural_killer.png-5bf613ce956c0f596927a7a7bc050f83.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ui/unit_cards/Card Front Natural Killer.png"
-dest_files=["res://.godot/imported/Card Front Natural Killer.png-7426c76b43d4c98b20dd6d9feb9fa0fc.ctex"]
+source_file="res://assets/ui/unit_cards/card_back_natural_killer.png"
+dest_files=["res://.godot/imported/card_back_natural_killer.png-5bf613ce956c0f596927a7a7bc050f83.ctex"]
 
 [params]
 

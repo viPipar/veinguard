@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bv23ib3yr1rqm"
-path="res://.godot/imported/Card Back Limfosit B.png-c8d807bc9752259bdfb4165948c01d0c.ctex"
+uid="uid://kymwxxllt4sq"
+path="res://.godot/imported/sel_b.png-03f7a230fe8596be46c087eab9d35223.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ui/unit_cards/Card Back Limfosit B.png"
-dest_files=["res://.godot/imported/Card Back Limfosit B.png-c8d807bc9752259bdfb4165948c01d0c.ctex"]
+source_file="res://assets/ui/character/sel_b.png"
+dest_files=["res://.godot/imported/sel_b.png-03f7a230fe8596be46c087eab9d35223.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cvob6ld50pxcd"
-path="res://.godot/imported/Card Front Makrofag.png-7248a5000525245e7b5ec9c4235fbe80.ctex"
+uid="uid://bkip7vur8776r"
+path="res://.godot/imported/trombosit_walk.png-657e6089754798cc4084ebcae2ccd734.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ui/unit_cards/Card Front Makrofag.png"
-dest_files=["res://.godot/imported/Card Front Makrofag.png-7248a5000525245e7b5ec9c4235fbe80.ctex"]
+source_file="res://assets/ui/character/trombosit_walk.png"
+dest_files=["res://.godot/imported/trombosit_walk.png-657e6089754798cc4084ebcae2ccd734.ctex"]
 
 [params]
 

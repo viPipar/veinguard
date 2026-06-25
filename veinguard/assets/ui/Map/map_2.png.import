@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bn1ha83rauy27"
-path="res://.godot/imported/Trombosite-Walk.png-159259ba09e9872d86ff3cea51230533.ctex"
+uid="uid://dgcnba0jpwpm2"
+path="res://.godot/imported/map_2.png-bca48ca880c3d466190994f0eb1d1f0f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ui/Character/Trombosite-Walk.png"
-dest_files=["res://.godot/imported/Trombosite-Walk.png-159259ba09e9872d86ff3cea51230533.ctex"]
+source_file="res://assets/ui/map/map_2.png"
+dest_files=["res://.godot/imported/map_2.png-bca48ca880c3d466190994f0eb1d1f0f.ctex"]
 
 [params]
 

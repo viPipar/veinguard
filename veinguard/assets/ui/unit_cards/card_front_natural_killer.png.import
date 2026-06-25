@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c16rdai23btsf"
-path="res://.godot/imported/Eritrosit-Walk.png-19b5b2750cbf3e7b661af478b9541be0.ctex"
+uid="uid://ccnsci1fsrwlh"
+path="res://.godot/imported/card_front_natural_killer.png-32f455da0aa439308bb0fabf0c99a33c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ui/Character/Eritrosit-Walk.png"
-dest_files=["res://.godot/imported/Eritrosit-Walk.png-19b5b2750cbf3e7b661af478b9541be0.ctex"]
+source_file="res://assets/ui/unit_cards/card_front_natural_killer.png"
+dest_files=["res://.godot/imported/card_front_natural_killer.png-32f455da0aa439308bb0fabf0c99a33c.ctex"]
 
 [params]
 

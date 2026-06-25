@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://chfe7d7hd3v0e"
-path="res://.godot/imported/Card Front Limfosit B.png-cd518e342cd645a4bf748a1fca4848fc.ctex"
+uid="uid://cjxq8i3ochvdi"
+path="res://.godot/imported/card_front_trombosit.png-df603037334674ccd8b0b47c0a58a4b2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ui/unit_cards/Card Front Limfosit B.png"
-dest_files=["res://.godot/imported/Card Front Limfosit B.png-cd518e342cd645a4bf748a1fca4848fc.ctex"]
+source_file="res://assets/ui/unit_cards/card_front_trombosit.png"
+dest_files=["res://.godot/imported/card_front_trombosit.png-df603037334674ccd8b0b47c0a58a4b2.ctex"]
 
 [params]
 

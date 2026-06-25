@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cwhylacbjrocq"
-path="res://.godot/imported/Baciullus.png-dd740117e5e65169d53869ee4c9e52f4.ctex"
+uid="uid://c50epd7c2gb4u"
+path="res://.godot/imported/trombosit_throw.png-e34cc2a43fae05edf2eb75988ab9be64.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ui/Character/Baciullus.png"
-dest_files=["res://.godot/imported/Baciullus.png-dd740117e5e65169d53869ee4c9e52f4.ctex"]
+source_file="res://assets/ui/character/trombosit_throw.png"
+dest_files=["res://.godot/imported/trombosit_throw.png-e34cc2a43fae05edf2eb75988ab9be64.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cp4rwpt8otkbc"
-path="res://.godot/imported/Map1.png-f342c0fee2f25730f94c77d27f5ee85d.ctex"
+uid="uid://0ie3etqkened"
+path="res://.godot/imported/eritrosit_carry.png-bf74f2f22e29f3125f025eacde66cabc.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ui/Map/Map1.png"
-dest_files=["res://.godot/imported/Map1.png-f342c0fee2f25730f94c77d27f5ee85d.ctex"]
+source_file="res://assets/ui/character/eritrosit_carry.png"
+dest_files=["res://.godot/imported/eritrosit_carry.png-bf74f2f22e29f3125f025eacde66cabc.ctex"]
 
 [params]
 

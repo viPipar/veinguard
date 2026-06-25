@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dyeatk20cvvg0"
-path="res://.godot/imported/Sel T Killer.png-b4c91db52f33ae9ebd056d6eff29c933.ctex"
+uid="uid://8ov13tcbcu38"
+path="res://.godot/imported/card_front_t_killer.png-f3009b751bf6810d42d0685844a023de.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ui/Character/Sel T Killer.png"
-dest_files=["res://.godot/imported/Sel T Killer.png-b4c91db52f33ae9ebd056d6eff29c933.ctex"]
+source_file="res://assets/ui/unit_cards/card_front_t_killer.png"
+dest_files=["res://.godot/imported/card_front_t_killer.png-f3009b751bf6810d42d0685844a023de.ctex"]
 
 [params]
 

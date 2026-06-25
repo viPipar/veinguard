@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dlnguy2mtu4su"
-path="res://.godot/imported/Staphylococcus.png-3c327b68f8037931e7a4177789d851a9.ctex"
+uid="uid://tuwpvqtfks73"
+path="res://.godot/imported/staphylococcus.png-85b71ca0f2346925381bd0ed554c3408.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ui/Character/Staphylococcus.png"
-dest_files=["res://.godot/imported/Staphylococcus.png-3c327b68f8037931e7a4177789d851a9.ctex"]
+source_file="res://assets/ui/character/staphylococcus.png"
+dest_files=["res://.godot/imported/staphylococcus.png-85b71ca0f2346925381bd0ed554c3408.ctex"]
 
 [params]
 
