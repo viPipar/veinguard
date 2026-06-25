@@ -9,6 +9,7 @@ extends Control
 @onready var title_label: Label = $MarginContainer/VBoxContainer/HeaderArea/Title
 
 var _time: float = 0.0
+var level_container: VBoxContainer
 
 func _ready() -> void:
 	credits_popup.visible = false
@@ -24,6 +25,52 @@ func _ready() -> void:
 	close_button.mouse_entered.connect(_on_button_hover.bind(close_button))
 	close_button.mouse_exited.connect(_on_button_unhover.bind(close_button))
 	close_button.pivot_offset = close_button.size / 2.0
+
+	_setup_level_container()
+
+func _setup_level_container() -> void:
+	level_container = VBoxContainer.new()
+	level_container.add_theme_constant_override("separation", 20)
+	level_container.alignment = BoxContainer.ALIGNMENT_CENTER
+	level_container.visible = false
+	
+	var btn_container = $MarginContainer/VBoxContainer/ButtonContainer
+	btn_container.get_parent().add_child(level_container)
+	btn_container.get_parent().move_child(level_container, btn_container.get_index() + 1)
+	
+	for i in range(1, 6):
+		var btn = Button.new()
+		btn.text = "LEVEL " + str(i)
+		btn.custom_minimum_size = Vector2(500, 90)
+		btn.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+		
+		btn.add_theme_font_override("font", start_button.get_theme_font("font"))
+		btn.add_theme_font_size_override("font_size", 40)
+		btn.add_theme_stylebox_override("normal", start_button.get_theme_stylebox("normal"))
+		btn.add_theme_stylebox_override("hover", start_button.get_theme_stylebox("hover"))
+		btn.add_theme_stylebox_override("pressed", start_button.get_theme_stylebox("pressed"))
+		btn.add_theme_stylebox_override("focus", start_button.get_theme_stylebox("focus"))
+		
+		btn.mouse_entered.connect(_on_button_hover.bind(btn))
+		btn.mouse_exited.connect(_on_button_unhover.bind(btn))
+		btn.pressed.connect(_on_level_selected.bind(i, btn))
+		level_container.add_child(btn)
+		
+	var back_btn = Button.new()
+	back_btn.text = "BACK"
+	back_btn.custom_minimum_size = Vector2(500, 90)
+	back_btn.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	back_btn.add_theme_font_override("font", encyclopedia_button.get_theme_font("font"))
+	back_btn.add_theme_font_size_override("font_size", 36)
+	back_btn.add_theme_stylebox_override("normal", encyclopedia_button.get_theme_stylebox("normal"))
+	back_btn.add_theme_stylebox_override("hover", encyclopedia_button.get_theme_stylebox("hover"))
+	back_btn.add_theme_stylebox_override("pressed", encyclopedia_button.get_theme_stylebox("pressed"))
+	back_btn.add_theme_stylebox_override("focus", encyclopedia_button.get_theme_stylebox("focus"))
+	
+	back_btn.mouse_entered.connect(_on_button_hover.bind(back_btn))
+	back_btn.mouse_exited.connect(_on_button_unhover.bind(back_btn))
+	back_btn.pressed.connect(_on_level_back_pressed.bind(back_btn))
+	level_container.add_child(back_btn)
 
 func _process(delta: float) -> void:
 	_time += delta
@@ -54,12 +101,36 @@ func _on_start_button_pressed() -> void:
 	AudioManager.play_select_sfx()
 	start_button.pivot_offset = start_button.size / 2.0
 	
-	# Add a click effect: scale down quickly, then fade out and start
 	var tween = create_tween()
 	tween.tween_property(start_button, "scale", Vector2(0.9, 0.9), 0.08)
 	tween.tween_property(start_button, "scale", Vector2(1.1, 1.1), 0.08)
+	tween.tween_property(start_button, "scale", Vector2(1.0, 1.0), 0.08)
 	
-	# Fade out whole screen
+	await tween.finished
+	$MarginContainer/VBoxContainer/ButtonContainer.visible = false
+	level_container.visible = true
+	for c in level_container.get_children():
+		c.pivot_offset = c.size / 2.0
+
+func _on_level_back_pressed(btn: Button) -> void:
+	AudioManager.play_select_sfx()
+	btn.pivot_offset = btn.size / 2.0
+	var tween = create_tween()
+	tween.tween_property(btn, "scale", Vector2(0.9, 0.9), 0.08)
+	tween.tween_property(btn, "scale", Vector2(1.0, 1.0), 0.08)
+	await tween.finished
+	level_container.visible = false
+	$MarginContainer/VBoxContainer/ButtonContainer.visible = true
+
+func _on_level_selected(level: int, btn: Button) -> void:
+	AudioManager.play_select_sfx()
+	GameManager.current_level = level
+	
+	btn.pivot_offset = btn.size / 2.0
+	var tween = create_tween()
+	tween.tween_property(btn, "scale", Vector2(0.9, 0.9), 0.08)
+	tween.tween_property(btn, "scale", Vector2(1.1, 1.1), 0.08)
+	
 	var fade_tween = create_tween().set_parallel(true)
 	fade_tween.tween_property(self, "modulate:a", 0.0, 0.3)
 	fade_tween.tween_property(self, "scale", Vector2(1.05, 1.05), 0.3)

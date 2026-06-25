@@ -11,6 +11,7 @@ extends CanvasLayer
 func _ready() -> void:
 	layer        = 10   # Selalu di atas semua layer UI lainnya
 	process_mode = Node.PROCESS_MODE_ALWAYS
+	restart_button.text = "MAIN MENU"
 	restart_button.pressed.connect(_on_restart)
 	hide()
 
@@ -87,4 +88,4 @@ func _style_button(theme_color: Color) -> void:
 
 func _on_restart() -> void:
 	get_tree().paused = false
-	get_tree().reload_current_scene()
+	get_tree().change_scene_to_file("res://core/ui/MainMenu.tscn")

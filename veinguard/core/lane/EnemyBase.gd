@@ -14,6 +14,27 @@ var _is_patched : bool  = false
 
 
 func _ready() -> void:
+	var lvl = GameManager.current_level
+	print("Menjalankan Level: ", lvl)
+	
+	match lvl:
+		2:
+			max_health *= 1.5
+			spawn_interval /= 1.2
+			max_enemies += 1
+		3:
+			max_health *= 2.0
+			spawn_interval /= 1.5
+			max_enemies += 2
+		4:
+			max_health *= 2.5
+			spawn_interval /= 2.0
+			max_enemies += 4
+		5:
+			max_health *= 3.5
+			spawn_interval /= 2.5
+			max_enemies += 6
+			
 	current_health = max_health
 	var hb_scene = load("res://core/ui/HealthBar.tscn")
 	if hb_scene:

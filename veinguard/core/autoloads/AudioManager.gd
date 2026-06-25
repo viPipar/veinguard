@@ -10,6 +10,7 @@ var last_second_sfx = preload("res://audio/last second.mp3")
 
 func _ready() -> void:
 	bgm_player = AudioStreamPlayer.new()
+	bgm_player.process_mode = Node.PROCESS_MODE_ALWAYS
 	add_child(bgm_player)
 
 func play_select_sfx() -> void:
@@ -27,6 +28,7 @@ func play_last_second_sfx() -> void:
 
 func _play_one_shot(stream: AudioStream) -> void:
 	var p = AudioStreamPlayer.new()
+	p.process_mode = Node.PROCESS_MODE_ALWAYS
 	p.stream = stream
 	add_child(p)
 	p.play()

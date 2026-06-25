@@ -12,6 +12,7 @@ const MAX_OXYGEN         : int   = 1000
 const OVERTIME_THRESHOLD : float = 120.0  # 2 menit
 
 # --- State ---
+var current_level  : int  = 1
 var oxygen_points  : int  = 0
 var wave_number    : int  = 0
 var is_game_over   : bool = false
