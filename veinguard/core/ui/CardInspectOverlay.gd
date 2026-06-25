@@ -12,6 +12,7 @@ var _showing_front : bool      = true
 var _front_tex     : Texture2D = null
 var _back_tex      : Texture2D = null
 var _stats         : UnitStats = null
+var _font          : FontFile  = load("res://assets/ui/Font/LilitaOne-Regular.ttf")
 
 # ── Node refs (diisi di _build_ui) ────────────────────────────────────────
 var _card_display  : TextureRect
@@ -64,12 +65,14 @@ func _build_ui() -> void:
 
 	_name_label = Label.new()
 	_name_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	_name_label.add_theme_font_override("font", _font)
 	_name_label.add_theme_font_size_override("font_size", 60)
 	_name_label.add_theme_color_override("font_color", Color(0.92, 0.97, 1.0))
 	vbox.add_child(_name_label)
 
 	_stats_label = Label.new()
 	_stats_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	_stats_label.add_theme_font_override("font", _font)
 	_stats_label.add_theme_font_size_override("font_size", 38)
 	_stats_label.add_theme_color_override("font_color", Color(0.65, 0.88, 1.0))
 	vbox.add_child(_stats_label)
@@ -77,6 +80,7 @@ func _build_ui() -> void:
 	_desc_label = Label.new()
 	_desc_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	_desc_label.autowrap_mode        = TextServer.AUTOWRAP_WORD_SMART
+	_desc_label.add_theme_font_override("font", _font)
 	_desc_label.add_theme_font_size_override("font_size", 30)
 	_desc_label.add_theme_color_override("font_color", Color(0.78, 0.88, 0.96))
 	vbox.add_child(_desc_label)
@@ -119,6 +123,7 @@ func _make_button(btn_text: String, color: Color) -> Button:
 	var sb_h := _rounded_box(color.lightened(0.18))
 	var sb_p := _rounded_box(color.darkened(0.22))
 
+	btn.add_theme_font_override("font", _font)
 	btn.add_theme_stylebox_override("normal",  sb_n)
 	btn.add_theme_stylebox_override("hover",   sb_h)
 	btn.add_theme_stylebox_override("pressed", sb_p)

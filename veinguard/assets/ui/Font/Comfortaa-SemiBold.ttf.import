@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://bpuk0y8kyjxs2"
-path="res://.godot/imported/LilitaOne-Regular.ttf-a204bb27bda48c186994bbca25e6b3fe.fontdata"
+uid="uid://cy153g63o5uam"
+path="res://.godot/imported/Comfortaa-SemiBold.ttf-a0aa0151890cb5b5d63f598774954787.fontdata"
 
 [deps]
 
-source_file="res://assets/ui/Font/LilitaOne-Regular.ttf"
-dest_files=["res://.godot/imported/LilitaOne-Regular.ttf-a204bb27bda48c186994bbca25e6b3fe.fontdata"]
+source_file="res://assets/ui/Font/Comfortaa-SemiBold.ttf"
+dest_files=["res://.godot/imported/Comfortaa-SemiBold.ttf-a0aa0151890cb5b5d63f598774954787.fontdata"]
 
 [params]
 

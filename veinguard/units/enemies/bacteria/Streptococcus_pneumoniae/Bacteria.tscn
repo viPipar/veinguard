@@ -1,9 +1,9 @@
 [gd_scene load_steps=17 format=3 uid="uid://s5r3qqln8w3p"]
 
-[ext_resource type="Script" uid="uid://b2nyqdgfnsxq6" path="res://units/enemies/bacteria/streptococcus_pneumoniae/Bacteria.gd" id="1_4exmm"]
-[ext_resource type="Resource" uid="uid://t4v613e4mubm" path="res://units/enemies/bacteria/streptococcus_pneumoniae/bacteria_stats.tres" id="2_ibuh6"]
-[ext_resource type="Texture2D" uid="uid://bocft5dllmk2l" path="res://placeholder/bakteri-sprite.png" id="4_5fvai"]
-[ext_resource type="Texture2D" uid="uid://4wxy0sc0rn78" path="res://placeholder/Rectangle 2 (1).png" id="4_jeqa1"]
+[ext_resource type="Script" uid="uid://b2nyqdgfnsxq6" path="res://units/enemies/bacteria/Streptococcus_pneumoniae/Bacteria.gd" id="1_4exmm"]
+[ext_resource type="Resource" uid="uid://t4v613e4mubm" path="res://units/enemies/bacteria/Streptococcus_pneumoniae/bacteria_stats.tres" id="2_ibuh6"]
+[ext_resource type="Texture2D" uid="uid://dyklgvwtb2875" path="res://placeholder/bakteri-sprite.png" id="4_5fvai"]
+[ext_resource type="Texture2D" uid="uid://blg2j5khnmxty" path="res://placeholder/Rectangle 2 (1).png" id="4_jeqa1"]
 [ext_resource type="PackedScene" path="res://core/ui/HealthBar.tscn" id="5_hbbar"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ibuh6"]
