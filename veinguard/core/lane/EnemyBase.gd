@@ -5,8 +5,22 @@ extends Area2D
 @export var spawn_interval  : float = 12.0
 @export var max_enemies     : int   = 5
 
+@export var max_health      : float = 400.0
+var current_health          : float
+var _health_bar             : Node2D = null
+
 var _timer      : float = 0.0
 var _is_patched : bool  = false
+
+
+func _ready() -> void:
+	current_health = max_health
+	var hb_scene = load("res://core/ui/HealthBar.tscn")
+	if hb_scene:
+		_health_bar = hb_scene.instantiate()
+		add_child(_health_bar)
+		_health_bar.position = Vector2(-24, -180) # Posisikan di atas tumor
+		_health_bar.setup(max_health)
 
 
 func _process(delta: float) -> void:
@@ -27,7 +41,69 @@ func _spawn_enemy() -> void:
 
 	var enemy = enemy_scene.instantiate()
 	get_parent().add_child(enemy)
-	enemy.global_position = global_position
+	
+	# --- Animasi Spawn Bakteri (Ejection & Elastic Pop) ---
+	# 1. Mulai dari posisi agak ke atas (seolah di dalam markas)
+	var spawn_pos = global_position
+	enemy.global_position = spawn_pos + Vector2(0, -40)
+	
+	# 2. Set scale awal ke 0 dan sembunyikan alpha
+	var final_scale = enemy.scale
+	enemy.scale = Vector2.ZERO
+	enemy.modulate.a = 0.0
+	
+	# 3. Jalankan Tween (segaris/paralel)
+	var tween = create_tween()
+	tween.set_parallel(true)
+	
+	# Luncurkan keluar (ke bawah ke arah lane) dengan sebaran X acak
+	var target_pos = spawn_pos + Vector2(randf_range(-40, 40), 90)
+	tween.tween_property(enemy, "global_position", target_pos, 0.6)\
+		.set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+		
+	# Perbesar skala ke ukuran aslinya dengan efek memantul
+	tween.tween_property(enemy, "scale", final_scale, 0.6)\
+		.set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+		
+	# Fading-in
+	tween.tween_property(enemy, "modulate:a", 1.0, 0.3)
+	
+	# --- Animasi Kontraksi Base (Pulsing) ---
+	_pulse_base()
+
+
+func _pulse_base() -> void:
+	var sprite = get_node_or_null("Sprite2D")
+	if not sprite:
+		return
+		
+	var default_scale = sprite.scale
+	var tween = create_tween()
+	
+	# Mengempit/mengontraksi markas (squash ke bawah, stretch ke samping)
+	tween.tween_property(sprite, "scale", Vector2(default_scale.x * 1.25, default_scale.y * 0.75), 0.1)\
+		.set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	# Mengembalikan ke bentuk semula dengan pantulan ringan
+	tween.tween_property(sprite, "scale", default_scale, 0.3)\
+		.set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+
+
+func take_damage(amount: float) -> void:
+	if _is_patched:
+		return
+	current_health = max(0.0, current_health - amount)
+	if _health_bar:
+		_health_bar.update(current_health, max_health)
+		
+	# Hit flash effect (berkedip putih sebentar)
+	var sprite = get_node_or_null("Sprite2D")
+	if sprite:
+		var tween = create_tween()
+		sprite.modulate = Color(5.0, 5.0, 5.0, 1.0)
+		tween.tween_property(sprite, "modulate", Color.WHITE, 0.1)
+		
+	if current_health <= 0.0:
+		get_patched()
 
 
 func get_patched() -> void:

@@ -5,8 +5,9 @@
 [resource]
 script = ExtResource("1_8p835")
 unit_name = "Makrofag"
+description = ""
 max_hp = 250.0
-move_speed = 75.0
+move_speed = 35.0
 damage = 9999.0
 attack_range = 55.0
 attack_speed = 0.2

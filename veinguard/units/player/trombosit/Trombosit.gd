@@ -1,11 +1,10 @@
 class_name Trombosit
 extends UnitBase
 
-@onready var patch_progress : ProgressBar = $PatchProgress
+@onready var patch_progress : ProgressBar = get_node_or_null("PatchProgress")
 
-const PATCH_DURATION : float = 3.0  # detik untuk patching
-var _patch_timer     : float = 0.0
-var _enemy_base      : Node2D = null
+var _enemy_base   : Node2D = null
+var _attack_timer : float  = 0.0
 
 
 func _on_ready() -> void:
@@ -18,12 +17,30 @@ func _on_ready() -> void:
 
 	add_to_group("players")
 	change_state(State.MOVE)
-	patch_progress.visible = false
+	if patch_progress:
+		patch_progress.visible = false
+
+
+func _on_state_changed(new_state: State) -> void:
+	if sprite:
+		if new_state == State.ATTACK:
+			sprite.play("Attack")
+		elif new_state == State.MOVE:
+			sprite.play("walk")
+		elif new_state == State.IDLE:
+			sprite.play("idle")
 
 
 # Jalan terus ke atas menuju EnemyBase
 func _process_move(_delta: float) -> void:
 	if not is_instance_valid(_enemy_base):
+		change_state(State.IDLE)
+		return
+
+	# Jika sudah masuk range serangan, berhenti dan serang
+	var dist := global_position.distance_to(_enemy_base.global_position)
+	if dist <= stats.attack_range:
+		change_state(State.ATTACK)
 		return
 
 	var dir  := global_position.direction_to(_enemy_base.global_position)
@@ -31,35 +48,85 @@ func _process_move(_delta: float) -> void:
 	move_and_slide()
 	if sprite: sprite.play("walk")
 
-	# Sampai di EnemyBase → mulai PATCHING
-	if global_position.distance_to(_enemy_base.global_position) < 60.0:
-		change_state(State.PATCHING)
+
+# Fokus menyerang base musuh dengan animasi throw (Attack)
+func _process_attack(delta: float) -> void:
+	velocity = Vector2.ZERO
+	move_and_slide()
+
+	if not is_instance_valid(_enemy_base):
+		change_state(State.IDLE)
+		return
+
+	# Pastikan animasi Attack berjalan
+	if sprite and sprite.animation != "Attack":
+		sprite.play("Attack")
+
+	_attack_timer += delta
+	if _attack_timer >= 1.0 / stats.attack_speed:
+		_attack_timer = 0.0
+		_throw_clot_projectile()
 
 
-# PATCHING — diam, hitung timer
-func _process_patching(delta: float) -> void:
-	velocity             = Vector2.ZERO
-	_patch_timer        += delta
-	patch_progress.visible = true
-	patch_progress.value   = (_patch_timer / PATCH_DURATION) * 100.0
-	if sprite: sprite.play("patch")
+func _throw_clot_projectile() -> void:
+	if not is_instance_valid(_enemy_base):
+		return
 
-	if _patch_timer >= PATCH_DURATION:
-		_finish_patching()
+	# Buat proyektil keping plasma (clot) secara programatik
+	var proj := Sprite2D.new()
+	proj.texture = load("res://placeholder/Ellipse 1.png")
+	proj.scale = Vector2(0.06, 0.06)
+	proj.modulate = Color(1.0, 0.90, 0.4, 1.0) # Kuning keemasan plasma darah
+	get_tree().current_scene.add_child(proj)
+	proj.global_position = global_position
+
+	# Target dengan sedikit variasi acak agar terlihat natural mendarat di base
+	var target_pos = _enemy_base.global_position + Vector2(randf_range(-40, 40), randf_range(-20, 40))
+	var fly_duration := 0.45
+
+	var tween = create_tween()
+	# Efek terbang parabolik (arc/tinggi lemparan)
+	tween.tween_method(
+		func(progress: float):
+			if not is_instance_valid(proj): return
+			var current_pos = global_position.lerp(target_pos, progress)
+			# Tambahkan efek arc melengkung ke atas
+			var arc_height = sin(progress * PI) * -80.0
+			proj.global_position = current_pos + Vector2(0, arc_height)
+			# Putar proyektil saat terbang
+			proj.rotation += 0.15,
+		0.0, 1.0, fly_duration
+	)
+
+	await tween.finished
+	if not is_instance_valid(proj):
+		return
+
+	# Kurangi HP Base saat mendarat
+	if is_instance_valid(_enemy_base) and _enemy_base.has_method("take_damage"):
+		_enemy_base.take_damage(stats.damage)
+		
+		# Efek ledakan plasma kecil
+		var splash := Sprite2D.new()
+		splash.texture = load("res://placeholder/Ellipse 1.png")
+		splash.scale = Vector2(0.06, 0.06)
+		splash.modulate = Color(1.0, 0.90, 0.4, 0.7)
+		get_tree().current_scene.add_child(splash)
+		splash.global_position = proj.global_position
+		
+		var s_tween = create_tween()
+		s_tween.set_parallel(true)
+		s_tween.tween_property(splash, "scale", Vector2(0.2, 0.2), 0.15)
+		s_tween.tween_property(splash, "modulate:a", 0.0, 0.15)
+		await s_tween.finished
+		splash.queue_free()
+
+	proj.queue_free()
 
 
-func _finish_patching() -> void:
-	if _enemy_base.has_method("get_patched"):
-		_enemy_base.get_patched()
-	queue_free()
-
-
-# Kalau ada musuh di jalan — Trombosit tidak lawan, tapi TETAP jalan
-# (dia bukan sel tempur, hanya memperlambat)
-func _on_body_entered(body: Node2D) -> void:
-	if body.is_in_group("enemies"):
-		# Perlambat saat ada musuh
-		stats.move_speed = max(20.0, stats.move_speed * 0.5)
+# Kalau ada musuh di jalan — Trombosit mengabaikannya, tidak membalas, dan tetap fokus ke base
+func _on_body_entered(_body: Node2D) -> void:
+	pass
 
 
 func _process_die(_delta: float) -> void:

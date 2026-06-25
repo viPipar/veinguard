@@ -1,43 +1,159 @@
-[gd_scene load_steps=3 format=3 uid="uid://cruegtmrysxc7"]
+[gd_scene load_steps=9 format=3 uid="uid://cruegtmrysxc7"]
 
 [ext_resource type="Script" uid="uid://c8qcshykueu22" path="res://core/ui/GameOverScreen.gd" id="1_pv8kd"]
+[ext_resource type="FontFile" uid="uid://cp3e56f4d72bh" path="res://assets/ui/Font/LilitaOne-Regular.ttf" id="2_font"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vlh3n"]
-bg_color = Color(0, 0, 0, 0.72549)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_card"]
+bg_color = Color(0.117647, 0.0392157, 0.0588235, 0.960784)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.8, 0.156863, 0.235294, 0.8)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_left = 24
+corner_radius_bottom_right = 24
+shadow_color = Color(0, 0, 0, 0.588235)
+shadow_size = 25
+shadow_offset = Vector2(0, 10)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_padding"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_normal"]
+bg_color = Color(0.8, 0.156863, 0.235294, 1)
+border_width_bottom = 4
+border_color = Color(0.501961, 0.0784314, 0.117647, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_left = 16
+corner_radius_bottom_right = 16
+expand_margin_left = 20.0
+expand_margin_top = 10.0
+expand_margin_right = 20.0
+expand_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_hover"]
+bg_color = Color(0.901961, 0.235294, 0.313726, 1)
+border_width_bottom = 4
+border_color = Color(0.588235, 0.117647, 0.156863, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_left = 16
+corner_radius_bottom_right = 16
+expand_margin_left = 20.0
+expand_margin_top = 10.0
+expand_margin_right = 20.0
+expand_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_pressed"]
+bg_color = Color(0.588235, 0.0784314, 0.156863, 1)
+border_width_bottom = 1
+border_color = Color(0.352941, 0.0392157, 0.0784314, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_left = 16
+corner_radius_bottom_right = 16
+expand_margin_left = 20.0
+expand_margin_top = 12.0
+expand_margin_right = 20.0
+expand_margin_bottom = 8.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_focus"]
+bg_color = Color(1, 1, 1, 0.0784314)
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 0.392157)
+corner_radius_top_left = 18
+corner_radius_top_right = 18
+corner_radius_bottom_left = 18
+corner_radius_bottom_right = 18
+expand_margin_left = 22.0
+expand_margin_top = 12.0
+expand_margin_right = 22.0
+expand_margin_bottom = 12.0
 
 [node name="GameOverScreen" type="CanvasLayer"]
 script = ExtResource("1_pv8kd")
 
-[node name="Panel" type="Panel" parent="."]
+[node name="Overlay" type="ColorRect" parent="."]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_vlh3n")
+color = Color(0, 0, 0, 0.627451)
 
-[node name="ResultLabel" type="Label" parent="Panel"]
-layout_mode = 0
-offset_left = 540.0
-offset_top = 600.0
-offset_right = 940.0
-offset_bottom = 700.0
+[node name="Card" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(650, 500)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -325.0
+offset_top = -250.0
+offset_right = 325.0
+offset_bottom = 250.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(325, 250)
+theme_override_styles/panel = SubResource("StyleBoxFlat_card")
+
+[node name="MarginContainer" type="MarginContainer" parent="Card"]
+layout_mode = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 50
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Card/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="ResultLabel" type="Label" parent="Card/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.501961)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 6
+theme_override_constants/shadow_outline_size = 10
+theme_override_fonts/font = ExtResource("2_font")
 theme_override_font_sizes/font_size = 72
+text = "MENANG!"
 horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="MessageLabel" type="Label" parent="Panel"]
-layout_mode = 0
-offset_left = 540.0
-offset_top = 1000.0
-offset_right = 580.0
-offset_bottom = 1023.0
+[node name="MessageLabel" type="Label" parent="Card/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.901961, 0.901961, 0.901961, 1)
+theme_override_fonts/font = ExtResource("2_font")
 theme_override_font_sizes/font_size = 32
+text = "Infeksi berhasil dihentikan!
+Tubuh aman!"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
 
-[node name="RestartButton" type="Button" parent="Panel"]
-layout_mode = 0
-offset_left = 540.0
-offset_top = 1200.0
-offset_right = 770.0
-offset_bottom = 1275.0
-theme_override_font_sizes/font_size = 48
+[node name="Spacer" type="Panel" parent="Card/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_padding")
+
+[node name="RestartButton" type="Button" parent="Card/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(0.901961, 0.901961, 0.901961, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/focus = SubResource("StyleBoxFlat_btn_focus")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_btn_normal")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_normal")
 text = "Main Lagi"

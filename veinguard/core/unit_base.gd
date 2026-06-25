@@ -7,6 +7,7 @@ extends CharacterBody2D
 
 # --- Data (drag file .tres ke slot ini di Inspector) ---
 @export var stats : UnitStats
+@export var gameplay_scale : float = 1.6
 
 # --- FSM States ---
 enum State { IDLE, MOVE, ATTACK, DIE, PATCHING }
@@ -30,6 +31,7 @@ var _health_bar : Node = null   # HealthBar node (lazy-found)
 
 
 func _ready() -> void:
+	scale = Vector2(gameplay_scale, gameplay_scale)
 	if stats == null:
 		push_error("[%s] Stats belum di-assign! Drag file .tres ke Inspector." % name)
 		return

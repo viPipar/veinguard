@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dgxhd6jxpjlhl"]
+[gd_scene load_steps=14 format=3 uid="uid://dgxhd6jxpjlhl"]
 
 [ext_resource type="Script" uid="uid://csswcok05plac" path="res://core/lane/PlayerBase.gd" id="1_b4d85"]
 [ext_resource type="Script" uid="uid://8pjxqrfnemi2" path="res://core/lane/Lane.gd" id="1_j8vas"]
@@ -6,12 +6,32 @@
 [ext_resource type="Script" uid="uid://dwjdpphfdhktx" path="res://core/lane/EnemyBase.gd" id="2_4q2cr"]
 [ext_resource type="PackedScene" uid="uid://s5r3qqln8w3p" path="res://units/enemies/bacteria/Streptococcus_pneumoniae/Bacteria.tscn" id="3_1t5db"]
 [ext_resource type="Script" uid="uid://blq3ovx38etgo" path="res://core/lane/OxygenSpawner.gd" id="4_ldus6"]
-[ext_resource type="Texture2D" uid="uid://4wxy0sc0rn78" path="res://placeholder/Rectangle 2 (1).png" id="5_ldus6"]
+[ext_resource type="Texture2D" uid="uid://37geu8lqhh7j" path="res://assets/ui/Map/image 1.png" id="5_ldus6"]
 [ext_resource type="PackedScene" uid="uid://ddi01j1pjcjsi" path="res://core/lane/oxygen.tscn" id="7_ldus6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2lv14"]
 
+[sub_resource type="Shader" id="Shader_blend"]
+code = "shader_type canvas_item;
+uniform float threshold : hint_range(0.0, 1.0) = 0.12;
+uniform float softness : hint_range(0.0, 1.0) = 0.08;
+void fragment() {
+	vec4 col = texture(TEXTURE, UV);
+	float dist = length(col.rgb);
+	float alpha = smoothstep(threshold, threshold + softness, dist);
+	col.a *= alpha;
+	COLOR = col;
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_enemy_base"]
+shader = SubResource("Shader_blend")
+shader_parameter/threshold = 0.12
+shader_parameter/softness = 0.08
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mschv"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_base_physical"]
+radius = 120.0
 
 [node name="Lane" type="Node2D"]
 script = ExtResource("1_j8vas")
@@ -36,11 +56,19 @@ script = ExtResource("2_4q2cr")
 enemy_scene = ExtResource("3_1t5db")
 
 [node name="Sprite2D" type="Sprite2D" parent="EnemyBase"]
-scale = Vector2(0.05, 0.05)
+material = SubResource("ShaderMaterial_enemy_base")
+scale = Vector2(0.4, 0.4)
 texture = ExtResource("5_ldus6")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyBase"]
 shape = SubResource("RectangleShape2D_mschv")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="EnemyBase"]
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyBase/StaticBody2D"]
+shape = SubResource("CircleShape2D_base_physical")
 
 [node name="UnitSpawnPoint" type="Marker2D" parent="."]
 position = Vector2(0, -10)

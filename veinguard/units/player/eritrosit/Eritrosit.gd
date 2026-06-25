@@ -20,6 +20,8 @@ func _on_ready() -> void:
 func _process_idle(_delta: float) -> void:
 	velocity = Vector2.ZERO
 	move_and_slide()
+	if sprite:
+		sprite.play("idle")
 
 
 func _process_move(_delta: float) -> void:
@@ -34,6 +36,10 @@ func _process_move(_delta: float) -> void:
 	var dir  := global_position.direction_to(_target_oxygen.global_position)
 	velocity  = dir * stats.move_speed
 	move_and_slide()
+	if sprite:
+		sprite.play("walk")
+		sprite.flip_h = velocity.x < 0
+
 	if global_position.distance_to(_target_oxygen.global_position) < 30.0:
 		if _target_oxygen.try_pickup():
 			_carried_oxygen      = _target_oxygen
@@ -53,6 +59,10 @@ func _process_attack(_delta: float) -> void:
 	var dir  := global_position.direction_to(base.global_position)
 	velocity  = dir * stats.move_speed
 	move_and_slide()
+	if sprite:
+		sprite.play("carryOxygen")
+		sprite.flip_h = velocity.x < 0
+
 	if global_position.distance_to(base.global_position) < 60.0:
 		_deliver_oxygen()
 

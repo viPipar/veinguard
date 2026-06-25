@@ -1,17 +1,31 @@
-[gd_scene load_steps=8 format=3 uid="uid://bvqnflplnbiwo"]
+[gd_scene load_steps=11 format=3 uid="uid://bvqnflplnbiwo"]
 
 [ext_resource type="PackedScene" uid="uid://dgxhd6jxpjlhl" path="res://core/lane/Lane.tscn" id="1_c2ibq"]
 [ext_resource type="Script" uid="uid://lleuox8u80ym" path="res://Main.gd" id="1_main"]
 [ext_resource type="Script" uid="uid://bgwe5hm4yfknu" path="res://core/ui/HUD.gd" id="2_j4qnp"]
+[ext_resource type="Script" uid="uid://der5hto6kr2ry" path="res://map_background.gd" id="3_5vw27"]
+[ext_resource type="Texture2D" uid="uid://cp4rwpt8otkbc" path="res://assets/ui/Map/Map1.png" id="7_272bh"]
 [ext_resource type="PackedScene" uid="uid://dt3fu2wae22rx" path="res://units/player/eritrosit/Eritrosit.tscn" id="8_devvj"]
 [ext_resource type="Script" uid="uid://dy4myjf16eds1" path="res://core/SlingshotController.gd" id="13_xrxkg"]
 [ext_resource type="PackedScene" uid="uid://cruegtmrysxc7" path="res://core/ui/GameOverScreen.tscn" id="14_sqvbp"]
+[ext_resource type="FontFile" uid="uid://bfxnglvi5ws5u" path="res://assets/ui/Font/LilitaOne-Regular.ttf" id="15_font"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_efxa6"]
+font = ExtResource("15_font")
 font_size = 64
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_main")
+
+[node name="MapBackground" type="Sprite2D" parent="."]
+position = Vector2(536, 954)
+scale = Vector2(1.1525, 1.15431)
+texture = ExtResource("7_272bh")
+region_rect = Rect2(1.5, 0, 1500, 12800)
+script = ExtResource("3_5vw27")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(540, 960)
 
 [node name="Lane" parent="." instance=ExtResource("1_c2ibq")]
 
@@ -34,6 +48,7 @@ offset_left = 540.0
 offset_top = 100.0
 offset_right = 580.0
 offset_bottom = 123.0
+theme_override_fonts/font = ExtResource("15_font")
 theme_override_font_sizes/font_size = 50
 
 [node name="OvertimeLabel" type="Label" parent="HUD"]
@@ -42,6 +57,7 @@ offset_top = 1000.0
 offset_right = 850.0
 offset_bottom = 1083.0
 theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_fonts/font = ExtResource("15_font")
 theme_override_font_sizes/font_size = 60
 text = "⚡ OVERTIME! ⚡"
 
@@ -54,7 +70,7 @@ width = 3.0
 texture_mode = 1
 
 [node name="Eritrosit" parent="." instance=ExtResource("8_devvj")]
-position = Vector2(547, 685)
+position = Vector2(608, 612)
 
 [node name="GameOverScreen" parent="." instance=ExtResource("14_sqvbp")]
 
@@ -65,5 +81,6 @@ offset_top = 1000.0
 offset_right = 850.0
 offset_bottom = 1083.0
 theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_fonts/font = ExtResource("15_font")
 theme_override_font_sizes/font_size = 60
 text = "⚡ OVERTIME! ⚡"

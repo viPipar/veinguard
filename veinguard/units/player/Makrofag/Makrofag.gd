@@ -2,7 +2,7 @@ class_name Makrofag
 extends UnitBase
 
 # --- Config ---
-@export var chew_duration : float = 6.0  # Durasi mengunyah (cooldown) dalam detik
+@export var chew_duration : float = 12.0  # Durasi mengunyah (cooldown) dalam detik
 
 # --- Runtime variables ---
 var _chew_timer     : float = 0.0

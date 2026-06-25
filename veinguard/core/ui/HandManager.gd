@@ -25,26 +25,26 @@ const _POOL_ENTRIES: Array = [
 	[
 		"res://units/player/trombosit/Trombosit.tscn",
 		"res://units/player/trombosit/trombosit_stats.tres",
-		"res://placeholder/26_CardCut.png",
-		"res://assets/ui/unit_cards/Card Back Eritrosit.png",
+		"res://assets/ui/unit_cards/Card Front Trombosit.png",
+		"res://assets/ui/unit_cards/Card Back Trombosit.png",
 	],
 	[
 		"res://units/player/killer_t/KillerT.tscn",
 		"res://units/player/killer_t/killert_stats.tres",
-		"res://placeholder/40_CardCut.png",
-		"res://assets/ui/unit_cards/Card Back Natural Killer.png",
+		"res://assets/ui/unit_cards/Card Front T Killer.png",
+		"res://assets/ui/unit_cards/Card Back T Killer.png",
 	],
 	[
 		"res://units/player/eosinofil/Eosinofil.tscn",
 		"res://units/player/eosinofil/eosinofil_stats.tres",
-		"res://placeholder/12_CardCut.png",
-		"res://assets/ui/unit_cards/Card Back Eritrosit.png",
+		"res://assets/ui/unit_cards/Card Front Limfosit B.png",
+		"res://assets/ui/unit_cards/Card Back Limfosit B.png",
 	],
 	[
 		"res://units/player/Makrofag/Makrofag.tscn",
 		"res://units/player/Makrofag/Makrofag_stat.tres",
-		"res://placeholder/54_CardCut.png",
-		"res://assets/ui/unit_cards/Card Back Natural Killer.png",
+		"res://assets/ui/unit_cards/Card Front Makrofag.png",
+		"res://assets/ui/unit_cards/Card Back Makrofag.png",
 	],
 ]
 

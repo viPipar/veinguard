@@ -9,6 +9,9 @@ var _target        : Node2D
 var _eo_stats      : EosinophilStats
 var _start_pos     : Vector2
 var _max_distance  : float
+var _trail_points  : Array[Vector2] = []
+
+@onready var trail : Line2D = get_node_or_null("Trail")
 
 func setup(dir: Vector2, target: Node2D, stats: EosinophilStats) -> void:
 	_direction = dir
@@ -23,15 +26,37 @@ func setup(dir: Vector2, target: Node2D, stats: EosinophilStats) -> void:
 	
 	# Memutar proyektil searah dengan arah terbang
 	rotation = _direction.angle()
+	
+	# --- Squash & Stretch Proyektil (Droplet) ---
+	var sprite = get_node_or_null("Sprite2D")
+	if sprite:
+		# Meregang ke depan, memipih ke samping
+		sprite.scale = Vector2(0.18, 0.08)
+		# Beri warna merah-muda asam menyala khas eosinofil
+		sprite.modulate = Color(1.0, 0.35, 0.72)
 
 
 func _ready() -> void:
 	body_entered.connect(_on_body_entered)
+	if trail:
+		# Supaya koordinat line2d tetap berada di world space
+		trail.set_as_top_level(true)
+		trail.clear_points()
 
 
 func _process(delta: float) -> void:
 	# Bergerak lurus ke depan
 	position += _direction * speed * delta
+	
+	# --- Update Trail Line2D ---
+	if trail:
+		_trail_points.push_back(global_position)
+		if _trail_points.size() > 10:
+			_trail_points.pop_front()
+		
+		trail.clear_points()
+		for pt in _trail_points:
+			trail.add_point(pt)
 	
 	# Cek batas jangkauan. Meledak tepat di posisi musuh saat ditembakkan.
 	if global_position.distance_to(_start_pos) >= _max_distance:
