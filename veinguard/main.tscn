@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://dy4myjf16eds1" path="res://core/SlingshotController.gd" id="13_xrxkg"]
 [ext_resource type="PackedScene" uid="uid://cruegtmrysxc7" path="res://core/ui/GameOverScreen.tscn" id="14_sqvbp"]
 [ext_resource type="FontFile" uid="uid://bpuk0y8kyjxs2" path="res://assets/ui/Font/LilitaOne-Regular.ttf" id="15_font"]
+[ext_resource type="PackedScene" uid="uid://cx1g25v6y6y7y" path="res://core/ui/DebugMenu.tscn" id="DebugMenuScene"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_efxa6"]
 font = ExtResource("15_font")
@@ -62,7 +63,6 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[ext_resource type="PackedScene" uid="uid://cx1g25v6y6y7y" path="res://core/ui/DebugMenu.tscn" id="DebugMenuScene"]
 [node name="Main" type="Node2D"]
 script = ExtResource("1_main")
 
