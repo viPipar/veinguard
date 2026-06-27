@@ -5,13 +5,13 @@
 [resource]
 script = ExtResource("1_n10i2")
 knockback_force = 400.0
-dot_damage = 5.0
+dot_damage = 20.0
 dot_duration = 3.0
-unit_name = "Unknown Unit"
+unit_name = "Limfosit B"
 description = ""
-max_hp = 100.0
-move_speed = 80.0
-damage = 10.0
+max_hp = 50.0
+move_speed = 45.0
+damage = 20.0
 attack_range = 50.0
 attack_speed = 1.0
 cost = 5

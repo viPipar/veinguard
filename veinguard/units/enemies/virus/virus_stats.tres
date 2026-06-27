@@ -1,13 +1,14 @@
-[gd_resource type="Resource" script_class="UnitStats" load_steps=2 format=3 uid="uid://cy945x48rnxvq"]
+[gd_resource type="Resource" script_class="UnitStats" load_steps=2 format=3 uid="uid://c0a45x48rnxvq"]
 
 [ext_resource type="Script" uid="uid://c5gbukkn4s3uk" path="res://core/resources/UnitStats.gd" id="1_stats"]
 
 [resource]
 script = ExtResource("1_stats")
 unit_name = "Virus Ranged"
+description = ""
 max_hp = 60.0
 move_speed = 70.0
-damage = 15.0
+damage = 7.0
 attack_range = 350.0
 attack_speed = 0.8
 cost = 0

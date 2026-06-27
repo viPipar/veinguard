@@ -15,6 +15,7 @@ func _on_ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	if current_state == State.DIE:
+		super._physics_process(delta)
 		return
 	
 	_retarget_timer += delta

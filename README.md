@@ -84,4 +84,8 @@ Jangan langsung push ke `main`. Buat PR ke `dev`, lakukan *playtest* dan minta *
 ## Tim
 
 Dikembangkan oleh Kelompok GKV **12 Mipa 1**.
+- Ahmad Rafif Ilmany
+- Muhammad Farrel Alfachrezi
+- Muhammad Rezonaldo Yunus
+- Azra Aslam Khoiri
 Mendukung kolaborasi tim secara modular (desainer/programmer lain cukup fokus di folder karakter masing-masing).
