@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://csswcok05plac" path="res://core/lane/PlayerBase.gd" id="1_b4d85"]
 [ext_resource type="Script" uid="uid://8pjxqrfnemi2" path="res://core/lane/Lane.gd" id="1_j8vas"]
-[ext_resource type="Texture2D" uid="uid://usdlxwtl3go4" path="res://placeholder/Rectangle 2.png" id="2_1t5db"]
+[ext_resource type="Texture2D" uid="uid://4p3tho7fi8sx" path="res://assets/ui/Map/HeroBase.png" id="2_1t5db"]
 [ext_resource type="Script" uid="uid://dwjdpphfdhktx" path="res://core/lane/EnemyBase.gd" id="2_4q2cr"]
 [ext_resource type="PackedScene" uid="uid://s5r3qqln8w3p" path="res://units/enemies/bacteria/streptococcus_pneumoniae/Bacteria.tscn" id="3_1t5db"]
 [ext_resource type="Script" uid="uid://blq3ovx38etgo" path="res://core/lane/OxygenSpawner.gd" id="4_ldus6"]
@@ -44,7 +44,7 @@ position = Vector2(540, 1020)
 script = ExtResource("1_b4d85")
 
 [node name="Sprite2D" type="Sprite2D" parent="PlayerBase"]
-scale = Vector2(0.05, 0.05)
+scale = Vector2(0.22, 0.22)
 texture = ExtResource("2_1t5db")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerBase"]

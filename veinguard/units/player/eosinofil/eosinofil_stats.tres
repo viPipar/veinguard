@@ -8,6 +8,7 @@ knockback_force = 400.0
 dot_damage = 5.0
 dot_duration = 3.0
 unit_name = "Unknown Unit"
+description = ""
 max_hp = 100.0
 move_speed = 80.0
 damage = 10.0

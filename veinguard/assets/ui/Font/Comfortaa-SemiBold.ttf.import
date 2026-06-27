@@ -3,12 +3,12 @@
 importer="font_data_dynamic"
 type="FontFile"
 uid="uid://cy153g63o5uam"
-path="res://.godot/imported/Comfortaa-SemiBold.ttf-f30f27428d21c5641beab1dcf62c527c.fontdata"
+path="res://.godot/imported/Comfortaa-SemiBold.ttf-a0aa0151890cb5b5d63f598774954787.fontdata"
 
 [deps]
 
-source_file="res://assets/ui/font/Comfortaa-SemiBold.ttf"
-dest_files=["res://.godot/imported/Comfortaa-SemiBold.ttf-f30f27428d21c5641beab1dcf62c527c.fontdata"]
+source_file="res://assets/ui/Font/Comfortaa-SemiBold.ttf"
+dest_files=["res://.godot/imported/Comfortaa-SemiBold.ttf-a0aa0151890cb5b5d63f598774954787.fontdata"]
 
 [params]
 
