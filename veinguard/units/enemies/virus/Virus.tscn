@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://c1wa4x48rnxvq"]
+[gd_scene load_steps=18 format=3 uid="uid://c1wa4x48rnxvq"]
 
 [ext_resource type="Script" uid="uid://cy766ira17i67" path="res://units/enemies/virus/Virus.gd" id="1_virus"]
 [ext_resource type="Resource" uid="uid://c0a45x48rnxvq" path="res://units/enemies/virus/virus_stats.tres" id="2_stats"]
@@ -47,49 +47,111 @@ region = Rect2(576, 0, 64, 64)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_virus"]
 animations = [{
-"frames": [{"duration": 1.0, "texture": SubResource("AtlasTexture_virus_0")},
-{"duration": 1.0, "texture": SubResource("AtlasTexture_virus_1")},
-{"duration": 1.0, "texture": SubResource("AtlasTexture_virus_2")},
-{"duration": 1.0, "texture": SubResource("AtlasTexture_virus_3")},
-{"duration": 1.0, "texture": SubResource("AtlasTexture_virus_4")},
-{"duration": 1.0, "texture": SubResource("AtlasTexture_virus_5")},
-{"duration": 1.0, "texture": SubResource("AtlasTexture_virus_6")},
-{"duration": 1.0, "texture": SubResource("AtlasTexture_virus_7")},
-{"duration": 1.0, "texture": SubResource("AtlasTexture_virus_8")},
-{"duration": 1.0, "texture": SubResource("AtlasTexture_virus_9")}],
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_virus_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_virus_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_virus_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_virus_3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_virus_4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_virus_5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_virus_6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_virus_7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_virus_8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_virus_9")
+}],
+"loop": true,
+"name": &"Attack",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_virus_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_virus_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_virus_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_virus_3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_virus_4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_virus_5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_virus_6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_virus_7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_virus_8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_virus_9")
+}],
 "loop": true,
 "name": &"idle",
 "speed": 10.0
 }, {
-"frames": [{"duration": 1.0, "texture": SubResource("AtlasTexture_virus_0")},
-{"duration": 1.0, "texture": SubResource("AtlasTexture_virus_1")},
-{"duration": 1.0, "texture": SubResource("AtlasTexture_virus_2")},
-{"duration": 1.0, "texture": SubResource("AtlasTexture_virus_3")},
-{"duration": 1.0, "texture": SubResource("AtlasTexture_virus_4")},
-{"duration": 1.0, "texture": SubResource("AtlasTexture_virus_5")},
-{"duration": 1.0, "texture": SubResource("AtlasTexture_virus_6")},
-{"duration": 1.0, "texture": SubResource("AtlasTexture_virus_7")},
-{"duration": 1.0, "texture": SubResource("AtlasTexture_virus_8")},
-{"duration": 1.0, "texture": SubResource("AtlasTexture_virus_9")}],
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_virus_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_virus_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_virus_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_virus_3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_virus_4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_virus_5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_virus_6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_virus_7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_virus_8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_virus_9")
+}],
 "loop": true,
 "name": &"walk",
 "speed": 10.0
-}, {
-"frames": [{"duration": 1.0, "texture": SubResource("AtlasTexture_virus_0")},
-{"duration": 1.0, "texture": SubResource("AtlasTexture_virus_1")},
-{"duration": 1.0, "texture": SubResource("AtlasTexture_virus_2")},
-{"duration": 1.0, "texture": SubResource("AtlasTexture_virus_3")},
-{"duration": 1.0, "texture": SubResource("AtlasTexture_virus_4")},
-{"duration": 1.0, "texture": SubResource("AtlasTexture_virus_5")},
-{"duration": 1.0, "texture": SubResource("AtlasTexture_virus_6")},
-{"duration": 1.0, "texture": SubResource("AtlasTexture_virus_7")},
-{"duration": 1.0, "texture": SubResource("AtlasTexture_virus_8")},
-{"duration": 1.0, "texture": SubResource("AtlasTexture_virus_9")}],
-"loop": true,
-"name": &"Attack",
-"speed": 12.0
 }]
-
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_col"]
 radius = 8.0

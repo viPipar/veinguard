@@ -12,6 +12,12 @@ func _ready() -> void:
 	GameManager.oxygen_changed.connect(_on_oxygen_changed)
 	GameManager.time_updated.connect(_on_time_updated)
 	GameManager.overtime_started.connect(_on_overtime_started)
+	
+	# Hubungkan sinyal Heartbeat Rush
+	if GameManager.has_signal("heartbeat_rush_started"):
+		GameManager.heartbeat_rush_started.connect(_on_heartbeat_rush_started)
+	if GameManager.has_signal("heartbeat_rush_ended"):
+		GameManager.heartbeat_rush_ended.connect(_on_heartbeat_rush_ended)
 
 	oxygen_bar.min_value   = 0
 	oxygen_bar.max_value   = GameManager.MAX_OXYGEN
@@ -83,3 +89,44 @@ func _on_settings_button_pressed() -> void:
 	get_tree().paused = true
 	settings_menu.tree_exited.connect(func(): get_tree().paused = false)
 	add_child(settings_menu)
+
+
+# --- Heartbeat Rush UI Notification ---
+var _heartbeat_label : Label = null
+
+func _setup_heartbeat_label() -> void:
+	_heartbeat_label = Label.new()
+	_heartbeat_label.text = "⚡ DETAK JANTUNG KENCANG! ⚡\nSemua unit bergerak 1.5x lebih cepat!"
+	_heartbeat_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	_heartbeat_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	var font = load("res://assets/ui/Font/LilitaOne-Regular.ttf")
+	if font:
+		_heartbeat_label.add_theme_font_override("font", font)
+	_heartbeat_label.add_theme_font_size_override("font_size", 38)
+	_heartbeat_label.add_theme_color_override("font_color", Color(1.0, 0.25, 0.25, 1.0))
+	_heartbeat_label.add_theme_color_override("font_outline_color", Color.BLACK)
+	_heartbeat_label.add_theme_constant_override("outline_size", 12)
+	
+	_heartbeat_label.position = Vector2(100, 300)
+	_heartbeat_label.size = Vector2(880, 150)
+	_heartbeat_label.visible = false
+	add_child(_heartbeat_label)
+
+
+func _on_heartbeat_rush_started() -> void:
+	if _heartbeat_label == null:
+		_setup_heartbeat_label()
+	_heartbeat_label.visible = true
+	
+	# Efek denyut detak jantung (pulse animation)
+	var tween = create_tween().set_loops()
+	_heartbeat_label.pivot_offset = _heartbeat_label.size / 2.0
+	tween.tween_property(_heartbeat_label, "scale", Vector2(1.15, 1.15), 0.25)\
+		.set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	tween.tween_property(_heartbeat_label, "scale", Vector2(1.0, 1.0), 0.25)\
+		.set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
+
+
+func _on_heartbeat_rush_ended() -> void:
+	if _heartbeat_label:
+		_heartbeat_label.visible = false
