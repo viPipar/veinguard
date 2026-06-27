@@ -4,12 +4,19 @@ extends Area2D
 @export var damage: float = 15.0
 
 var velocity: Vector2 = Vector2.ZERO
+var _target: Node2D = null
 
-func setup(dir: Vector2, dmg: float) -> void:
+func setup(dir: Vector2, dmg: float, target: Node2D = null) -> void:
 	velocity = dir.normalized() * speed
 	damage = dmg
+	_target = target
 
 func _physics_process(delta: float) -> void:
+	if is_instance_valid(_target):
+		var dir = (_target.global_position - global_position).normalized()
+		# Interpolasi velocity agar ada efek belok (curve) tidak instan kaku
+		velocity = velocity.lerp(dir * speed, 5.0 * delta)
+		
 	position += velocity * delta
 	rotation = velocity.angle()
 
