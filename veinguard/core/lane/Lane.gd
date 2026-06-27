@@ -8,7 +8,7 @@ extends Node2D
 @onready var player_base     : Area2D  = $PlayerBase
 @onready var enemy_base      : Area2D  = $EnemyBase
 @onready var unit_spawn_point: Marker2D = $UnitSpawnPoint
-@onready var oxygen_zone     : Area2D  = $OxygenZone
+
 @export var bacteria_scene : PackedScene
 
 func _ready() -> void:
