@@ -4,7 +4,6 @@ class_name NTKiller
 extends UnitBase
 
 var _attack_timer   : float = 0.0
-var _retarget_timer : float = 0.0
 
 
 func _on_ready() -> void:
@@ -79,49 +78,76 @@ func _process_move(_delta: float) -> void:
 
 
 func _process_attack(delta: float) -> void:
-	# Jika target tidak valid (mati/queue_free), langsung cari target baru
 	if not is_instance_valid(current_target):
+		current_attack_phase = AttackPhase.READY
 		_pick_nearest_target()
 		return
 
-	# Periodic re-targeting setiap 0.5 detik → pilih yang terdekat
-	_retarget_timer += delta
-	if _retarget_timer >= 0.5:
-		_retarget_timer = 0.0
-		_pick_nearest_target()
-		return
+	# Cek jarak
+	var dist := global_position.distance_to(current_target.global_position)
 
-	# Cek apakah target sudah masuk AttackArea
-	var bodies_in_attack := attack_area.get_overlapping_bodies()
-	if not current_target in bodies_in_attack:
-		# Masih di luar jangkauan serang, kejar target
-		var dir := global_position.direction_to(current_target.global_position)
-		velocity = dir * stats.move_speed
-		move_and_slide()
-		
-		if sprite:
-			if sprite.sprite_frames.has_animation("walk") and sprite.animation != "walk":
-				sprite.play("walk")
-			if velocity.x != 0:
-				sprite.flip_h = velocity.x < 0
-		return
-
-	# Sudah dalam jangkauan serang, berhenti dan deal damage
-	velocity = Vector2.ZERO
-	move_and_slide()
-
-	if sprite:
-		var dir := global_position.direction_to(current_target.global_position)
-		if dir.x != 0:
-			sprite.flip_h = dir.x < 0
+	if current_attack_phase == AttackPhase.READY:
+		# Periodic re-targeting jika masih mengejar
+		_retarget_timer += delta
+		if _retarget_timer >= 0.5:
+			_retarget_timer = 0.0
+			_pick_nearest_target()
+			if not current_target: return
 			
-		if sprite.animation != "attack" and sprite.animation != "idle" and sprite.sprite_frames.has_animation("idle"):
-			sprite.play("idle")
+		if dist > stats.attack_range:
+			# Kejar target
+			var dir := global_position.direction_to(current_target.global_position)
+			velocity = dir * stats.move_speed
+			move_and_slide()
+			if sprite:
+				if sprite.sprite_frames.has_animation("walk") and sprite.animation != "walk":
+					sprite.play("walk")
+				if velocity.x != 0:
+					sprite.flip_h = velocity.x < 0
+		else:
+			# Mulai ancang-ancang (Windup)
+			current_attack_phase = AttackPhase.WINDUP
+			_windup_timer = 0.0
+			velocity = Vector2.ZERO
+			move_and_slide()
+			if sprite:
+				var dir := global_position.direction_to(current_target.global_position)
+				if dir.x != 0: sprite.flip_h = dir.x < 0
+				if sprite.sprite_frames.has_animation("attack"):
+					sprite.play("attack")
+					
+	elif current_attack_phase == AttackPhase.WINDUP:
+		if dist > stats.attack_range + 20.0:
+			# Target kabur, batalkan serangan
+			current_attack_phase = AttackPhase.READY
+			return
+			
+		_windup_timer += delta
+		if _windup_timer >= stats.windup_time:
+			# Titik Impact: Beri damage
+			_deal_damage()
+			current_attack_phase = AttackPhase.COOLDOWN
+			_cooldown_timer = 0.0
+			
+			# Squash & Stretch Hit Effect
+			if sprite:
+				var base = get_sprite_base_scale()
+				var tween = create_tween()
+				tween.tween_property(sprite, "scale", Vector2(base.x * 1.1, base.y * 0.9), 0.05)
+				tween.tween_property(sprite, "scale", base, 0.1)
 
-	_attack_timer += delta
-	if _attack_timer >= 1.0 / stats.attack_speed:
-		_attack_timer = 0.0
-		_deal_damage()
+	elif current_attack_phase == AttackPhase.COOLDOWN:
+		_cooldown_timer += delta
+		var total_attack_duration = 1.0 / stats.attack_speed
+		var remaining_cooldown = max(0.0, total_attack_duration - stats.windup_time)
+		
+		# Jika animasi serangan sudah selesai tapi masih cooldown, kembali ke idle
+		if sprite and sprite.animation == "attack" and not sprite.is_playing():
+			if sprite.sprite_frames.has_animation("idle"):
+				sprite.play("idle")
+				
+		if _cooldown_timer >= remaining_cooldown:
+			current_attack_phase = AttackPhase.READY
 
 
 func _deal_damage() -> void:

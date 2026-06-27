@@ -1,8 +1,8 @@
 class_name KillerT
 extends UnitBase
 
-enum AttackPhase { IDLE, DASHING }
-var _attack_phase    : AttackPhase = AttackPhase.IDLE
+enum KillerAttackPhase { IDLE, DASHING }
+var _attack_phase    : KillerAttackPhase = KillerAttackPhase.IDLE
 var _dash_timer      : float = 0.0
 var _dash_dir        : Vector2 = Vector2.ZERO
 var _dash_speed      : float = 800.0  # Kecepatan dash
@@ -11,8 +11,6 @@ var _charge_duration : float = 2.5    # Lama waktu charge
 var _hit_enemies     : Array[Node2D] = []
 var _has_started_moving : bool = false
 var _is_slashing     : bool = false
-
-var _retarget_timer  : float = 0.0
 var _slash_audio_player: AudioStreamPlayer2D
 
 
@@ -92,12 +90,12 @@ func _process_move(delta: float) -> void:
 
 
 func _process_attack(delta: float) -> void:
-	if not is_instance_valid(current_target) and _attack_phase != AttackPhase.DASHING:
+	if not is_instance_valid(current_target) and _attack_phase != KillerAttackPhase.DASHING:
 		_pick_nearest_target()
 		return
 
 	# Periodic re-targeting jika masih mengejar/idle
-	if _attack_phase == AttackPhase.IDLE:
+	if _attack_phase == KillerAttackPhase.IDLE:
 		_retarget_timer += delta
 		if _retarget_timer >= 0.5:
 			_retarget_timer = 0.0
@@ -121,7 +119,7 @@ func _process_attack(delta: float) -> void:
 		# Masuk jangkauan, mulai dash sequence (charging & dashing)
 		_start_dash()
 
-	elif _attack_phase == AttackPhase.DASHING:
+	elif _attack_phase == KillerAttackPhase.DASHING:
 		_dash_timer += delta
 		
 		if _dash_timer < _charge_duration:
@@ -174,7 +172,7 @@ func _process_attack(delta: float) -> void:
 
 
 func _start_dash() -> void:
-	_attack_phase = AttackPhase.DASHING
+	_attack_phase = KillerAttackPhase.DASHING
 	_dash_timer   = 0.0
 	_has_started_moving = false
 	_hit_enemies.clear()
@@ -203,7 +201,7 @@ func _check_dash_hits() -> void:
 
 
 func _end_dash() -> void:
-	_attack_phase = AttackPhase.IDLE
+	_attack_phase = KillerAttackPhase.IDLE
 	_has_started_moving = false
 	_is_slashing = false
 	if _slash_audio_player and _slash_audio_player.playing:
@@ -247,6 +245,6 @@ func _on_aggro_entered(_body: Node2D) -> void:
 
 
 func _on_aggro_exited(body: Node2D) -> void:
-	if body == current_target and _attack_phase == AttackPhase.IDLE:
+	if body == current_target and _attack_phase == KillerAttackPhase.IDLE:
 		_retarget_timer = 0.0
 		_pick_nearest_target()

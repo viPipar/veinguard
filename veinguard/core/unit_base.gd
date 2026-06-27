@@ -21,6 +21,13 @@ var _gravity        : Vector2 = Vector2(0, 980.0)
 var current_hp     : float
 var current_target : Node2D = null  # musuh yang sedang diincar
 
+# --- Attack System (Clash Royale Style) ---
+enum AttackPhase { READY, WINDUP, COOLDOWN }
+var current_attack_phase : AttackPhase = AttackPhase.READY
+var _windup_timer   : float = 0.0
+var _cooldown_timer : float = 0.0
+var _retarget_timer : float = 0.0
+
 # --- Debuffs (Slow & Stun) ---
 var is_stunned         : bool  = false
 var _active_slow_count : int   = 0

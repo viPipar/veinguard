@@ -12,4 +12,5 @@ extends Resource
 @export var damage       : float  = 10.0
 @export var attack_range : float  = 50.0
 @export var attack_speed : float  = 1.0   # serangan per detik
+@export var windup_time  : float  = 0.3   # ancang-ancang sebelum pukul
 @export var cost         : int    = 100   # biaya Oxygen Points
