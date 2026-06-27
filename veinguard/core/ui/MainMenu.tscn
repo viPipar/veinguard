@@ -1,8 +1,8 @@
-[gd_scene load_steps=12 format=3 uid="uid://cf83oipf03a6k"]
+[gd_scene load_steps=13 format=3 uid="uid://cf83oipf03a6k"]
 
 [ext_resource type="Script" uid="uid://w8j8tulooq2k" path="res://core/ui/MainMenu.gd" id="1_abcde"]
-[ext_resource type="Texture2D" uid="uid://b1cwvflir0x5y" path="res://assets/ui/Map/MenuBackground.png" id="2_bg"]
-[ext_resource type="FontFile" uid="uid://bpuk0y8kyjxs2" path="res://assets/ui/Font/LilitaOne-Regular.ttf" id="3_font"]
+[ext_resource type="Texture2D" uid="uid://b1cwvflir0x5y" path="res://assets/ui/map/MenuBackground.png" id="2_bg"]
+[ext_resource type="FontFile" uid="uid://bpuk0y8kyjxs2" path="res://assets/ui/font/LilitaOne-Regular.ttf" id="3_font"]
 
 [sub_resource type="Gradient" id="Gradient_particles"]
 colors = PackedColorArray(0.85098, 0.156863, 0.231373, 0.4, 0.941176, 0.352941, 0.392157, 0)
@@ -13,80 +13,6 @@ width = 32
 height = 32
 fill = 1
 fill_from = Vector2(0.5, 0.5)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_start_normal"]
-bg_color = Color(0.8, 0.12, 0.2, 1)
-border_width_left = 4
-border_width_top = 4
-border_width_right = 4
-border_width_bottom = 8
-border_color = Color(0.95, 0.25, 0.35, 1)
-corner_radius_top_left = 24
-corner_radius_top_right = 24
-corner_radius_bottom_right = 24
-corner_radius_bottom_left = 24
-shadow_color = Color(0.4, 0.05, 0.1, 0.5)
-shadow_size = 12
-shadow_offset = Vector2(0, 6)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_start_hover"]
-bg_color = Color(0.9, 0.18, 0.28, 1)
-border_width_left = 4
-border_width_top = 4
-border_width_right = 4
-border_width_bottom = 8
-border_color = Color(1, 0.4, 0.5, 1)
-corner_radius_top_left = 24
-corner_radius_top_right = 24
-corner_radius_bottom_right = 24
-corner_radius_bottom_left = 24
-shadow_color = Color(0.5, 0.08, 0.15, 0.6)
-shadow_size = 16
-shadow_offset = Vector2(0, 8)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sec_normal"]
-bg_color = Color(0.12, 0.12, 0.2, 0.6)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 4
-border_color = Color(0.3, 0.3, 0.45, 1)
-corner_radius_top_left = 20
-corner_radius_top_right = 20
-corner_radius_bottom_right = 20
-corner_radius_bottom_left = 20
-shadow_color = Color(0, 0, 0, 0.2)
-shadow_size = 6
-shadow_offset = Vector2(0, 3)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sec_hover"]
-bg_color = Color(0.18, 0.18, 0.3, 0.8)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 4
-border_color = Color(0.45, 0.45, 0.65, 1)
-corner_radius_top_left = 20
-corner_radius_top_right = 20
-corner_radius_bottom_right = 20
-corner_radius_bottom_left = 20
-shadow_color = Color(0, 0, 0, 0.3)
-shadow_size = 8
-shadow_offset = Vector2(0, 4)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_popup"]
-bg_color = Color(0.08, 0.08, 0.12, 0.95)
-border_width_left = 4
-border_width_top = 4
-border_width_right = 4
-border_width_bottom = 4
-border_color = Color(0.8, 0.12, 0.2, 1)
-corner_radius_top_left = 32
-corner_radius_top_right = 32
-corner_radius_bottom_right = 32
-corner_radius_bottom_left = 32
-shadow_color = Color(0, 0, 0, 0.6)
-shadow_size = 24
 
 [sub_resource type="LabelSettings" id="LabelSettings_title"]
 font = ExtResource("3_font")
@@ -104,6 +30,79 @@ font_size = 36
 font_color = Color(0.941176, 0.470588, 0.509804, 1)
 outline_size = 8
 outline_color = Color(0.12, 0.02, 0.05, 0.8)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_start_hover"]
+bg_color = Color(0.9, 0.18, 0.28, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 8
+border_color = Color(1, 0.4, 0.5, 1)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+shadow_color = Color(0.5, 0.08, 0.15, 0.6)
+shadow_size = 16
+shadow_offset = Vector2(0, 8)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_start_normal"]
+bg_color = Color(0.8, 0.12, 0.2, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 8
+border_color = Color(0.95, 0.25, 0.35, 1)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+shadow_color = Color(0.4, 0.05, 0.1, 0.5)
+shadow_size = 12
+shadow_offset = Vector2(0, 6)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sec_hover"]
+bg_color = Color(0.18, 0.18, 0.3, 0.8)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 4
+border_color = Color(0.45, 0.45, 0.65, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+shadow_color = Color(0, 0, 0, 0.3)
+shadow_size = 8
+shadow_offset = Vector2(0, 4)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sec_normal"]
+bg_color = Color(0.12, 0.12, 0.2, 0.6)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 4
+border_color = Color(0.3, 0.3, 0.45, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+shadow_color = Color(0, 0, 0, 0.2)
+shadow_size = 6
+shadow_offset = Vector2(0, 3)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_popup"]
+bg_color = Color(0.08, 0.08, 0.12, 0.95)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.8, 0.12, 0.2, 1)
+corner_radius_top_left = 32
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 32
+shadow_size = 24
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -137,9 +136,9 @@ color = Color(0.1, 0.02, 0.04, 0.8)
 [node name="BloodParticles" type="CPUParticles2D" parent="."]
 position = Vector2(540, 2000)
 amount = 15
+texture = SubResource("GradientTexture2D_particles")
 lifetime = 10.0
 preprocess = 5.0
-texture = SubResource("GradientTexture2D_particles")
 emission_shape = 3
 emission_rect_extents = Vector2(540, 1)
 direction = Vector2(0, -1)
@@ -198,10 +197,10 @@ layout_mode = 2
 size_flags_horizontal = 4
 theme_override_fonts/font = ExtResource("3_font")
 theme_override_font_sizes/font_size = 48
-theme_override_styles/normal = SubResource("StyleBoxFlat_start_normal")
+theme_override_styles/focus = SubResource("StyleBoxFlat_start_hover")
 theme_override_styles/hover = SubResource("StyleBoxFlat_start_hover")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_start_normal")
-theme_override_styles/focus = SubResource("StyleBoxFlat_start_hover")
+theme_override_styles/normal = SubResource("StyleBoxFlat_start_normal")
 text = "START DEFENSE"
 
 [node name="EncyclopediaButton" type="Button" parent="MarginContainer/VBoxContainer/ButtonContainer"]
@@ -210,10 +209,10 @@ layout_mode = 2
 size_flags_horizontal = 4
 theme_override_fonts/font = ExtResource("3_font")
 theme_override_font_sizes/font_size = 36
-theme_override_styles/normal = SubResource("StyleBoxFlat_sec_normal")
+theme_override_styles/focus = SubResource("StyleBoxFlat_sec_hover")
 theme_override_styles/hover = SubResource("StyleBoxFlat_sec_hover")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_sec_normal")
-theme_override_styles/focus = SubResource("StyleBoxFlat_sec_hover")
+theme_override_styles/normal = SubResource("StyleBoxFlat_sec_normal")
 text = "ENCYCLOPEDIA"
 
 [node name="CreditsButton" type="Button" parent="MarginContainer/VBoxContainer/ButtonContainer"]
@@ -222,10 +221,10 @@ layout_mode = 2
 size_flags_horizontal = 4
 theme_override_fonts/font = ExtResource("3_font")
 theme_override_font_sizes/font_size = 36
-theme_override_styles/normal = SubResource("StyleBoxFlat_sec_normal")
+theme_override_styles/focus = SubResource("StyleBoxFlat_sec_hover")
 theme_override_styles/hover = SubResource("StyleBoxFlat_sec_hover")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_sec_normal")
-theme_override_styles/focus = SubResource("StyleBoxFlat_sec_hover")
+theme_override_styles/normal = SubResource("StyleBoxFlat_sec_normal")
 text = "CREDITS"
 
 [node name="ExitButton" type="Button" parent="MarginContainer/VBoxContainer/ButtonContainer"]
@@ -234,10 +233,10 @@ layout_mode = 2
 size_flags_horizontal = 4
 theme_override_fonts/font = ExtResource("3_font")
 theme_override_font_sizes/font_size = 36
-theme_override_styles/normal = SubResource("StyleBoxFlat_sec_normal")
+theme_override_styles/focus = SubResource("StyleBoxFlat_sec_hover")
 theme_override_styles/hover = SubResource("StyleBoxFlat_sec_hover")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_sec_normal")
-theme_override_styles/focus = SubResource("StyleBoxFlat_sec_hover")
+theme_override_styles/normal = SubResource("StyleBoxFlat_sec_normal")
 text = "EXIT"
 
 [node name="Spacing2" type="Control" parent="MarginContainer/VBoxContainer"]
@@ -250,17 +249,17 @@ theme_override_constants/separation = 5
 
 [node name="Version" type="Label" parent="MarginContainer/VBoxContainer/FooterArea"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.6, 0.45, 0.47, 0.8)
 theme_override_fonts/font = ExtResource("3_font")
 theme_override_font_sizes/font_size = 28
-theme_override_colors/font_color = Color(0.6, 0.45, 0.47, 0.8)
 text = "v1.0.0"
 horizontal_alignment = 1
 
 [node name="Developer" type="Label" parent="MarginContainer/VBoxContainer/FooterArea"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.45, 0.35, 0.37, 0.6)
 theme_override_fonts/font = ExtResource("3_font")
 theme_override_font_sizes/font_size = 24
-theme_override_colors/font_color = Color(0.45, 0.35, 0.37, 0.6)
 text = "Project-GKV Team"
 horizontal_alignment = 1
 
@@ -300,9 +299,9 @@ alignment = 1
 
 [node name="Title" type="Label" parent="CreditsPopup/Margin/VBox"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.25, 0.35, 1)
 theme_override_fonts/font = ExtResource("3_font")
 theme_override_font_sizes/font_size = 54
-theme_override_colors/font_color = Color(0.95, 0.25, 0.35, 1)
 text = "CREDITS"
 horizontal_alignment = 1
 
@@ -322,17 +321,17 @@ theme_override_constants/separation = 5
 
 [node name="Role" type="Label" parent="CreditsPopup/Margin/VBox/Scroll/Content/Group1"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.6, 0.6, 0.7, 1)
 theme_override_fonts/font = ExtResource("3_font")
 theme_override_font_sizes/font_size = 28
-theme_override_colors/font_color = Color(0.6, 0.6, 0.7, 1)
 text = "--- DEVELOPMENT TEAM ---"
 horizontal_alignment = 1
 
 [node name="Names" type="Label" parent="CreditsPopup/Margin/VBox/Scroll/Content/Group1"]
 layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("3_font")
 theme_override_font_sizes/font_size = 32
-theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "Project-GKV Team"
 horizontal_alignment = 1
 
@@ -342,17 +341,17 @@ theme_override_constants/separation = 5
 
 [node name="Role" type="Label" parent="CreditsPopup/Margin/VBox/Scroll/Content/Group2"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.6, 0.6, 0.7, 1)
 theme_override_fonts/font = ExtResource("3_font")
 theme_override_font_sizes/font_size = 28
-theme_override_colors/font_color = Color(0.6, 0.6, 0.7, 1)
 text = "--- GAME ENGINE ---"
 horizontal_alignment = 1
 
 [node name="Names" type="Label" parent="CreditsPopup/Margin/VBox/Scroll/Content/Group2"]
 layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("3_font")
 theme_override_font_sizes/font_size = 32
-theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "Godot Engine 4.4"
 horizontal_alignment = 1
 
@@ -362,17 +361,17 @@ theme_override_constants/separation = 5
 
 [node name="Role" type="Label" parent="CreditsPopup/Margin/VBox/Scroll/Content/Group3"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.6, 0.6, 0.7, 1)
 theme_override_fonts/font = ExtResource("3_font")
 theme_override_font_sizes/font_size = 28
-theme_override_colors/font_color = Color(0.6, 0.6, 0.7, 1)
 text = "--- ART & ASSETS ---"
 horizontal_alignment = 1
 
 [node name="Names" type="Label" parent="CreditsPopup/Margin/VBox/Scroll/Content/Group3"]
 layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("3_font")
 theme_override_font_sizes/font_size = 32
-theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "Veinguard Community
 Lilita One Font by Juan Montoreano"
 horizontal_alignment = 1
@@ -383,10 +382,10 @@ layout_mode = 2
 size_flags_horizontal = 4
 theme_override_fonts/font = ExtResource("3_font")
 theme_override_font_sizes/font_size = 32
-theme_override_styles/normal = SubResource("StyleBoxFlat_sec_normal")
+theme_override_styles/focus = SubResource("StyleBoxFlat_sec_hover")
 theme_override_styles/hover = SubResource("StyleBoxFlat_sec_hover")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_sec_normal")
-theme_override_styles/focus = SubResource("StyleBoxFlat_sec_hover")
+theme_override_styles/normal = SubResource("StyleBoxFlat_sec_normal")
 text = "BACK"
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/ButtonContainer/StartButton" to="." method="_on_start_button_pressed"]
