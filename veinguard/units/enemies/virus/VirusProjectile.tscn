@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://cy943j48rnxvq"]
+
+[ext_resource type="Script" uid="uid://c6xk4m5m7m7m" path="res://units/enemies/virus/VirusProjectile.gd" id="1_proj"]
+[ext_resource type="Texture2D" uid="uid://dj3k2k3k2k3k" path="res://assets/ui/Character/ProjectileB.png" id="2_tex"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_proj"]
+radius = 12.0
+
+[node name="VirusProjectile" type="Area2D"]
+collision_layer = 8
+collision_mask = 1
+script = ExtResource("1_proj")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_tex")
+scale = Vector2(0.3, 0.3)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_proj")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
