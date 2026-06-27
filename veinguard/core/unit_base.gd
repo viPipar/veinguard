@@ -22,9 +22,9 @@ var current_hp     : float
 var current_target : Node2D = null  # musuh yang sedang diincar
 
 # --- Node refs (assign di _ready() child) ---
-@onready var sprite      : AnimatedSprite2D
-@onready var aggro_area  : Area2D
-@onready var attack_area : Area2D
+@onready var sprite      : AnimatedSprite2D = get_node_or_null("AnimatedSprite2D")
+@onready var aggro_area  : Area2D = get_node_or_null("AggroArea")
+@onready var attack_area : Area2D = get_node_or_null("AttackArea")
 
 # --- Health Bar ---
 var _health_bar : Node = null   # HealthBar node (lazy-found)

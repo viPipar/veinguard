@@ -53,7 +53,7 @@ func _process_move(_delta: float) -> void:
 		velocity = dir * stats.move_speed
 		move_and_slide()
 		if sprite: sprite.play("walk")
-		if dir.x != 0:
+		if sprite and dir.x != 0:
 			sprite.flip_h = dir.x > 0
 
 func _process_attack(delta: float) -> void:

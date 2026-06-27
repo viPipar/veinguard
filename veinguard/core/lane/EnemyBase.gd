@@ -161,7 +161,8 @@ func get_patched() -> void:
 
 func start_spawning() -> void:
 	GameManager.start_wave()
-	GameManager.overtime_started.connect(_on_overtime)
+	if not GameManager.overtime_started.is_connected(_on_overtime):
+		GameManager.overtime_started.connect(_on_overtime)
 
 
 func _on_overtime() -> void:
