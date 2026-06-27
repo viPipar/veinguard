@@ -5,28 +5,91 @@
 [ext_resource type="Texture2D" uid="uid://d252b0mxfdq10" path="res://assets/ui/Character/Streptococcus.png" id="3_tex"]
 [ext_resource type="PackedScene" path="res://core/ui/HealthBar.tscn" id="4_hb"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_virus"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_virus_0"]
 atlas = ExtResource("3_tex")
-region = Rect2(0, 0, 100, 100)
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_virus_1"]
+atlas = ExtResource("3_tex")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_virus_2"]
+atlas = ExtResource("3_tex")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_virus_3"]
+atlas = ExtResource("3_tex")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_virus_4"]
+atlas = ExtResource("3_tex")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_virus_5"]
+atlas = ExtResource("3_tex")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_virus_6"]
+atlas = ExtResource("3_tex")
+region = Rect2(384, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_virus_7"]
+atlas = ExtResource("3_tex")
+region = Rect2(448, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_virus_8"]
+atlas = ExtResource("3_tex")
+region = Rect2(512, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_virus_9"]
+atlas = ExtResource("3_tex")
+region = Rect2(576, 0, 64, 64)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_virus"]
 animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_virus")
-}],
+"frames": [{"duration": 1.0, "texture": SubResource("AtlasTexture_virus_0")},
+{"duration": 1.0, "texture": SubResource("AtlasTexture_virus_1")},
+{"duration": 1.0, "texture": SubResource("AtlasTexture_virus_2")},
+{"duration": 1.0, "texture": SubResource("AtlasTexture_virus_3")},
+{"duration": 1.0, "texture": SubResource("AtlasTexture_virus_4")},
+{"duration": 1.0, "texture": SubResource("AtlasTexture_virus_5")},
+{"duration": 1.0, "texture": SubResource("AtlasTexture_virus_6")},
+{"duration": 1.0, "texture": SubResource("AtlasTexture_virus_7")},
+{"duration": 1.0, "texture": SubResource("AtlasTexture_virus_8")},
+{"duration": 1.0, "texture": SubResource("AtlasTexture_virus_9")}],
 "loop": true,
 "name": &"idle",
-"speed": 5.0
+"speed": 10.0
 }, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_virus")
-}],
+"frames": [{"duration": 1.0, "texture": SubResource("AtlasTexture_virus_0")},
+{"duration": 1.0, "texture": SubResource("AtlasTexture_virus_1")},
+{"duration": 1.0, "texture": SubResource("AtlasTexture_virus_2")},
+{"duration": 1.0, "texture": SubResource("AtlasTexture_virus_3")},
+{"duration": 1.0, "texture": SubResource("AtlasTexture_virus_4")},
+{"duration": 1.0, "texture": SubResource("AtlasTexture_virus_5")},
+{"duration": 1.0, "texture": SubResource("AtlasTexture_virus_6")},
+{"duration": 1.0, "texture": SubResource("AtlasTexture_virus_7")},
+{"duration": 1.0, "texture": SubResource("AtlasTexture_virus_8")},
+{"duration": 1.0, "texture": SubResource("AtlasTexture_virus_9")}],
 "loop": true,
 "name": &"walk",
-"speed": 5.0
+"speed": 10.0
+}, {
+"frames": [{"duration": 1.0, "texture": SubResource("AtlasTexture_virus_0")},
+{"duration": 1.0, "texture": SubResource("AtlasTexture_virus_1")},
+{"duration": 1.0, "texture": SubResource("AtlasTexture_virus_2")},
+{"duration": 1.0, "texture": SubResource("AtlasTexture_virus_3")},
+{"duration": 1.0, "texture": SubResource("AtlasTexture_virus_4")},
+{"duration": 1.0, "texture": SubResource("AtlasTexture_virus_5")},
+{"duration": 1.0, "texture": SubResource("AtlasTexture_virus_6")},
+{"duration": 1.0, "texture": SubResource("AtlasTexture_virus_7")},
+{"duration": 1.0, "texture": SubResource("AtlasTexture_virus_8")},
+{"duration": 1.0, "texture": SubResource("AtlasTexture_virus_9")}],
+"loop": true,
+"name": &"Attack",
+"speed": 12.0
 }]
+
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_col"]
 radius = 8.0

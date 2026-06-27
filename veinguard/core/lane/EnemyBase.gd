@@ -54,6 +54,8 @@ func _process(delta: float) -> void:
 		_spawn_enemy()
 
 
+var _spawn_next_is_virus : bool = false
+
 @export var virus_scene : PackedScene = preload("res://units/enemies/virus/Virus.tscn") if ResourceLoader.exists("res://units/enemies/virus/Virus.tscn") else null
 @export var clostridium_scene : PackedScene = preload("res://units/enemies/bacteria/clostridium/Clostridium.tscn") if ResourceLoader.exists("res://units/enemies/bacteria/clostridium/Clostridium.tscn") else null
 
@@ -63,13 +65,15 @@ func _spawn_enemy() -> void:
 	if get_tree().get_nodes_in_group("enemies").size() >= max_enemies:
 		return
 
-	# Weighted spawn: 55% Streptococcus (default enemy_scene), 25% virus, 20% clostridium
+	# Selang-seling antara Fighter (enemy_scene) dan Range (virus_scene)
 	var scene_to_spawn = enemy_scene
-	var r = randf()
-	if r < 0.25 and virus_scene != null:
+	
+	if virus_scene != null and _spawn_next_is_virus:
 		scene_to_spawn = virus_scene
-	elif r < 0.45 and clostridium_scene != null:
-		scene_to_spawn = clostridium_scene
+	
+	# Flip urutan untuk spawn berikutnya
+	if virus_scene != null:
+		_spawn_next_is_virus = not _spawn_next_is_virus
 
 	var enemy = scene_to_spawn.instantiate()
 	get_parent().add_child(enemy)

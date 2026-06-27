@@ -74,7 +74,7 @@ func _shoot_projectile() -> void:
 	proj.global_position = global_position
 	
 	var dir = (current_target.global_position - global_position).normalized()
-	proj.setup(dir, stats.damage)
+	proj.setup(dir, stats.damage, current_target)
 
 func _pick_nearest_target() -> void:
 	var nearest: Node2D = null
