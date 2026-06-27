@@ -3,12 +3,12 @@
 importer="font_data_dynamic"
 type="FontFile"
 uid="uid://ceon0xghp3oyy"
-path="res://.godot/imported/Comfortaa-Medium.ttf-963fac548676f11956ec9578451d86a4.fontdata"
+path="res://.godot/imported/Comfortaa-Medium.ttf-2d981e143f781e16121259a5009295b6.fontdata"
 
 [deps]
 
-source_file="res://assets/ui/Font/Comfortaa-Medium.ttf"
-dest_files=["res://.godot/imported/Comfortaa-Medium.ttf-963fac548676f11956ec9578451d86a4.fontdata"]
+source_file="res://assets/ui/font/Comfortaa-Medium.ttf"
+dest_files=["res://.godot/imported/Comfortaa-Medium.ttf-2d981e143f781e16121259a5009295b6.fontdata"]
 
 [params]
 
@@ -29,7 +29,7 @@ Fallbacks=null
 fallbacks=[]
 Compress=null
 compress=true
-preload=null
+preload=[]
 language_support={}
 script_support={}
 opentype_features={}
