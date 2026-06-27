@@ -2,6 +2,7 @@ extends Control
 
 @onready var start_button: Button = $MarginContainer/VBoxContainer/ButtonContainer/StartButton
 @onready var encyclopedia_button: Button = $MarginContainer/VBoxContainer/ButtonContainer/EncyclopediaButton
+@onready var settings_button: Button = $MarginContainer/VBoxContainer/ButtonContainer/SettingsButton
 @onready var credits_button: Button = $MarginContainer/VBoxContainer/ButtonContainer/CreditsButton
 @onready var exit_button: Button = $MarginContainer/VBoxContainer/ButtonContainer/ExitButton
 @onready var credits_popup: Panel = $CreditsPopup
@@ -17,7 +18,7 @@ func _ready() -> void:
 	credits_popup.scale = Vector2(0.8, 0.8)
 	
 	# Connect mouse enter and exit signals for buttons to animate them
-	for button in [start_button, encyclopedia_button, credits_button, exit_button]:
+	for button in [start_button, encyclopedia_button, settings_button, credits_button, exit_button]:
 		button.mouse_entered.connect(_on_button_hover.bind(button))
 		button.mouse_exited.connect(_on_button_unhover.bind(button))
 		button.pivot_offset = button.size / 2.0
@@ -164,6 +165,11 @@ func _on_credits_button_pressed() -> void:
 	var tween = create_tween().set_parallel(true)
 	tween.tween_property(credits_popup, "modulate:a", 1.0, 0.25).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 	tween.tween_property(credits_popup, "scale", Vector2(1.0, 1.0), 0.25).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+
+func _on_settings_button_pressed() -> void:
+	AudioManager.play_select_sfx()
+	var settings_menu = load("res://core/ui/SettingsMenu.tscn").instantiate()
+	add_child(settings_menu)
 
 func _on_exit_button_pressed() -> void:
 	AudioManager.play_select_sfx()

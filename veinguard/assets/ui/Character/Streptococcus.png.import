@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dk76ooq76l00c"
-path="res://.godot/imported/ChatGPT Image 27 Jun 2026, 10.02.58.png-7fd9994dd2cc0e9772e6ebd50b577da7.ctex"
+uid="uid://d252b0mxfdq10"
+path="res://.godot/imported/Streptococcus.png-5de6f86ff9dde5067fa834b520990eec.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ui/Character/ChatGPT Image 27 Jun 2026, 10.02.58.png"
-dest_files=["res://.godot/imported/ChatGPT Image 27 Jun 2026, 10.02.58.png-7fd9994dd2cc0e9772e6ebd50b577da7.ctex"]
+source_file="res://assets/ui/character/Streptococcus.png"
+dest_files=["res://.godot/imported/Streptococcus.png-5de6f86ff9dde5067fa834b520990eec.ctex"]
 
 [params]
 

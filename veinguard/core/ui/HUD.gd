@@ -74,3 +74,12 @@ func _on_overtime_started() -> void:
 		overtime_label.position.x - 6, 0.05)
 	tween.tween_property(overtime_label, "position:x",
 		overtime_label.position.x, 0.05)
+
+# --- Settings ---
+func _on_settings_button_pressed() -> void:
+	AudioManager.play_select_sfx()
+	var settings_menu = load("res://core/ui/SettingsMenu.tscn").instantiate()
+	settings_menu.process_mode = Node.PROCESS_MODE_ALWAYS
+	get_tree().paused = true
+	settings_menu.tree_exited.connect(func(): get_tree().paused = false)
+	add_child(settings_menu)

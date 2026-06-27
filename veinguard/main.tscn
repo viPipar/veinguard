@@ -170,6 +170,15 @@ theme_override_fonts/font = ExtResource("15_font")
 theme_override_font_sizes/font_size = 60
 text = "⚡ OVERTIME! ⚡"
 
+[node name="SettingsButton" type="Button" parent="HUD"]
+offset_left = 920.0
+offset_top = 40.0
+offset_right = 1040.0
+offset_bottom = 120.0
+theme_override_fonts/font = ExtResource("15_font")
+theme_override_font_sizes/font_size = 32
+text = "⚙"
+
 [node name="SlingshotController" type="Node2D" parent="."]
 position = Vector2(540, 1020)
 script = ExtResource("13_xrxkg")
@@ -193,3 +202,5 @@ theme_override_colors/font_color = Color(1, 0, 0, 1)
 theme_override_fonts/font = ExtResource("15_font")
 theme_override_font_sizes/font_size = 60
 text = "⚡ OVERTIME! ⚡"
+
+[connection signal="pressed" from="HUD/SettingsButton" to="HUD" method="_on_settings_button_pressed"]
