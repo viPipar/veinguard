@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://8pjxqrfnemi2" path="res://core/lane/Lane.gd" id="1_j8vas"]
 [ext_resource type="Texture2D" uid="uid://4p3tho7fi8sx" path="res://assets/ui/Map/HeroBase.png" id="2_1t5db"]
 [ext_resource type="Script" uid="uid://dwjdpphfdhktx" path="res://core/lane/EnemyBase.gd" id="2_4q2cr"]
-[ext_resource type="PackedScene" uid="uid://s5r3qqln8w3p" path="res://units/enemies/bacteria/streptococcus_pneumoniae/Bacteria.tscn" id="3_1t5db"]
+[ext_resource type="PackedScene" uid="uid://s5r3qqln8w3p" path="res://units/enemies/bacteria/Streptococcus_pneumoniae/Bacteria.tscn" id="3_1t5db"]
 [ext_resource type="Script" uid="uid://blq3ovx38etgo" path="res://core/lane/OxygenSpawner.gd" id="4_ldus6"]
 [ext_resource type="Texture2D" uid="uid://bd48gyc2jiddn" path="res://assets/ui/Map/EnemyBase2.png" id="5_ldus6"]
 [ext_resource type="PackedScene" uid="uid://ddi01j1pjcjsi" path="res://core/lane/oxygen.tscn" id="7_ldus6"]

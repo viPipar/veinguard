@@ -119,6 +119,13 @@ func _process_die(_delta: float) -> void:
 		attack_area.set_deferred("monitoring", false)
 		attack_area.set_deferred("monitorable", false)
 		
+	# Spawn genangan racun berpori saat mati
+	var cloud_scene = load("res://units/enemies/bacteria/clostridium/ClostridiumCloud.tscn")
+	if cloud_scene:
+		var cloud = cloud_scene.instantiate()
+		get_parent().add_child(cloud)
+		cloud.global_position = global_position
+		
 	if sprite:
 		sprite.stop()
 		sprite.modulate = Color(1.0, 0.0, 0.0, 1.0) # Merah solid

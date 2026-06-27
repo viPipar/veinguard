@@ -6,6 +6,8 @@ signal game_over
 signal player_won
 signal overtime_started
 signal time_updated(seconds_remaining: float)
+signal heartbeat_rush_started
+signal heartbeat_rush_ended
 
 # --- Constants ---
 const MAX_OXYGEN         : float = 10.0
@@ -20,6 +22,10 @@ var is_wave_active : bool = false
 var match_time     : float = 0.0
 var _is_overtime   : bool  = false
 var _has_played_last_second: bool = false
+
+# --- Heartbeat Rush state ---
+var is_heartbeat_rush : bool  = false
+var _heartbeat_timer  : float = 0.0
 
 # --- Passive Oxygen Config ---
 @export var passive_oxygen_rate     : float = 0.01 # oxygen per tick (~1 per 10s)
@@ -53,6 +59,18 @@ func _process(delta: float) -> void:
 		_passive_oxygen_timer = 0.0
 		add_oxygen(passive_oxygen_rate)
 
+	# --- Heartbeat Rush Timer (Level 2+) ---
+	if is_wave_active and current_level >= 2:
+		_heartbeat_timer += delta
+		if not is_heartbeat_rush:
+			if _heartbeat_timer >= 30.0:
+				_heartbeat_timer = 0.0
+				_start_heartbeat_rush()
+		else:
+			if _heartbeat_timer >= 5.0: # Durasi 5 detik
+				_heartbeat_timer = 0.0
+				_end_heartbeat_rush()
+
 
 func add_oxygen(amount: float) -> void:
 	oxygen_points = min(oxygen_points + amount, MAX_OXYGEN)
@@ -71,12 +89,16 @@ func trigger_game_over() -> void:
 	if is_game_over:
 		return
 	is_game_over = true
+	if is_heartbeat_rush:
+		_end_heartbeat_rush()
 	game_over.emit()
 	print("GAME OVER!")
 
 
 func trigger_win() -> void:
 	is_game_over = true
+	if is_heartbeat_rush:
+		_end_heartbeat_rush()
 	player_won.emit()
 	print("PLAYER MENANG!")
 
@@ -87,8 +109,24 @@ func start_wave() -> void:
 	match_time     = 0.0
 	_is_overtime   = false
 	_has_played_last_second = false
+	_heartbeat_timer = 0.0
 	print("Wave %d dimulai!" % wave_number)
 
 
 func end_wave() -> void:
 	is_wave_active = false
+	if is_heartbeat_rush:
+		_end_heartbeat_rush()
+	_heartbeat_timer = 0.0
+
+
+func _start_heartbeat_rush() -> void:
+	is_heartbeat_rush = true
+	heartbeat_rush_started.emit()
+	print("⚡ HEARTBEAT RUSH! Kecepatan gerak bertambah 1.5x!")
+
+
+func _end_heartbeat_rush() -> void:
+	is_heartbeat_rush = false
+	heartbeat_rush_ended.emit()
+	print("⚡ Aliran darah kembali normal.")

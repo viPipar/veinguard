@@ -43,6 +43,13 @@ func _ready() -> void:
 		return
 	stats = stats.duplicate() # Duplikasi resource agar perubahan stats bersifat lokal per unit
 	current_hp = stats.max_hp
+	
+	# Hubungkan ke sinyal Heartbeat Rush
+	GameManager.heartbeat_rush_started.connect(_on_heartbeat_start)
+	GameManager.heartbeat_rush_ended.connect(_on_heartbeat_end)
+	if GameManager.is_heartbeat_rush:
+		stats.move_speed *= 1.5
+		
 	_on_ready()  # hook untuk child class
 	# Temukan HealthBar child jika ada
 	_health_bar = get_node_or_null("HealthBar")
@@ -267,3 +274,28 @@ func apply_stun(duration: float) -> void:
 				sprite.modulate = Color(0.6, 0.6, 1.0, 1.0)
 			else:
 				sprite.modulate = Color.WHITE
+
+
+func _on_heartbeat_start() -> void:
+	if current_state == State.DIE:
+		return
+	stats.move_speed *= 1.5
+	if _original_speed >= 0:
+		_original_speed *= 1.5
+	if sprite:
+		sprite.modulate = Color(1.3, 0.7, 0.7, 1.0) # Efek kemerahan karena tekanan darah naik
+
+
+func _on_heartbeat_end() -> void:
+	if not is_instance_valid(self) or current_state == State.DIE:
+		return
+	stats.move_speed /= 1.5
+	if _original_speed >= 0:
+		_original_speed /= 1.5
+	if sprite:
+		if _active_slow_count > 0:
+			sprite.modulate = Color(0.6, 0.6, 1.0, 1.0)
+		elif is_stunned:
+			sprite.modulate = Color(0.5, 0.5, 0.5, 1.0)
+		else:
+			sprite.modulate = Color.WHITE

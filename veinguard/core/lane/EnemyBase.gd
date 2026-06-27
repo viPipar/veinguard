@@ -22,6 +22,11 @@ func _ready() -> void:
 			max_health *= 1.5
 			spawn_interval /= 1.2
 			max_enemies += 1
+			var sprite = get_node_or_null("Sprite2D")
+			if sprite:
+				var new_tex = load("res://assets/ui/Map/EnemyBase3.png")
+				if new_tex:
+					sprite.texture = new_tex
 		3:
 			max_health *= 2.0
 			spawn_interval /= 1.5
@@ -65,15 +70,25 @@ func _spawn_enemy() -> void:
 	if get_tree().get_nodes_in_group("enemies").size() >= max_enemies:
 		return
 
-	# Selang-seling antara Fighter (enemy_scene) dan Range (virus_scene)
+	var lvl = GameManager.current_level
 	var scene_to_spawn = enemy_scene
 	
-	if virus_scene != null and _spawn_next_is_virus:
-		scene_to_spawn = virus_scene
-	
-	# Flip urutan untuk spawn berikutnya
-	if virus_scene != null:
-		_spawn_next_is_virus = not _spawn_next_is_virus
+	if lvl == 1:
+		# Level 1: Hanya Streptococcus (fighter) dan Virus (ranged) bergantian
+		if virus_scene != null and _spawn_next_is_virus:
+			scene_to_spawn = virus_scene
+		if virus_scene != null:
+			_spawn_next_is_virus = not _spawn_next_is_virus
+	else:
+		# Level 2+: 20% peluang spawn Clostridium, sisanya bergantian Streptococcus/Virus
+		var r = randf()
+		if r < 0.20 and clostridium_scene != null:
+			scene_to_spawn = clostridium_scene
+		else:
+			if virus_scene != null and _spawn_next_is_virus:
+				scene_to_spawn = virus_scene
+			if virus_scene != null:
+				_spawn_next_is_virus = not _spawn_next_is_virus
 
 	var enemy = scene_to_spawn.instantiate()
 	get_parent().add_child(enemy)
