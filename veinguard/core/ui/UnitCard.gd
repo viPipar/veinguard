@@ -25,7 +25,7 @@ var _swipe_start_pos  := Vector2.ZERO
 
 # Posisi & skala saat kartu dipilih (tengah layar)
 var _center_pos   := Vector2(200.0, 600.0)
-var _center_scale := Vector2(0.32, 0.32)
+var _center_scale := Vector2(0.4, 0.4)
 
 
 func _ready() -> void:
@@ -39,21 +39,27 @@ func _ready() -> void:
 # Hitung posisi & skala tengah layar berdasarkan ukuran texture aktif
 func _recompute_center() -> void:
 	var vp := get_viewport_rect().size
+	
+	# Cari base_screen_pos (posisi PlayerBase di screen space)
+	var base_screen_pos := Vector2(vp.x * 0.5, vp.y * 0.5 + 75.0) # Default/fallback
+	var player_base := get_node_or_null("/root/Main/Lane/PlayerBase")
+	var camera := get_node_or_null("/root/Main/Camera2D")
+	if player_base and camera:
+		base_screen_pos = vp * 0.5 + (player_base.global_position - camera.global_position) * camera.zoom
+		
 	if texture_normal:
 		var tw := texture_normal.get_width()
 		var th := texture_normal.get_height()
-		# Paksa ukuran jadi 600x900 agar sama dengan inspect
-		_center_scale = Vector2(600.0 / tw, 900.0 / th)
-		var actual_w := tw * _center_scale.x
-		var actual_h := th * _center_scale.y
-		# Posisikan agak ke atas (-200 dari tengah)
-		_center_pos = Vector2((vp.x - actual_w) * 0.5, (vp.y - actual_h) * 0.5 - 200.0)
+		# Skala proporsional 0.4 tanpa distorsi
+		_center_scale = Vector2(0.4, 0.4)
+		# Posisikan pas di base hero (agar visual_center = base_screen_pos)
+		_center_pos = base_screen_pos - Vector2(tw, th) * 0.5
 		
 		# Set pivot di tengah agar saat flip (scale x mengecil) titik tengahnya tetap
 		pivot_offset = size / 2.0
 	else:
-		_center_scale = Vector2(0.6, 0.6)
-		_center_pos = Vector2(200.0, 400.0)
+		_center_scale = Vector2(0.4, 0.4)
+		_center_pos = base_screen_pos - Vector2(200.0, 300.0) # Fallback offset
 		pivot_offset = size / 2.0
 
 
