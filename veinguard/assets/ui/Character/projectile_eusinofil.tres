@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://cp2ocbdnxmiih"]
+
+[ext_resource type="Texture2D" uid="uid://ba1mssbk4ce0y" path="res://assets/ui/Character/Eusinofil_attack.png" id="1_eyta4"]
+
+[resource]
+atlas = ExtResource("1_eyta4")
+region = Rect2(226, 0, 35, 44)

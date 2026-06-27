@@ -3,12 +3,12 @@
 importer="font_data_dynamic"
 type="FontFile"
 uid="uid://dwas51i07o4ge"
-path="res://.godot/imported/Comfortaa-Light.ttf-fda61b8d17aeecead81f7a3f8534939e.fontdata"
+path="res://.godot/imported/Comfortaa-Light.ttf-9f93897acef33adaef20631adff5f2ac.fontdata"
 
 [deps]
 
-source_file="res://assets/ui/font/Comfortaa-Light.ttf"
-dest_files=["res://.godot/imported/Comfortaa-Light.ttf-fda61b8d17aeecead81f7a3f8534939e.fontdata"]
+source_file="res://assets/ui/Font/Comfortaa-Light.ttf"
+dest_files=["res://.godot/imported/Comfortaa-Light.ttf-9f93897acef33adaef20631adff5f2ac.fontdata"]
 
 [params]
 

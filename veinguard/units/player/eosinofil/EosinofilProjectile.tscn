@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://2me8x5jrt155" path="res://units/player/eosinofil/EosinofilProjectile.gd" id="1_ja5ko"]
 [ext_resource type="PackedScene" uid="uid://elx057imjf5c" path="res://units/player/eosinofil/EosinofilCloud.tscn" id="2_353d2"]
-[ext_resource type="Texture2D" uid="uid://bnjw6npuwmv72" path="res://placeholder/Ellipse 1 (1).png" id="3_cpvj7"]
+[ext_resource type="Texture2D" uid="uid://cc55bypt0p7uo" path="res://assets/ui/Character/ProjectileB.png" id="3_cpvj7"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ik2t2"]
 radius = 25.0
@@ -21,7 +21,6 @@ begin_cap_mode = 2
 end_cap_mode = 2
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.1, 0.1)
 texture = ExtResource("3_cpvj7")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

@@ -5,6 +5,7 @@
 [resource]
 script = ExtResource("1_isicu")
 unit_name = "Streptococcus pneumoniae"
+description = ""
 max_hp = 60.0
 move_speed = 50.0
 damage = 10.0
