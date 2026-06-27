@@ -13,6 +13,7 @@ var _has_started_moving : bool = false
 var _is_slashing     : bool = false
 
 var _retarget_timer  : float = 0.0
+var _slash_audio_player: AudioStreamPlayer2D
 
 
 func _on_ready() -> void:
@@ -27,6 +28,12 @@ func _on_ready() -> void:
 		sprite.animation_finished.connect(_on_animation_finished)
 		sprite.animation_changed.connect(_on_animation_changed)
 	
+	_slash_audio_player = AudioStreamPlayer2D.new()
+	_slash_audio_player.stream = AudioManager.sword_slash_sfx
+	_slash_audio_player.volume_db = -8.0
+	_slash_audio_player.finished.connect(func(): if _is_slashing: _slash_audio_player.play())
+	add_child(_slash_audio_player)
+	
 	add_to_group("players")
 	change_state(State.IDLE)
 
@@ -34,6 +41,8 @@ func _on_ready() -> void:
 func _on_animation_finished() -> void:
 	if sprite and sprite.animation == "dash":
 		_is_slashing = false
+		if _slash_audio_player and _slash_audio_player.playing:
+			_slash_audio_player.stop()
 
 
 func _on_animation_changed() -> void:
@@ -128,6 +137,8 @@ func _process_attack(delta: float) -> void:
 			if not _has_started_moving:
 				_has_started_moving = true
 				_is_slashing = true
+				if _slash_audio_player and not _slash_audio_player.playing:
+					_slash_audio_player.play()
 				if sprite:
 					sprite.modulate = Color.WHITE # reset warna
 					sprite.scale = Vector2.ONE # Kembalikan ke normal secara instan saat dash
@@ -192,6 +203,9 @@ func _check_dash_hits() -> void:
 func _end_dash() -> void:
 	_attack_phase = AttackPhase.IDLE
 	_has_started_moving = false
+	_is_slashing = false
+	if _slash_audio_player and _slash_audio_player.playing:
+		_slash_audio_player.stop()
 	_hit_enemies.clear()
 	velocity = Vector2.ZERO
 	if sprite:

@@ -1,15 +1,15 @@
-[gd_scene load_steps=15 format=3 uid="uid://cxaaatifup2f"]
+[gd_scene load_steps=16 format=3 uid="uid://cxaaatifup2f"]
 
 [ext_resource type="PackedScene" uid="uid://dgxhd6jxpjlhl" path="res://core/lane/Lane.tscn" id="1_c2ibq"]
 [ext_resource type="Script" uid="uid://lleuox8u80ym" path="res://Main.gd" id="1_main"]
 [ext_resource type="Script" uid="uid://bgwe5hm4yfknu" path="res://core/ui/HUD.gd" id="2_j4qnp"]
-[ext_resource type="Script" uid="uid://der5hto6kr2ry" path="res://map_background.gd" id="3_5vw27"]
+[ext_resource type="Script" path="res://map_background.gd" id="3_5vw27"]
 [ext_resource type="Texture2D" uid="uid://ciggr6l5wjlam" path="res://assets/ui/Map/Map3.png" id="7_272bh"]
 [ext_resource type="PackedScene" uid="uid://dt3fu2wae22rx" path="res://units/player/eritrosit/Eritrosit.tscn" id="8_devvj"]
 [ext_resource type="Script" uid="uid://dy4myjf16eds1" path="res://core/SlingshotController.gd" id="13_xrxkg"]
 [ext_resource type="PackedScene" uid="uid://cruegtmrysxc7" path="res://core/ui/GameOverScreen.tscn" id="14_sqvbp"]
 [ext_resource type="FontFile" uid="uid://bpuk0y8kyjxs2" path="res://assets/ui/Font/LilitaOne-Regular.ttf" id="15_font"]
-[ext_resource type="PackedScene" uid="uid://cx1g25v6y6y7y" path="res://core/ui/DebugMenu.tscn" id="DebugMenuScene"]
+[ext_resource type="PackedScene" path="res://core/ui/DebugMenu.tscn" id="DebugMenuScene"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_efxa6"]
 font = ExtResource("15_font")
@@ -151,7 +151,6 @@ offset_right = 1040.0
 offset_bottom = 1880.0
 theme_override_styles/background = SubResource("StyleBoxFlat_elixir_bg")
 theme_override_styles/fill = SubResource("StyleBoxFlat_elixir_fill")
-step = 0.01
 show_percentage = false
 
 [node name="TimerLabel" type="Label" parent="HUD"]
@@ -205,7 +204,6 @@ theme_override_fonts/font = ExtResource("15_font")
 theme_override_font_sizes/font_size = 60
 text = "⚡ OVERTIME! ⚡"
 
-[connection signal="pressed" from="HUD/SettingsButton" to="HUD" method="_on_settings_button_pressed"]
-
 [node name="DebugMenu" parent="." instance=ExtResource("DebugMenuScene")]
 
+[connection signal="pressed" from="HUD/SettingsButton" to="HUD" method="_on_settings_button_pressed"]

@@ -160,3 +160,7 @@ func _on_aggro_exited(body: Node2D) -> void:
 	if body == current_target:
 		_retarget_timer = 0.0
 		_pick_nearest_target()
+
+func take_damage(amount: float) -> void:
+	AudioManager.play_hit_natural_killer_sfx()
+	super.take_damage(amount)
