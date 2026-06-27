@@ -24,3 +24,7 @@ func _on_body_entered(body: Node2D) -> void:
 	# Kalau musuh (enemy) menyentuh base ini
 	if body.is_in_group("enemies"):
 		GameManager.trigger_game_over()
+
+func take_damage(amount: float) -> void:
+	# Jika diserang jarak jauh / melee musuh
+	GameManager.trigger_game_over()

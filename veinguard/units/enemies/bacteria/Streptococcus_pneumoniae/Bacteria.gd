@@ -67,6 +67,10 @@ func _pick_nearest_target() -> void:
 				nearest_dist = d
 				nearest = body
 	current_target = nearest
+	if current_target == null:
+		var base = get_tree().get_first_node_in_group("player_base")
+		if base:
+			current_target = base
 	if current_target:
 		change_state(State.ATTACK)
 	else:

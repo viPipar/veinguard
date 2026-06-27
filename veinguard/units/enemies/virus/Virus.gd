@@ -22,7 +22,7 @@ func _physics_process(delta: float) -> void:
 		_retarget_timer = 0.0
 		_pick_nearest_target()
 
-	if is_instance_valid(current_target) and current_target.current_state != State.DIE:
+	if is_instance_valid(current_target) and (not (current_target is UnitBase) or current_target.current_state != State.DIE):
 		var dist = global_position.distance_to(current_target.global_position)
 		if dist <= stats.attack_range:
 			change_state(State.ATTACK)
