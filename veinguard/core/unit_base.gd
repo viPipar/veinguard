@@ -10,7 +10,7 @@ extends CharacterBody2D
 @export var gameplay_scale : float = 1.6
 
 # --- FSM States ---
-enum State { IDLE, MOVE, ATTACK, DIE, PATCHING }
+enum State { IDLE, MOVE, ATTACK, DIE, PATCHING, EAT }
 var current_state : State = State.IDLE
 
 # --- Runtime ---
@@ -65,12 +65,14 @@ func _physics_process(delta: float) -> void:
 		State.ATTACK:   _process_attack(delta)
 		State.DIE:      _process_die(delta)
 		State.PATCHING: _process_patching(delta)
+		State.EAT:      _process_eat(delta)
 
 
 # --- Override state handlers di child class ---
 func _process_idle(_delta: float)     -> void: pass
 func _process_attack(_delta: float)   -> void: pass
 func _process_patching(_delta: float) -> void: pass
+func _process_eat(_delta: float)      -> void: pass
 
 
 func change_state(new_state: State) -> void:

@@ -159,6 +159,3 @@ func _assign_slot(slot_idx: int, pool_idx: int, animate: bool) -> void:
 
 	if animate:
 		card.play_draw_animation()   # Fire-and-forget coroutine
-
-
-

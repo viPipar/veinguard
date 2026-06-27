@@ -6,7 +6,6 @@ extends UnitBase
 
 # --- Runtime variables ---
 var _chew_timer     : float = 0.0
-var _is_chewing     : bool  = false
 var _retarget_timer : float = 0.0
 
 
@@ -20,6 +19,20 @@ func _on_ready() -> void:
 	
 	add_to_group("players")
 	change_state(State.IDLE)
+
+
+func _on_state_changed(new_state: State) -> void:
+	if new_state == State.EAT:
+		_chew_timer = 0.0
+		if sprite:
+			# Modulasi warna hijau-kecoklatan (warna asam lambung/pencernaan)
+			sprite.modulate = Color(0.8, 1.0, 0.8)
+			if sprite.sprite_frames.has_animation("eat"):
+				sprite.play("eat")
+	else:
+		if sprite:
+			sprite.scale = Vector2.ONE
+			sprite.modulate = Color.WHITE
 
 
 func _process_idle(delta: float) -> void:
@@ -37,11 +50,6 @@ func _process_idle(delta: float) -> void:
 
 
 func _process_move(delta: float) -> void:
-	# Jika sedang mengunyah, jangan bergerak!
-	if _is_chewing:
-		change_state(State.ATTACK)
-		return
-		
 	if not is_instance_valid(current_target):
 		change_state(State.IDLE)
 		return
@@ -60,37 +68,7 @@ func _process_move(delta: float) -> void:
 		change_state(State.ATTACK)
 
 
-func _process_attack(delta: float) -> void:
-	if _is_chewing:
-		# Fase Mengunyah (Chewing) - diam di tempat
-		velocity = Vector2.ZERO
-		move_and_slide()
-		
-		if sprite and sprite.sprite_frames.has_animation("idle"):
-			sprite.play("idle")
-			
-		_chew_timer += delta
-		
-		# Efek visual mengunyah (Procedural Squish and Stretch)
-		# Menggunakan fungsi sine untuk mensimulasikan gerakan mengunyah naik-turun secara berkala
-		var chew_speed := 12.0
-		var chew_amplitude := 0.15
-		var scale_y := 1.0 + sin(_chew_timer * chew_speed) * chew_amplitude
-		var scale_x := 1.0 - sin(_chew_timer * chew_speed) * chew_amplitude
-		sprite.scale = Vector2(scale_x, scale_y)
-		
-		# Modulasi warna hijau-kecoklatan (warna asam lambung/pencernaan)
-		sprite.modulate = Color(0.8, 1.0, 0.8)
-		
-		if _chew_timer >= chew_duration:
-			# Selesai mengunyah! Kembalikan ke bentuk normal
-			_is_chewing = false
-			sprite.scale = Vector2(1.0, 1.0)
-			sprite.modulate = Color.WHITE
-			print("[%s] Selesai mengunyah, siap makan lagi!" % name)
-			_pick_nearest_target()
-		return
-
+func _process_attack(_delta: float) -> void:
 	# Fase Makan (Biting / One-Shot)
 	if not is_instance_valid(current_target):
 		_pick_nearest_target()
@@ -108,27 +86,30 @@ func _process_attack(delta: float) -> void:
 	
 	print("[%s] MEMAKAN %s secara one-shot!" % [name, current_target.name])
 	
-	# Efek lunge & gulp menggunakan Tween
-	var tween := create_tween()
-	# 1. Mulut terbuka / meregang tinggi (lunge)
-	tween.tween_property(sprite, "scale", Vector2(0.7, 1.4), 0.12)
-	# 2. Menelan / gepeng melebar (gulp)
-	tween.tween_property(sprite, "scale", Vector2(1.4, 0.7), 0.08)
-	# 3. Kembali ke ukuran normal saat mulai mengunyah
-	tween.tween_property(sprite, "scale", Vector2(1.0, 1.0), 0.1)
-	
 	# Hancurkan musuh seketika
 	current_target.take_damage(stats.damage)
 	
-	# Aktifkan fase chewing
-	_is_chewing = true
-	_chew_timer = 0.0
+	# Aktifkan fase chewing (EAT state)
+	change_state(State.EAT)
 
 
+func _process_eat(delta: float) -> void:
+	velocity = Vector2.ZERO
+	move_and_slide()
+	
+	if sprite and sprite.sprite_frames.has_animation("eat") and sprite.animation != "eat":
+		sprite.play("eat")
+		
+	_chew_timer += delta
+	
+	if _chew_timer >= chew_duration:
+		print("[%s] Selesai mengunyah, siap makan lagi!" % name)
+		change_state(State.IDLE)
+		_pick_nearest_target()
 
 
 func _pick_nearest_target() -> void:
-	if _is_chewing:
+	if current_state == State.EAT:
 		return
 		
 	var nearest : Node2D = null
@@ -147,11 +128,11 @@ func _pick_nearest_target() -> void:
 
 
 func _on_aggro_entered(_body: Node2D) -> void:
-	if current_state != State.ATTACK:
+	if current_state != State.ATTACK and current_state != State.EAT:
 		_pick_nearest_target()
 
 
 func _on_aggro_exited(body: Node2D) -> void:
-	if body == current_target and not _is_chewing:
+	if body == current_target and current_state != State.EAT:
 		_retarget_timer = 0.0
 		_pick_nearest_target()

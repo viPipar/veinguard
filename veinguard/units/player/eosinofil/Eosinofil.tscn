@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://df8ndet3q6s57" path="res://units/player/eosinofil/Eosinofil.gd" id="1_pbhqp"]
 [ext_resource type="PackedScene" uid="uid://c5ndfu63e1sed" path="res://units/player/eosinofil/EosinofilProjectile.tscn" id="2_umwlp"]
 [ext_resource type="Resource" uid="uid://dgbslmifeq7wl" path="res://units/player/eosinofil/eosinofil_stats.tres" id="3_4nxdy"]
-[ext_resource type="Texture2D" uid="uid://kymwxxllt4sq" path="res://assets/ui/character/sel_b.png" id="4_pbhqp"]
+[ext_resource type="Texture2D" uid="uid://kymwxxllt4sq" path="res://assets/ui/Character/sel_b.png" id="4_pbhqp"]
 [ext_resource type="PackedScene" path="res://core/ui/HealthBar.tscn" id="5_78se7"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_umwlp"]

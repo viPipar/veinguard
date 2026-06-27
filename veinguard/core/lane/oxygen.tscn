@@ -1,7 +1,7 @@
 [gd_scene load_steps=16 format=3 uid="uid://ddi01j1pjcjsi"]
 
 [ext_resource type="Script" uid="uid://mw2chkfk7wxn" path="res://core/lane/Oxygen.gd" id="1_om6oh"]
-[ext_resource type="Texture2D" uid="uid://blne1co3ruivj" path="res://assets/ui/map/oxygen.png" id="2_xbssg"]
+[ext_resource type="Texture2D" uid="uid://blne1co3ruivj" path="res://assets/ui/Map/Oxygen.png" id="2_xbssg"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_o1"]
 atlas = ExtResource("2_xbssg")
