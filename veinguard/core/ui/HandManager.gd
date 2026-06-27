@@ -76,6 +76,8 @@ func _ready() -> void:
 	_inspect_overlay = CardInspectOverlay.new()
 	_inspect_overlay.name = "CardInspectOverlay"
 	add_child(_inspect_overlay)
+	
+	GameManager.oxygen_changed.connect(_on_oxygen_changed)
 
 
 # ── Load seluruh resource pool ────────────────────────────────────────────
@@ -119,6 +121,13 @@ func _create_card_slots() -> void:
 func _on_card_inspected(card: UnitCard) -> void:
 	if _inspect_overlay and card.unit_stats and card._front_tex:
 		_inspect_overlay.open(card.unit_stats, card._front_tex, card._back_tex)
+
+func _on_oxygen_changed(new_amount: float) -> void:
+	for card in _slots:
+		if is_instance_valid(card):
+			card.update_energy_state(new_amount)
+	if is_instance_valid(_next_card_slot):
+		_next_card_slot.update_energy_state(new_amount)
 
 
 # ── Inisialisasi tangan awal (4 kartu utama + 1 Next Card) ─────────────
@@ -202,6 +211,8 @@ func _assign_slot(slot_idx: int, pool_idx: int, animate: bool, from_next: bool =
 			card.play_draw_animation(_next_card_slot.position, _next_card_slot.scale)
 		else:
 			card.play_draw_animation()
+			
+	card.update_energy_state(GameManager.oxygen_points)
 
 func _assign_next_card(animate: bool) -> void:
 	if not _next_card_slot or _next_card_idx == -1: return
@@ -227,3 +238,5 @@ func _assign_next_card(animate: bool) -> void:
 	
 	if animate:
 		_next_card_slot.play_draw_animation()
+		
+	_next_card_slot.update_energy_state(GameManager.oxygen_points)

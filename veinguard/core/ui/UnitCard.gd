@@ -20,9 +20,6 @@ var base_scale    := Vector2.ONE
 var base_pos      := Vector2.ZERO
 
 var _is_flipped       := false
-var _is_swiping       := false
-var _was_swiped       := false
-var _swipe_start_pos  := Vector2.ZERO
 
 var _hold_timer       := 0.0
 var _is_holding       := false
@@ -47,32 +44,6 @@ func _process(delta: float) -> void:
 			_is_holding = false
 			_hold_timer = 0.0
 			card_inspected.emit(self)
-
-func _gui_input(event: InputEvent) -> void:
-	if event is InputEventMouseButton:
-		if event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
-			card_inspected.emit(self)
-			accept_event()
-			return
-		elif event.button_index == MOUSE_BUTTON_LEFT:
-			if event.pressed:
-				_is_holding = true
-				_hold_timer = 0.0
-				_hold_start_pos = event.global_position
-			else:
-				_is_holding = false
-				
-	if event is InputEventScreenTouch:
-		if event.pressed:
-			_is_holding = true
-			_hold_timer = 0.0
-			_hold_start_pos = event.global_position
-		else:
-			_is_holding = false
-
-	if _is_holding and (event is InputEventMouseMotion or event is InputEventScreenDrag):
-		if event.global_position.distance_to(_hold_start_pos) > 15.0:
-			_is_holding = false
 
 
 # Hitung posisi & skala tengah layar berdasarkan ukuran texture aktif
@@ -104,56 +75,33 @@ func _recompute_center() -> void:
 
 # ── Input ─────────────────────────────────────────────────────────────────
 func _gui_input(event: InputEvent) -> void:
-	if not is_focused:
-		return
-		
-	# Klik kanan untuk flip
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
-		accept_event()
-		_flip_card()
-		return
-
-	# Swipe detection (Mouse atau Touch)
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
+			card_inspected.emit(self)
+			accept_event()
+			return
+		elif event.button_index == MOUSE_BUTTON_LEFT:
+			if event.pressed:
+				_is_holding = true
+				_hold_timer = 0.0
+				_hold_start_pos = event.global_position
+			else:
+				_is_holding = false
+				
+	if event is InputEventScreenTouch:
 		if event.pressed:
-			_swipe_start_pos = event.position
-			_is_swiping = true
-			_was_swiped = false
+			_is_holding = true
+			_hold_timer = 0.0
+			_hold_start_pos = event.global_position
 		else:
-			_is_swiping = false
-			
-	elif event is InputEventScreenTouch:
-		if event.pressed:
-			_swipe_start_pos = event.position
-			_is_swiping = true
-			_was_swiped = false
-		else:
-			_is_swiping = false
-			
-	elif event is InputEventMouseMotion or event is InputEventScreenDrag:
-		if _is_swiping:
-			var diff = event.position.x - _swipe_start_pos.x
-			if abs(diff) > 40.0: # Threshold swipe
-				_is_swiping = false
-				_was_swiped = true
-				_flip_card()
+			_is_holding = false
 
-
-func _flip_card() -> void:
-	var tween = create_tween()
-	tween.tween_property(self, "scale:x", 0.0, 0.15).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_QUAD)
-	tween.tween_callback(func():
-		_is_flipped = not _is_flipped
-		texture_normal = _back_tex if _is_flipped else _front_tex
-	)
-	tween.tween_property(self, "scale:x", _center_scale.x, 0.15).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
+	if _is_holding and (event is InputEventMouseMotion or event is InputEventScreenDrag):
+		if event.global_position.distance_to(_hold_start_pos) > 15.0:
+			_is_holding = false
 
 
 func _on_pressed() -> void:
-	if _was_swiped:
-		_was_swiped = false
-		return # Abaikan klik karena ini adalah hasil dari swipe
-		
 	if is_focused:
 		# Klik kartu yang sudah di tengah → batal pilih
 		set_focus(false)
@@ -228,3 +176,11 @@ func play_draw_animation(start_pos = null, start_scale = null) -> void:
 		.set_ease(Tween.EASE_OUT)
 	await tween.finished
 	mouse_filter = Control.MOUSE_FILTER_STOP     # Bisa diklik kembali
+
+
+func update_energy_state(current_oxygen: float) -> void:
+	if unit_stats:
+		if current_oxygen < unit_stats.cost:
+			self_modulate = Color(0.4, 0.4, 0.4, 1.0)
+		else:
+			self_modulate = Color(1.0, 1.0, 1.0, 1.0)
