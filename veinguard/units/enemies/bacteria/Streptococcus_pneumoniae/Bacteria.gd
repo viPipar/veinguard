@@ -84,3 +84,28 @@ func _on_aggro_exited(body: Node2D) -> void:
 	if body == current_target:
 		_retarget_timer = 0.0
 		_pick_nearest_target()
+
+
+func _process_die(_delta: float) -> void:
+	if _is_dying:
+		return
+	_is_dying = true
+	
+	collision_layer = 0
+	collision_mask = 0
+	if aggro_area:
+		aggro_area.set_deferred("monitoring", false)
+		aggro_area.set_deferred("monitorable", false)
+	if attack_area:
+		attack_area.set_deferred("monitoring", false)
+		attack_area.set_deferred("monitorable", false)
+		
+	if sprite:
+		sprite.stop()
+		sprite.modulate = Color(1.0, 0.0, 0.0, 1.0) # Merah solid
+		var tween := create_tween()
+		tween.tween_property(sprite, "modulate:a", 0.0, 0.4)
+		await tween.finished
+	else:
+		await get_tree().create_timer(0.4).timeout
+	queue_free()
