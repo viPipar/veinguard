@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cokuw6xu75i3a"
-path="res://.godot/imported/Makrofag_Idle.png-88aa4a2e14bb6ebe30d220f984acdaf4.ctex"
+path="res://.godot/imported/Makrofag_Idle.png-3b16887d4275cf8abfe59cf7f4d7a4b7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ui/character/Makrofag_Idle.png"
-dest_files=["res://.godot/imported/Makrofag_Idle.png-88aa4a2e14bb6ebe30d220f984acdaf4.ctex"]
+source_file="res://assets/ui/Character/Makrofag_Idle.png"
+dest_files=["res://.godot/imported/Makrofag_Idle.png-3b16887d4275cf8abfe59cf7f4d7a4b7.ctex"]
 
 [params]
 

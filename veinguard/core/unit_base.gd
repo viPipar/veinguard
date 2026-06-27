@@ -21,6 +21,12 @@ var _gravity        : Vector2 = Vector2(0, 980.0)
 var current_hp     : float
 var current_target : Node2D = null  # musuh yang sedang diincar
 
+# --- Debuffs (Slow & Stun) ---
+var is_stunned         : bool  = false
+var _active_slow_count : int   = 0
+var _active_stun_count : int   = 0
+var _original_speed    : float = -1.0
+
 # --- Node refs (assign di _ready() child) ---
 @onready var sprite      : AnimatedSprite2D = get_node_or_null("AnimatedSprite2D")
 @onready var aggro_area  : Area2D = get_node_or_null("AggroArea")
@@ -35,6 +41,7 @@ func _ready() -> void:
 	if stats == null:
 		push_error("[%s] Stats belum di-assign! Drag file .tres ke Inspector." % name)
 		return
+	stats = stats.duplicate() # Duplikasi resource agar perubahan stats bersifat lokal per unit
 	current_hp = stats.max_hp
 	_on_ready()  # hook untuk child class
 	# Temukan HealthBar child jika ada
@@ -49,6 +56,10 @@ func _on_ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
+	if is_stunned:
+		velocity = Vector2.ZERO
+		return
+
 	if _is_projectile:
 		_proj_velocity += _gravity * delta
 		velocity        = _proj_velocity
@@ -195,3 +206,64 @@ func _land() -> void:
 		tween.tween_property(sprite, "scale", Vector2(1.4, 0.6), 0.08)
 		tween.tween_property(sprite, "scale", Vector2(1.0, 1.0), 0.15)\
 			 .set_trans(Tween.TRANS_BOUNCE).set_ease(Tween.EASE_OUT)
+
+
+func apply_slow(factor: float, duration: float) -> void:
+	if current_state == State.DIE:
+		return
+	if _original_speed < 0:
+		_original_speed = stats.move_speed
+	
+	# Kurangi move speed (hanya untuk stats duplikat unit ini)
+	stats.move_speed = _original_speed * factor
+	_active_slow_count += 1
+	
+	# Visual effect (bluish tint)
+	if sprite:
+		sprite.modulate = Color(0.6, 0.6, 1.0, 1.0)
+		
+	await get_tree().create_timer(duration).timeout
+	
+	if not is_instance_valid(self):
+		return
+		
+	_active_slow_count -= 1
+	if _active_slow_count <= 0:
+		_active_slow_count = 0
+		stats.move_speed = _original_speed
+		if sprite and not is_stunned:
+			sprite.modulate = Color.WHITE
+
+
+func apply_stun(duration: float) -> void:
+	if current_state == State.DIE:
+		return
+	is_stunned = true
+	_active_stun_count += 1
+	velocity = Vector2.ZERO
+	
+	# Visual effect (greyed out & stop animation)
+	if sprite:
+		sprite.stop()
+		sprite.modulate = Color(0.5, 0.5, 0.5, 1.0)
+		
+	await get_tree().create_timer(duration).timeout
+	
+	if not is_instance_valid(self):
+		return
+		
+	_active_stun_count -= 1
+	if _active_stun_count <= 0:
+		_active_stun_count = 0
+		is_stunned = false
+		if sprite:
+			if sprite.sprite_frames.has_animation("walk") and current_state == State.MOVE:
+				sprite.play("walk")
+			else:
+				sprite.play("idle")
+			
+			# Kembalikan modulate (cek jika masih ada efek slow aktif)
+			if _active_slow_count > 0:
+				sprite.modulate = Color(0.6, 0.6, 1.0, 1.0)
+			else:
+				sprite.modulate = Color.WHITE

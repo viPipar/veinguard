@@ -55,6 +55,7 @@ func _process(delta: float) -> void:
 
 
 @export var virus_scene : PackedScene = preload("res://units/enemies/virus/Virus.tscn") if ResourceLoader.exists("res://units/enemies/virus/Virus.tscn") else null
+@export var clostridium_scene : PackedScene = preload("res://units/enemies/bacteria/clostridium/Clostridium.tscn") if ResourceLoader.exists("res://units/enemies/bacteria/clostridium/Clostridium.tscn") else null
 
 func _spawn_enemy() -> void:
 	if enemy_scene == null:
@@ -62,12 +63,13 @@ func _spawn_enemy() -> void:
 	if get_tree().get_nodes_in_group("enemies").size() >= max_enemies:
 		return
 
-	# Weighted spawn: 70% bacteria, 30% virus
+	# Weighted spawn: 55% Streptococcus (default enemy_scene), 25% virus, 20% clostridium
 	var scene_to_spawn = enemy_scene
-	
-	# Berikan probabilitas 30% untuk spawn Virus jika Virus sudah disetup
-	if virus_scene != null and randf() < 0.3:
+	var r = randf()
+	if r < 0.25 and virus_scene != null:
 		scene_to_spawn = virus_scene
+	elif r < 0.45 and clostridium_scene != null:
+		scene_to_spawn = clostridium_scene
 
 	var enemy = scene_to_spawn.instantiate()
 	get_parent().add_child(enemy)
@@ -86,6 +88,14 @@ func spawn_specific_enemy(type: String) -> void:
 		if loaded_virus:
 			scene_to_spawn = loaded_virus
 			virus_scene = loaded_virus
+	elif type == "clostridium" and clostridium_scene != null:
+		scene_to_spawn = clostridium_scene
+	elif type == "clostridium" and clostridium_scene == null:
+		# Fallback if Clostridium not loaded
+		var loaded_clostridium = load("res://units/enemies/bacteria/clostridium/Clostridium.tscn")
+		if loaded_clostridium:
+			scene_to_spawn = loaded_clostridium
+			clostridium_scene = loaded_clostridium
 			
 	var enemy = scene_to_spawn.instantiate()
 	get_parent().add_child(enemy)

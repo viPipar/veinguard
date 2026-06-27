@@ -50,4 +50,8 @@ text = "Spawn Bacteria"
 layout_mode = 2
 text = "Spawn Virus"
 
+[node name="SpawnClostridiumBtn" type="Button" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "Spawn Clostridium"
+
 [connection signal="pressed" from="ToggleBtn" to="." method="_on_toggle_button_pressed"]

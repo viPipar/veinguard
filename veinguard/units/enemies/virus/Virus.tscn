@@ -1,8 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://c1v94x48rnxvq"]
+[gd_scene load_steps=9 format=3 uid="uid://c1wa4x48rnxvq"]
 
-[ext_resource type="Script" uid="uid://v2j3k4l5m6n7" path="res://units/enemies/virus/Virus.gd" id="1_virus"]
-[ext_resource type="Resource" uid="uid://cy945x48rnxvq" path="res://units/enemies/virus/virus_stats.tres" id="2_stats"]
-[ext_resource type="Texture2D" uid="uid://dj4k5l6m7n8o" path="res://assets/ui/Character/Streptococcus.png" id="3_tex"]
+[ext_resource type="Script" uid="uid://cy766ira17i67" path="res://units/enemies/virus/Virus.gd" id="1_virus"]
+[ext_resource type="Resource" uid="uid://c0a45x48rnxvq" path="res://units/enemies/virus/virus_stats.tres" id="2_stats"]
+[ext_resource type="Texture2D" uid="uid://d252b0mxfdq10" path="res://assets/ui/Character/Streptococcus.png" id="3_tex"]
 [ext_resource type="PackedScene" path="res://core/ui/HealthBar.tscn" id="4_hb"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_virus"]

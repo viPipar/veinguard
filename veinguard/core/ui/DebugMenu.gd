@@ -4,6 +4,7 @@ extends CanvasLayer
 @onready var sub_o2_btn: Button = $PanelContainer/VBoxContainer/SubO2Btn
 @onready var spawn_bac_btn: Button = $PanelContainer/VBoxContainer/SpawnBacBtn
 @onready var spawn_vir_btn: Button = $PanelContainer/VBoxContainer/SpawnVirBtn
+@onready var spawn_clostridium_btn: Button = $PanelContainer/VBoxContainer/SpawnClostridiumBtn
 @onready var panel: PanelContainer = $PanelContainer
 
 func _ready() -> void:
@@ -15,6 +16,7 @@ func _ready() -> void:
 	
 	spawn_bac_btn.pressed.connect(func(): _force_spawn("bacteria"))
 	spawn_vir_btn.pressed.connect(func(): _force_spawn("virus"))
+	spawn_clostridium_btn.pressed.connect(func(): _force_spawn("clostridium"))
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventKey and event.pressed:
