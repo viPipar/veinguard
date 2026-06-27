@@ -1,10 +1,10 @@
 extends CanvasLayer
 
-@onready var add_o2_btn: Button = $PanelContainer/VBoxContainer/AddO2Btn
-@onready var sub_o2_btn: Button = $PanelContainer/VBoxContainer/SubO2Btn
-@onready var spawn_bac_btn: Button = $PanelContainer/VBoxContainer/SpawnBacBtn
-@onready var spawn_vir_btn: Button = $PanelContainer/VBoxContainer/SpawnVirBtn
-@onready var spawn_clostridium_btn: Button = $PanelContainer/VBoxContainer/SpawnClostridiumBtn
+@onready var add_o2_btn: Button = $PanelContainer/MarginContainer/VBoxContainer/AddO2Btn
+@onready var sub_o2_btn: Button = $PanelContainer/MarginContainer/VBoxContainer/SubO2Btn
+@onready var spawn_bac_btn: Button = $PanelContainer/MarginContainer/VBoxContainer/SpawnBacBtn
+@onready var spawn_vir_btn: Button = $PanelContainer/MarginContainer/VBoxContainer/SpawnVirBtn
+@onready var spawn_clostridium_btn: Button = $PanelContainer/MarginContainer/VBoxContainer/SpawnClostridiumBtn
 @onready var panel: PanelContainer = $PanelContainer
 
 func _ready() -> void:
