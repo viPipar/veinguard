@@ -41,8 +41,8 @@ const _POOL_ENTRIES: Array = [
 		"res://assets/ui/unit_cards/card_back_limfosit_b.png",
 	],
 	[
-		"res://units/player/makrofag/Makrofag.tscn",
-		"res://units/player/makrofag/makrofag_stats.tres",
+		"res://units/player/Makrofag/Makrofag.tscn",
+		"res://units/player/Makrofag/makrofag_stats.tres",
 		"res://assets/ui/unit_cards/card_front_makrofag.png",
 		"res://assets/ui/unit_cards/card_back_makrofag.png",
 	],

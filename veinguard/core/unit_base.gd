@@ -76,6 +76,8 @@ func _process_eat(_delta: float)      -> void: pass
 
 
 func change_state(new_state: State) -> void:
+	if current_state == State.DIE:
+		return # Sekali mati, tidak bisa ganti state lagi!
 	if current_state == new_state:
 		return
 	print("[%s] %s → %s" % [name, State.keys()[current_state], State.keys()[new_state]])
@@ -106,6 +108,10 @@ func launch(direction: Vector2, speed: float) -> void:
 	_is_launched     = true
 	change_state(State.MOVE)
 
+func get_sprite_base_scale() -> Vector2:
+	return Vector2.ONE
+
+
 func _play_hit_effect() -> void:
 	if not sprite:
 		return
@@ -114,11 +120,13 @@ func _play_hit_effect() -> void:
 	tween.tween_callback(func(): sprite.modulate = Color.RED)
 	tween.tween_interval(0.05)
 	# Gepeng sebentar
-	tween.tween_property(sprite, "scale", Vector2(1.3, 0.7), 0.05)
-	tween.tween_property(sprite, "scale", Vector2(1.0, 1.0), 0.1)\
+	var base_scale := get_sprite_base_scale()
+	tween.tween_property(sprite, "scale", base_scale * Vector2(1.3, 0.7), 0.05)
+	tween.tween_property(sprite, "scale", base_scale, 0.1)\
 		 .set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BOUNCE)
 	# Balik warna normal
 	tween.tween_callback(func(): sprite.modulate = Color.WHITE)
+
 
 var _is_dying : bool = false
 
@@ -126,10 +134,22 @@ func _process_die(_delta: float) -> void:
 	if _is_dying:
 		return
 	_is_dying = true
+	
+	# Nonaktifkan tabrakan fisik & deteksi area agar tidak memicu aggro/serangan lagi saat mati
+	collision_layer = 0
+	collision_mask = 0
+	if aggro_area:
+		aggro_area.monitoring = false
+		aggro_area.monitorable = false
+	if attack_area:
+		attack_area.monitoring = false
+		attack_area.monitorable = false
+		
 	if sprite:
 		# Play die animation if available, otherwise stop sprite
 		if sprite.sprite_frames.has_animation("die"):
 			sprite.play("die")
+			sprite.scale = get_sprite_base_scale()
 		else:
 			sprite.stop()
 		var tween := create_tween()
