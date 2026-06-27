@@ -37,7 +37,8 @@ func setup(dir: Vector2, target: Node2D, stats: EosinophilStats) -> void:
 
 
 func _ready() -> void:
-	body_entered.connect(_on_body_entered)
+	if not body_entered.is_connected(_on_body_entered):
+		body_entered.connect(_on_body_entered)
 	if trail:
 		# Supaya koordinat line2d tetap berada di world space
 		trail.set_as_top_level(true)
@@ -75,12 +76,12 @@ func _explode() -> void:
 	# Buat awan racun di posisi jatuhnya proyektil
 	if cloud_scene and _eo_stats:
 		var cloud = cloud_scene.instantiate()
-		get_tree().current_scene.add_child(cloud)
 		cloud.global_position = global_position
-		
 		# Setup awan racun dengan stats dari Eosinofil
 		if cloud.has_method("setup"):
 			cloud.setup(_eo_stats)
+			
+		get_tree().current_scene.call_deferred("add_child", cloud)
 			
 	# Hancurkan proyektil ini
 	queue_free()

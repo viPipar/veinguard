@@ -11,7 +11,8 @@ func _on_ready() -> void:
 	aggro_area  = $AggroArea
 	attack_area = $AttackArea
 
-	aggro_area.body_entered.connect(_on_aggro_entered)
+	if not aggro_area.body_entered.is_connected(_on_aggro_entered):
+		aggro_area.body_entered.connect(_on_aggro_entered)
 	aggro_area.body_exited.connect(_on_aggro_exited)
 
 	add_to_group("enemies")
@@ -22,6 +23,7 @@ func _physics_process(delta: float) -> void:
 		velocity = Vector2.ZERO
 		return
 	if current_state == State.DIE:
+		super._physics_process(delta)
 		return
 	
 	_retarget_timer += delta
@@ -84,6 +86,8 @@ func _shoot_projectile() -> void:
 	proj.setup(dir, stats.damage)
 
 func _pick_nearest_target() -> void:
+	if not aggro_area or not aggro_area.monitoring:
+		return
 	var nearest: Node2D = null
 	var nearest_dist: float = INF
 	
@@ -123,8 +127,8 @@ func _process_die(_delta: float) -> void:
 	var cloud_scene = load("res://units/enemies/bacteria/clostridium/ClostridiumCloud.tscn")
 	if cloud_scene:
 		var cloud = cloud_scene.instantiate()
-		get_parent().add_child(cloud)
 		cloud.global_position = global_position
+		get_parent().call_deferred("add_child", cloud)
 		
 	if sprite:
 		sprite.stop()

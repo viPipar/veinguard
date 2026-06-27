@@ -13,9 +13,11 @@ func _on_ready() -> void:
 	aggro_area  = $AggroArea
 	attack_area = $AttackArea
 
-	aggro_area.body_entered.connect(_on_aggro_entered)
+	if not aggro_area.body_entered.is_connected(_on_aggro_entered):
+		aggro_area.body_entered.connect(_on_aggro_entered)
 	if sprite:
-		sprite.animation_finished.connect(_on_animation_finished)
+		if not sprite.animation_finished.is_connected(_on_animation_finished):
+			sprite.animation_finished.connect(_on_animation_finished)
 	
 	# Casting stat ke kelas spesifik Eosinofil agar bisa mengakses variabel khususnya
 	if stats is EosinophilStats:
@@ -38,7 +40,7 @@ func _on_state_changed(new_state: State) -> void:
 	if sprite:
 		# Jika keluar dari status MOVE, kembalikan skala & rotasi sprite ke default secara instan
 		if new_state != State.MOVE:
-			sprite.scale = Vector2.ONE
+			sprite.scale = get_sprite_base_scale()
 			sprite.rotation = 0.0
 		
 		# Mainkan animasi default sesuai state baru
@@ -87,7 +89,7 @@ func _process_move(delta: float) -> void:
 		_wobble_time += delta
 		var wave = sin(_wobble_time * 14.0)
 		# Bergantian memipih dan memanjang searah pergerakan
-		sprite.scale = Vector2(1.0 + wave * 0.12, 1.0 - wave * 0.08)
+		sprite.scale = get_sprite_base_scale() * Vector2(1.0 + wave * 0.12, 1.0 - wave * 0.08)
 		sprite.rotation = wave * 0.06
 
 
@@ -128,7 +130,7 @@ func _fire() -> void:
 		tween.tween_property(sprite, "scale", Vector2(1.3, 0.6), 0.08)\
 			.set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 		# Kembali ke ukuran normal dengan efek elastis
-		tween.tween_property(sprite, "scale", Vector2.ONE, 0.2)\
+		tween.tween_property(sprite, "scale", get_sprite_base_scale(), 0.2)\
 			.set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 		
 	var dir := global_position.direction_to(current_target.global_position)
@@ -156,6 +158,8 @@ func _on_aggro_entered(body: Node2D) -> void:
 
 
 func _pick_nearest_target() -> void:
+	if not aggro_area or not aggro_area.monitoring:
+		return
 	var nearest : Node2D = null
 	var nearest_dist : float = INF
 	for body in aggro_area.get_overlapping_bodies():

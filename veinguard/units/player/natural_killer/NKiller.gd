@@ -12,11 +12,13 @@ func _on_ready() -> void:
 	aggro_area  = $AggroArea
 	attack_area = $AttackArea
 
-	aggro_area.body_entered.connect(_on_aggro_entered)
+	if not aggro_area.body_entered.is_connected(_on_aggro_entered):
+		aggro_area.body_entered.connect(_on_aggro_entered)
 	aggro_area.body_exited.connect(_on_aggro_exited)
 	
 	if sprite:
-		sprite.animation_finished.connect(_on_animation_finished)
+		if not sprite.animation_finished.is_connected(_on_animation_finished):
+			sprite.animation_finished.connect(_on_animation_finished)
 	
 	add_to_group("players")
 	
@@ -33,7 +35,7 @@ func _on_animation_finished() -> void:
 func _on_state_changed(new_state: State) -> void:
 	if sprite:
 		if new_state != State.MOVE:
-			sprite.scale = Vector2.ONE
+			sprite.scale = get_sprite_base_scale()
 			sprite.rotation = 0.0
 			
 		if new_state == State.IDLE:
@@ -135,6 +137,8 @@ func _deal_damage() -> void:
 
 
 func _pick_nearest_target() -> void:
+	if not aggro_area or not aggro_area.monitoring:
+		return
 	var nearest : Node2D = null
 	var nearest_dist : float = INF
 	for body in aggro_area.get_overlapping_bodies():

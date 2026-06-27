@@ -36,8 +36,12 @@ var _original_speed    : float = -1.0
 var _health_bar : Node = null   # HealthBar node (lazy-found)
 
 
+var _original_sprite_scale : Vector2 = Vector2.ONE
+
 func _ready() -> void:
-	scale = Vector2(gameplay_scale, gameplay_scale)
+	if sprite:
+		_original_sprite_scale = sprite.scale
+		sprite.scale = _original_sprite_scale * gameplay_scale
 	if stats == null:
 		push_error("[%s] Stats belum di-assign! Drag file .tres ke Inspector." % name)
 		return
@@ -130,7 +134,7 @@ func launch(direction: Vector2, speed: float) -> void:
 	change_state(State.MOVE)
 
 func get_sprite_base_scale() -> Vector2:
-	return Vector2.ONE
+	return _original_sprite_scale * gameplay_scale
 
 
 func _play_hit_effect() -> void:
@@ -209,9 +213,10 @@ func _land() -> void:
 	AudioManager.play_plop_sfx()
 	if sprite: sprite.rotation = 0.0
 	if sprite:
+		var base = get_sprite_base_scale()
 		var tween := create_tween()
-		tween.tween_property(sprite, "scale", Vector2(1.4, 0.6), 0.08)
-		tween.tween_property(sprite, "scale", Vector2(1.0, 1.0), 0.15)\
+		tween.tween_property(sprite, "scale", Vector2(base.x * 1.4, base.y * 0.6), 0.08)
+		tween.tween_property(sprite, "scale", base, 0.15)\
 			 .set_trans(Tween.TRANS_BOUNCE).set_ease(Tween.EASE_OUT)
 
 

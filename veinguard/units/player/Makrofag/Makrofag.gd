@@ -15,7 +15,8 @@ func _on_ready() -> void:
 	aggro_area  = $AggroArea
 	attack_area = $AttackArea
 
-	aggro_area.body_entered.connect(_on_aggro_entered)
+	if not aggro_area.body_entered.is_connected(_on_aggro_entered):
+		aggro_area.body_entered.connect(_on_aggro_entered)
 	aggro_area.body_exited.connect(_on_aggro_exited)
 	
 	_eat_audio_player = AudioStreamPlayer2D.new()
@@ -40,7 +41,7 @@ func _on_state_changed(new_state: State) -> void:
 			_eat_audio_player.play()
 	else:
 		if sprite:
-			sprite.scale = Vector2.ONE
+			sprite.scale = get_sprite_base_scale()
 			sprite.modulate = Color.WHITE
 		if _eat_audio_player and _eat_audio_player.playing:
 			_eat_audio_player.stop()
@@ -120,7 +121,7 @@ func _process_eat(delta: float) -> void:
 
 
 func _pick_nearest_target() -> void:
-	if current_state == State.EAT:
+	if current_state == State.EAT or not aggro_area or not aggro_area.monitoring:
 		return
 		
 	var nearest : Node2D = null

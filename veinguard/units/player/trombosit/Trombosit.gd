@@ -11,7 +11,8 @@ func _on_ready() -> void:
 	sprite     = $AnimatedSprite2D
 	aggro_area = $AggroArea
 
-	aggro_area.body_entered.connect(_on_body_entered)
+	if not aggro_area.body_entered.is_connected(_on_body_entered):
+		aggro_area.body_entered.connect(_on_body_entered)
 
 	_enemy_base = get_tree().get_first_node_in_group("enemy_base")
 

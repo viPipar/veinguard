@@ -10,7 +10,8 @@ var _target_oxygen  : Oxygen = null
 func _on_ready() -> void:
 	sprite     = $AnimatedSprite2D
 	aggro_area = $OxygenDetector
-	aggro_area.area_entered.connect(_on_oxygen_detected)
+	if not aggro_area.area_entered.is_connected(_on_oxygen_detected):
+		aggro_area.area_entered.connect(_on_oxygen_detected)
 	oxygen_label.visible = false
 	oxygen_label.text    = "O₂"
 	add_to_group("players")

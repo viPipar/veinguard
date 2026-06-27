@@ -6,22 +6,23 @@ var _eo_stats : EosinophilStats
 @onready var life_timer : Timer = $LifeTimer
 @onready var tick_timer : Timer = $TickTimer
 
-func _ready() -> void:
-	pass # Setup akan dipanggil dari luar (proyektil)
-
-
 func setup(stats: EosinophilStats) -> void:
 	_eo_stats = stats
+
+func _ready() -> void:
+	if not _eo_stats: return
 	
 	# Set durasi awan racun hidup
 	life_timer.wait_time = _eo_stats.dot_duration
 	life_timer.one_shot  = true
-	life_timer.timeout.connect(_fade_out_and_free)
+	if not life_timer.timeout.is_connected(_fade_out_and_free):
+		life_timer.timeout.connect(_fade_out_and_free)
 	life_timer.start()
 	
 	# Set interval (tick) damage, misalnya setiap 1 detik
 	tick_timer.wait_time = 1.0
-	tick_timer.timeout.connect(_on_tick)
+	if not tick_timer.timeout.is_connected(_on_tick):
+		tick_timer.timeout.connect(_on_tick)
 	tick_timer.start()
 
 	# --- Animasi Muncul (Cloud Expand & Color Tint) ---

@@ -7,12 +7,14 @@ func _ready() -> void:
 	# Set durasi awan racun hidup (4.0 detik)
 	life_timer.wait_time = 4.0
 	life_timer.one_shot  = true
-	life_timer.timeout.connect(_fade_out_and_free)
+	if not life_timer.timeout.is_connected(_fade_out_and_free):
+		life_timer.timeout.connect(_fade_out_and_free)
 	life_timer.start()
 	
 	# Set interval (tick) damage, setiap 1 detik
 	tick_timer.wait_time = 1.0
-	tick_timer.timeout.connect(_on_tick)
+	if not tick_timer.timeout.is_connected(_on_tick):
+		tick_timer.timeout.connect(_on_tick)
 	tick_timer.start()
 
 	# --- Animasi Muncul (Cloud Expand & Color Tint) ---

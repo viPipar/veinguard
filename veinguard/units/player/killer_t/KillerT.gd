@@ -21,11 +21,13 @@ func _on_ready() -> void:
 	aggro_area  = $AggroArea
 	attack_area = $AttackArea
 
-	aggro_area.body_entered.connect(_on_aggro_entered)
+	if not aggro_area.body_entered.is_connected(_on_aggro_entered):
+		aggro_area.body_entered.connect(_on_aggro_entered)
 	aggro_area.body_exited.connect(_on_aggro_exited)
 	
 	if sprite:
-		sprite.animation_finished.connect(_on_animation_finished)
+		if not sprite.animation_finished.is_connected(_on_animation_finished):
+			sprite.animation_finished.connect(_on_animation_finished)
 		sprite.animation_changed.connect(_on_animation_changed)
 	
 	_slash_audio_player = AudioStreamPlayer2D.new()
@@ -53,11 +55,11 @@ func _on_animation_changed() -> void:
 
 
 func get_sprite_base_scale() -> Vector2:
+	var base = super.get_sprite_base_scale()
 	if sprite:
 		if sprite.animation == "charge" or sprite.animation == "die":
-			return Vector2(1.3, 1.3)
-	return Vector2.ONE
-
+			return base * 1.3
+	return base
 
 func _process_idle(delta: float) -> void:
 	velocity = Vector2.ZERO
@@ -141,7 +143,7 @@ func _process_attack(delta: float) -> void:
 					_slash_audio_player.play()
 				if sprite:
 					sprite.modulate = Color.WHITE # reset warna
-					sprite.scale = Vector2.ONE # Kembalikan ke normal secara instan saat dash
+					sprite.scale = get_sprite_base_scale() # Kembalikan ke normal secara instan saat dash
 					if sprite.sprite_frames.has_animation("dash"):
 						# Sesuaikan speed_scale agar seluruh frame tebasan selesai tepat saat gerakan dash berakhir
 						var anim_len : float = sprite.sprite_frames.get_frame_count("dash") / sprite.sprite_frames.get_animation_speed("dash")
@@ -179,7 +181,7 @@ func _start_dash() -> void:
 	
 	if sprite and sprite.sprite_frames.has_animation("charge"):
 		sprite.play("charge")
-		sprite.scale = Vector2(1.3, 1.3) # Perbesar secara instan agar sesuai dengan size idle/walk
+		sprite.scale = get_sprite_base_scale() # Perbesar secara otomatis via get_sprite_base_scale
 	
 	if is_instance_valid(current_target):
 		attack_area.look_at(current_target.global_position)
@@ -210,7 +212,7 @@ func _end_dash() -> void:
 	velocity = Vector2.ZERO
 	if sprite:
 		sprite.modulate = Color.WHITE
-		sprite.scale = Vector2.ONE # Pastikan skala kembali normal
+		sprite.scale = get_sprite_base_scale() # Pastikan skala kembali normal
 	
 	# Nyalakan kembali tabrakan fisik dengan musuh
 	set_collision_mask_value(2, true)
@@ -222,6 +224,8 @@ func _end_dash() -> void:
 
 
 func _pick_nearest_target() -> void:
+	if not aggro_area or not aggro_area.monitoring:
+		return
 	var nearest : Node2D = null
 	var nearest_dist : float = INF
 	for body in aggro_area.get_overlapping_bodies():

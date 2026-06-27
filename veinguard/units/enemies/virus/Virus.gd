@@ -10,7 +10,8 @@ func _on_ready() -> void:
 	collision_layer = 2 # Musuh di layer 2
 	
 	if aggro_area:
-		aggro_area.body_entered.connect(_on_aggro_entered)
+		if not aggro_area.body_entered.is_connected(_on_aggro_entered):
+			aggro_area.body_entered.connect(_on_aggro_entered)
 		aggro_area.body_exited.connect(_on_aggro_exited)
 
 func _physics_process(delta: float) -> void:
@@ -78,6 +79,8 @@ func _shoot_projectile() -> void:
 	proj.setup(dir, stats.damage, current_target)
 
 func _pick_nearest_target() -> void:
+	if not aggro_area or not aggro_area.monitoring:
+		return
 	var nearest: Node2D = null
 	var nearest_dist: float = INF
 	
