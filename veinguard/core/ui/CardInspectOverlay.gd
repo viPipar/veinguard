@@ -16,9 +16,6 @@ var _font          : FontFile  = load("res://assets/ui/Font/LilitaOne-Regular.tt
 
 # ── Node refs (diisi di _build_ui) ────────────────────────────────────────
 var _card_display  : TextureRect
-var _name_label    : Label
-var _stats_label   : Label
-var _desc_label    : Label
 var _btn_close     : Button
 
 
@@ -40,52 +37,15 @@ func _build_ui() -> void:
 	dim.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	add_child(dim)
 
-	# --- Tampilan Kartu (besar, di tengah) ---
 	_card_display = TextureRect.new()
 	_card_display.expand_mode   = TextureRect.EXPAND_FIT_HEIGHT_PROPORTIONAL
 	_card_display.stretch_mode  = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-	_card_display.position      = Vector2(240.0, 180.0)
-	_card_display.size          = Vector2(600.0, 900.0)
-	_card_display.pivot_offset  = Vector2(300.0, 450.0)  # pusat untuk animasi flip
+	_card_display.position      = Vector2(140.0, 360.0)
+	_card_display.size          = Vector2(800.0, 1200.0)
+	_card_display.pivot_offset  = Vector2(400.0, 600.0)  # pusat untuk animasi flip
 	_card_display.mouse_filter  = Control.MOUSE_FILTER_STOP
 	_card_display.gui_input.connect(_on_card_gui_input)
 	add_child(_card_display)
-
-	# --- Panel info stats di bawah kartu ---
-	var panel := Panel.new()
-	panel.position = Vector2(60.0, 1115.0)
-	panel.size     = Vector2(960.0, 370.0)
-	var sb_panel   := _make_panel_stylebox()
-	panel.add_theme_stylebox_override("panel", sb_panel)
-	add_child(panel)
-
-	var vbox := VBoxContainer.new()
-	vbox.position = Vector2(20.0, 18.0)
-	vbox.size     = Vector2(920.0, 334.0)
-	vbox.add_theme_constant_override("separation", 14)
-	panel.add_child(vbox)
-
-	_name_label = Label.new()
-	_name_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	_name_label.add_theme_font_override("font", _font)
-	_name_label.add_theme_font_size_override("font_size", 60)
-	_name_label.add_theme_color_override("font_color", Color(0.92, 0.97, 1.0))
-	vbox.add_child(_name_label)
-
-	_stats_label = Label.new()
-	_stats_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	_stats_label.add_theme_font_override("font", _font)
-	_stats_label.add_theme_font_size_override("font_size", 38)
-	_stats_label.add_theme_color_override("font_color", Color(0.65, 0.88, 1.0))
-	vbox.add_child(_stats_label)
-
-	_desc_label = Label.new()
-	_desc_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	_desc_label.autowrap_mode        = TextServer.AUTOWRAP_WORD_SMART
-	_desc_label.add_theme_font_override("font", _font)
-	_desc_label.add_theme_font_size_override("font_size", 30)
-	_desc_label.add_theme_color_override("font_color", Color(0.78, 0.88, 0.96))
-	vbox.add_child(_desc_label)
 
 	# --- Tombol TUTUP (kiri atas, merah) ---
 	_btn_close          = _make_button("X", Color(0.72, 0.07, 0.07))
@@ -149,16 +109,6 @@ func open(stats: UnitStats, front_tex: Texture2D, back_tex: Texture2D) -> void:
 	# Terapkan data ke UI
 	_card_display.texture = _front_tex
 	_card_display.scale   = Vector2(1.0, 1.0)
-
-	_name_label.text  = stats.unit_name
-	_stats_label.text = "❤ %d HP   ⚔ %.0f DMG   💧 %d Cost" % \
-		[int(stats.max_hp), stats.damage, stats.cost]
-
-	if stats.description.is_empty():
-		_desc_label.visible = false
-	else:
-		_desc_label.visible = true
-		_desc_label.text    = stats.description
 
 	# Animasi masuk (fade-in)
 	get_tree().paused = true

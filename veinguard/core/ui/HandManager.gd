@@ -9,18 +9,19 @@ extends CanvasLayer
 
 # ── Pool semua kartu (path ke scene, stats, texture depan & belakang) ─────
 # Format tiap entry: [scene_path, stats_path, front_tex_path, back_tex_path]
+const _ERITROSIT_ENTRY: Array = [
+	"res://units/player/eritrosit/Eritrosit.tscn",
+	"res://units/player/eritrosit/eritrosit_stats.tres",
+	"res://assets/ui/unit_cards/card_front_eritrosit.png",
+	"res://assets/ui/unit_cards/card_back_eritrosit.png",
+]
+
 const _POOL_ENTRIES: Array = [
 	[
 		"res://units/player/natural_killer/NKiller.tscn",
 		"res://units/player/natural_killer/nkiller_stats.tres",
 		"res://assets/ui/unit_cards/card_front_natural_killer.png",
 		"res://assets/ui/unit_cards/card_back_natural_killer.png",
-	],
-	[
-		"res://units/player/eritrosit/Eritrosit.tscn",
-		"res://units/player/eritrosit/eritrosit_stats.tres",
-		"res://assets/ui/unit_cards/card_front_eritrosit.png",
-		"res://assets/ui/unit_cards/card_back_eritrosit.png",
 	],
 	[
 		"res://units/player/trombosit/Trombosit.tscn",
@@ -62,6 +63,7 @@ var _slots              : Array        = []   # 4 UnitCard nodes
 var _hand_indices       : Array        = [-1, -1, -1, -1]  # index pool untuk tiap slot
 var _next_card_slot     : UnitCard     = null
 var _next_card_idx      : int          = -1
+var _eritrosit_slot     : UnitCard     = null
 var _inspect_overlay    : CardInspectOverlay = null
 
 
@@ -72,6 +74,7 @@ func _ready() -> void:
 	_load_pool()
 	_create_card_slots()
 	_init_hand()
+	_setup_eritrosit_slot()
 	
 	_inspect_overlay = CardInspectOverlay.new()
 	_inspect_overlay.name = "CardInspectOverlay"
@@ -117,6 +120,33 @@ func _create_card_slots() -> void:
 	_next_card_slot.mouse_filter = Control.MOUSE_FILTER_IGNORE # Tidak bisa diklik
 	_next_card_slot.card_inspected.connect(_on_card_inspected)
 	add_child(_next_card_slot)
+	
+	_eritrosit_slot       = UnitCard.new()
+	_eritrosit_slot.name  = "EritrositSlot"
+	_eritrosit_slot.card_inspected.connect(_on_card_inspected)
+	add_child(_eritrosit_slot)
+
+func _setup_eritrosit_slot() -> void:
+	var front : Texture2D = _safe_load(_ERITROSIT_ENTRY[2])
+	var back  : Texture2D = _safe_load(_ERITROSIT_ENTRY[3])
+	
+	_eritrosit_slot.unit_scene    = _safe_load(_ERITROSIT_ENTRY[0])
+	_eritrosit_slot.unit_stats    = _safe_load(_ERITROSIT_ENTRY[1])
+	_eritrosit_slot._front_tex    = front
+	_eritrosit_slot._back_tex     = back if back else front
+	
+	if front:
+		_eritrosit_slot.texture_normal = front
+		_eritrosit_slot.size           = front.get_size()
+		var s: float = TARGET_NEXT_CARD_WIDTH / _eritrosit_slot.size.x
+		_eritrosit_slot.scale = Vector2(s, s)
+		_eritrosit_slot.base_scale = _eritrosit_slot.scale
+		
+	_eritrosit_slot._recompute_center()
+	# Posisikan di atas Next Card (Y = 1460)
+	_eritrosit_slot.position = Vector2(NEXT_CARD_CENTER_X, 1460.0) - (_eritrosit_slot.size / 2.0)
+	_eritrosit_slot.base_pos = _eritrosit_slot.position
+	_eritrosit_slot.update_energy_state(GameManager.oxygen_points)
 
 func _on_card_inspected(card: UnitCard) -> void:
 	if _inspect_overlay and card.unit_stats and card._front_tex:
@@ -128,6 +158,8 @@ func _on_oxygen_changed(new_amount: float) -> void:
 			card.update_energy_state(new_amount)
 	if is_instance_valid(_next_card_slot):
 		_next_card_slot.update_energy_state(new_amount)
+	if is_instance_valid(_eritrosit_slot):
+		_eritrosit_slot.update_energy_state(new_amount)
 
 
 # ── Inisialisasi tangan awal (4 kartu utama + 1 Next Card) ─────────────
@@ -150,6 +182,10 @@ func _init_hand() -> void:
 
 # ── Discard kartu yang dimainkan & draw kartu baru ───────────────────────
 func discard_and_draw(played_card: UnitCard) -> void:
+	if played_card == _eritrosit_slot:
+		played_card.set_focus(false)
+		return
+		
 	var slot_idx : int = _slots.find(played_card)
 	if slot_idx == -1:
 		return
