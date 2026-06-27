@@ -12,6 +12,7 @@ var _back_tex  : Texture2D = null
 
 # ── Signals ───────────────────────────────────────────────────────────────
 signal card_toggled(card_node: UnitCard, is_selected: bool)
+signal card_inspected(card_node: UnitCard)
 
 # ── State ─────────────────────────────────────────────────────────────────
 var is_focused    := false
@@ -22,6 +23,10 @@ var _is_flipped       := false
 var _is_swiping       := false
 var _was_swiped       := false
 var _swipe_start_pos  := Vector2.ZERO
+
+var _hold_timer       := 0.0
+var _is_holding       := false
+var _hold_start_pos   := Vector2.ZERO
 
 # Posisi & skala saat kartu dipilih (tengah layar)
 var _center_pos   := Vector2(200.0, 600.0)
@@ -34,6 +39,40 @@ func _ready() -> void:
 	base_scale = scale
 	base_pos   = position
 	_recompute_center()
+
+func _process(delta: float) -> void:
+	if _is_holding:
+		_hold_timer += delta
+		if _hold_timer >= 0.4:
+			_is_holding = false
+			_hold_timer = 0.0
+			card_inspected.emit(self)
+
+func _gui_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
+			card_inspected.emit(self)
+			accept_event()
+			return
+		elif event.button_index == MOUSE_BUTTON_LEFT:
+			if event.pressed:
+				_is_holding = true
+				_hold_timer = 0.0
+				_hold_start_pos = event.global_position
+			else:
+				_is_holding = false
+				
+	if event is InputEventScreenTouch:
+		if event.pressed:
+			_is_holding = true
+			_hold_timer = 0.0
+			_hold_start_pos = event.global_position
+		else:
+			_is_holding = false
+
+	if _is_holding and (event is InputEventMouseMotion or event is InputEventScreenDrag):
+		if event.global_position.distance_to(_hold_start_pos) > 15.0:
+			_is_holding = false
 
 
 # Hitung posisi & skala tengah layar berdasarkan ukuran texture aktif

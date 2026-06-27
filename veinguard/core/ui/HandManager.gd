@@ -62,6 +62,7 @@ var _slots              : Array        = []   # 4 UnitCard nodes
 var _hand_indices       : Array        = [-1, -1, -1, -1]  # index pool untuk tiap slot
 var _next_card_slot     : UnitCard     = null
 var _next_card_idx      : int          = -1
+var _inspect_overlay    : CardInspectOverlay = null
 
 
 func _ready() -> void:
@@ -71,6 +72,10 @@ func _ready() -> void:
 	_load_pool()
 	_create_card_slots()
 	_init_hand()
+	
+	_inspect_overlay = CardInspectOverlay.new()
+	_inspect_overlay.name = "CardInspectOverlay"
+	add_child(_inspect_overlay)
 
 
 # ── Load seluruh resource pool ────────────────────────────────────────────
@@ -98,6 +103,7 @@ func _create_card_slots() -> void:
 	for i in 4:
 		var card          := UnitCard.new()
 		card.name          = "HandSlot%d" % i
+		card.card_inspected.connect(_on_card_inspected)
 		# Posisi dan skala diset secara dinamis di _assign_slot setelah tekstur dimuat
 		add_child(card)   # _ready() kartu dipanggil di sini
 		_slots.append(card)
@@ -107,7 +113,12 @@ func _create_card_slots() -> void:
 	_next_card_slot.name  = "NextCardSlot"
 	_next_card_slot.modulate.a = 0.8  # Sedikit transparan
 	_next_card_slot.mouse_filter = Control.MOUSE_FILTER_IGNORE # Tidak bisa diklik
+	_next_card_slot.card_inspected.connect(_on_card_inspected)
 	add_child(_next_card_slot)
+
+func _on_card_inspected(card: UnitCard) -> void:
+	if _inspect_overlay and card.unit_stats and card._front_tex:
+		_inspect_overlay.open(card.unit_stats, card._front_tex, card._back_tex)
 
 
 # ── Inisialisasi tangan awal (4 kartu utama + 1 Next Card) ─────────────

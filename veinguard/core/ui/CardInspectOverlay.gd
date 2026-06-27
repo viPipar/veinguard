@@ -20,13 +20,13 @@ var _name_label    : Label
 var _stats_label   : Label
 var _desc_label    : Label
 var _btn_close     : Button
-var _btn_flip      : Button
 
 
 func _ready() -> void:
 	# Overlay menutupi seluruh layar; berada di atas elemen CanvasLayer lain
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	mouse_filter = Control.MOUSE_FILTER_STOP
+	process_mode = Node.PROCESS_MODE_ALWAYS
 	hide()
 	_build_ui()
 
@@ -47,6 +47,8 @@ func _build_ui() -> void:
 	_card_display.position      = Vector2(240.0, 180.0)
 	_card_display.size          = Vector2(600.0, 900.0)
 	_card_display.pivot_offset  = Vector2(300.0, 450.0)  # pusat untuk animasi flip
+	_card_display.mouse_filter  = Control.MOUSE_FILTER_STOP
+	_card_display.gui_input.connect(_on_card_gui_input)
 	add_child(_card_display)
 
 	# --- Panel info stats di bawah kartu ---
@@ -86,18 +88,11 @@ func _build_ui() -> void:
 	vbox.add_child(_desc_label)
 
 	# --- Tombol TUTUP (kiri atas, merah) ---
-	_btn_close          = _make_button("✕  Tutup", Color(0.72, 0.07, 0.07))
-	_btn_close.position = Vector2(24.0, 40.0)
-	_btn_close.size     = Vector2(220.0, 88.0)
+	_btn_close          = _make_button("X", Color(0.72, 0.07, 0.07))
+	_btn_close.position = Vector2(40.0, 40.0)
+	_btn_close.size     = Vector2(100.0, 100.0)
 	add_child(_btn_close)
 	_btn_close.pressed.connect(close)
-
-	# --- Tombol BALIK (kanan atas, hijau) ---
-	_btn_flip          = _make_button("↺  Balik", Color(0.07, 0.58, 0.18))
-	_btn_flip.position = Vector2(836.0, 40.0)
-	_btn_flip.size     = Vector2(220.0, 88.0)
-	add_child(_btn_flip)
-	_btn_flip.pressed.connect(_on_flip_pressed)
 
 
 # ── Helper: buat StyleBox panel ───────────────────────────────────────────
@@ -166,6 +161,7 @@ func open(stats: UnitStats, front_tex: Texture2D, back_tex: Texture2D) -> void:
 		_desc_label.text    = stats.description
 
 	# Animasi masuk (fade-in)
+	get_tree().paused = true
 	modulate.a = 0.0
 	show()
 	var tween := create_tween()
@@ -177,15 +173,41 @@ func close() -> void:
 	var tween := create_tween()
 	tween.tween_property(self, "modulate:a", 0.0, 0.16)
 	await tween.finished
+	get_tree().paused = false
 	hide()
 
 
+var _swipe_start_pos := Vector2.ZERO
+var _is_swiping := false
+var _is_flipping := false
+
+func _on_card_gui_input(event: InputEvent) -> void:
+	if _is_flipping:
+		return
+		
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_LEFT:
+			if event.pressed:
+				_is_swiping = true
+				_swipe_start_pos = event.global_position
+			else:
+				_is_swiping = false
+				var dist = event.global_position.distance_to(_swipe_start_pos)
+				# Kalau jarak kecil, anggap click
+				if dist < 20.0:
+					_do_flip()
+					
+	elif event is InputEventScreenDrag and _is_swiping:
+		var swipe_dist = event.global_position.x - _swipe_start_pos.x
+		if abs(swipe_dist) > 50.0:
+			_is_swiping = false
+			_do_flip()
+
 # ── Animasi Flip Kartu (scaleX: 1→0→1) ────────────────────────────────────
-func _on_flip_pressed() -> void:
+func _do_flip() -> void:
+	_is_flipping = true
 	_showing_front = not _showing_front
 	var new_tex := _front_tex if _showing_front else _back_tex
-
-	_btn_flip.disabled = true   # cegah double-press saat animasi
 
 	var tween := create_tween()
 	# Fase 1: perkecil scaleX ke 0 (lipat ke dalam)
@@ -196,5 +218,5 @@ func _on_flip_pressed() -> void:
 	# Fase 2: buka scaleX kembali ke 1
 	tween.tween_property(_card_display, "scale:x", 1.0, 0.16) \
 		.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
-	# Re-enable tombol setelah animasi selesai
-	tween.tween_callback(func(): _btn_flip.disabled = false)
+	# Re-enable setelah animasi selesai
+	tween.tween_callback(func(): _is_flipping = false)
