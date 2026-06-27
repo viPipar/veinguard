@@ -62,6 +62,7 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
+[ext_resource type="PackedScene" uid="uid://cx1g25v6y6y7y" path="res://core/ui/DebugMenu.tscn" id="DebugMenuScene"]
 [node name="Main" type="Node2D"]
 script = ExtResource("1_main")
 
@@ -150,6 +151,7 @@ offset_right = 1040.0
 offset_bottom = 1880.0
 theme_override_styles/background = SubResource("StyleBoxFlat_elixir_bg")
 theme_override_styles/fill = SubResource("StyleBoxFlat_elixir_fill")
+step = 0.01
 show_percentage = false
 
 [node name="TimerLabel" type="Label" parent="HUD"]
@@ -204,3 +206,6 @@ theme_override_font_sizes/font_size = 60
 text = "⚡ OVERTIME! ⚡"
 
 [connection signal="pressed" from="HUD/SettingsButton" to="HUD" method="_on_settings_button_pressed"]
+
+[node name="DebugMenu" parent="." instance=ExtResource("DebugMenuScene")]
+

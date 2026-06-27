@@ -1,19 +1,19 @@
 extends Node
 
 # --- Signals ---
-signal oxygen_changed(new_amount: int)
+signal oxygen_changed(new_amount: float)
 signal game_over
 signal player_won
 signal overtime_started
 signal time_updated(seconds_remaining: float)
 
 # --- Constants ---
-const MAX_OXYGEN         : int   = 1000
+const MAX_OXYGEN         : float = 10.0
 const OVERTIME_THRESHOLD : float = 120.0  # 2 menit
 
 # --- State ---
-var current_level  : int  = 1
-var oxygen_points  : int  = 0
+var current_level  : int   = 1
+var oxygen_points  : float = 0.0
 var wave_number    : int  = 0
 var is_game_over   : bool = false
 var is_wave_active : bool = false
@@ -22,8 +22,8 @@ var _is_overtime   : bool  = false
 var _has_played_last_second: bool = false
 
 # --- Passive Oxygen Config ---
-@export var passive_oxygen_rate     : int   = 10    # oxygen per tick
-@export var passive_oxygen_interval : float = 0.25  # detik antar tick
+@export var passive_oxygen_rate     : float = 0.035 # oxygen per tick (~1 per 2.8s)
+@export var passive_oxygen_interval : float = 0.1   # detik antar tick
 var _passive_oxygen_timer : float = 0.0
 
 
@@ -54,12 +54,12 @@ func _process(delta: float) -> void:
 		add_oxygen(passive_oxygen_rate)
 
 
-func add_oxygen(amount: int) -> void:
+func add_oxygen(amount: float) -> void:
 	oxygen_points = min(oxygen_points + amount, MAX_OXYGEN)
 	oxygen_changed.emit(oxygen_points)
 
 
-func try_spend_oxygen(cost: int) -> bool:
+func try_spend_oxygen(cost: float) -> bool:
 	if oxygen_points < cost:
 		return false
 	oxygen_points -= cost

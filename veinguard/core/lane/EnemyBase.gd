@@ -54,15 +54,42 @@ func _process(delta: float) -> void:
 		_spawn_enemy()
 
 
+@export var virus_scene : PackedScene = preload("res://units/enemies/virus/Virus.tscn") if ResourceLoader.exists("res://units/enemies/virus/Virus.tscn") else null
+
 func _spawn_enemy() -> void:
 	if enemy_scene == null:
 		return
 	if get_tree().get_nodes_in_group("enemies").size() >= max_enemies:
 		return
 
-	var enemy = enemy_scene.instantiate()
+	# Weighted spawn: 70% bacteria, 30% virus after level 1
+	var scene_to_spawn = enemy_scene
+	if GameManager.current_level > 1 and virus_scene != null and randf() < 0.3:
+		scene_to_spawn = virus_scene
+
+	var enemy = scene_to_spawn.instantiate()
 	get_parent().add_child(enemy)
-	
+	_animate_spawn(enemy)
+
+func spawn_specific_enemy(type: String) -> void:
+	if get_tree().get_nodes_in_group("enemies").size() >= max_enemies + 2:
+		return
+		
+	var scene_to_spawn = enemy_scene
+	if type == "virus" and virus_scene != null:
+		scene_to_spawn = virus_scene
+	elif type == "virus" and virus_scene == null:
+		# Fallback if Virus not created yet
+		var loaded_virus = load("res://units/enemies/virus/Virus.tscn")
+		if loaded_virus:
+			scene_to_spawn = loaded_virus
+			virus_scene = loaded_virus
+			
+	var enemy = scene_to_spawn.instantiate()
+	get_parent().add_child(enemy)
+	_animate_spawn(enemy)
+
+func _animate_spawn(enemy: Node2D) -> void:
 	# --- Animasi Spawn Bakteri (Ejection & Elastic Pop) ---
 	# 1. Mulai dari posisi agak ke atas (seolah di dalam markas)
 	var spawn_pos = global_position
@@ -88,8 +115,6 @@ func _spawn_enemy() -> void:
 		
 	# Fading-in
 	tween.tween_property(enemy, "modulate:a", 1.0, 0.3)
-	
-	# --- Animasi Kontraksi Base (Pulsing) ---
 	_pulse_base()
 
 

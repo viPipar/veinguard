@@ -13,4 +13,4 @@ move_speed = 80.0
 damage = 10.0
 attack_range = 50.0
 attack_speed = 1.0
-cost = 100
+cost = 5

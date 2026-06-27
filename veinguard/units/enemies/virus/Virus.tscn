@@ -1,0 +1,58 @@
+[gd_scene load_steps=9 format=3 uid="uid://c1v94x48rnxvq"]
+
+[ext_resource type="Script" uid="uid://v2j3k4l5m6n7" path="res://units/enemies/virus/Virus.gd" id="1_virus"]
+[ext_resource type="Resource" uid="uid://cy945x48rnxvq" path="res://units/enemies/virus/virus_stats.tres" id="2_stats"]
+[ext_resource type="Texture2D" uid="uid://dj4k5l6m7n8o" path="res://assets/ui/Character/Streptococcus.png" id="3_tex"]
+[ext_resource type="PackedScene" path="res://core/ui/HealthBar.tscn" id="4_hb"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_virus"]
+atlas = ExtResource("3_tex")
+region = Rect2(0, 0, 100, 100)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_virus"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_virus")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_virus")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_col"]
+radius = 8.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_aggro"]
+radius = 600.0
+
+[node name="Virus" type="CharacterBody2D"]
+collision_layer = 2
+script = ExtResource("1_virus")
+stats = ExtResource("2_stats")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -20)
+scale = Vector2(0.8, 0.8)
+sprite_frames = SubResource("SpriteFrames_virus")
+animation = &"idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_col")
+
+[node name="AggroArea" type="Area2D" parent="."]
+collision_layer = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AggroArea"]
+shape = SubResource("CircleShape2D_aggro")
+
+[node name="HealthBar" parent="." instance=ExtResource("4_hb")]
+position = Vector2(-24, -60)

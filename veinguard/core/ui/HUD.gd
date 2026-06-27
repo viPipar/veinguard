@@ -16,14 +16,14 @@ func _ready() -> void:
 	oxygen_bar.min_value   = 0
 	oxygen_bar.max_value   = GameManager.MAX_OXYGEN
 	oxygen_bar.value       = 0
-	oxygen_label.text      = "O₂: 0 / %d" % GameManager.MAX_OXYGEN
+	oxygen_label.text      = "O₂: 0.0 / %.1f" % GameManager.MAX_OXYGEN
 	timer_label.text       = "2:00"
 	overtime_label.visible = false
 
 
 # --- Oxygen ---
-func _on_oxygen_changed(amount: int) -> void:
-	oxygen_label.text = "O₂: %d / %d" % [amount, GameManager.MAX_OXYGEN]
+func _on_oxygen_changed(amount: float) -> void:
+	oxygen_label.text = "O₂: %.1f / %.1f" % [amount, GameManager.MAX_OXYGEN]
 
 	# Smooth bar update
 	var tween: Tween = create_tween()

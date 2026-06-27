@@ -11,5 +11,5 @@ move_speed = 60.0
 damage = 15.0
 attack_range = 220.0
 attack_speed = 1.2
-cost = 100
+cost = 2
 metadata/_custom_type_script = "uid://c5gbukkn4s3uk"
