@@ -163,12 +163,20 @@ func play_discard_animation() -> void:
 	rotation   = 0.0
 
 
-# ── Animasi Draw: kartu masuk dari kanan ─────────────────────────────────
-func play_draw_animation() -> void:
+# ── Animasi Draw: kartu masuk (default dari luar layar kanan) ────────────
+func play_draw_animation(start_pos = null, start_scale = null) -> void:
 	var vp := get_viewport_rect().size
-	# Mulai dari luar layar kanan
-	position   = Vector2(vp.x + 80.0, base_pos.y)
-	scale      = base_scale
+	
+	if start_pos != null:
+		position = start_pos
+	else:
+		position = Vector2(vp.x + 80.0, base_pos.y)
+		
+	if start_scale != null:
+		scale = start_scale
+	else:
+		scale = base_scale
+		
 	modulate.a = 0.0
 	mouse_filter = Control.MOUSE_FILTER_IGNORE   # Tidak bisa diklik saat animasi
 

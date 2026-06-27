@@ -1,9 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://bvqnflplnbiwo"]
+[gd_scene load_steps=11 format=3 uid="uid://cxaaatifup2f"]
 
 [ext_resource type="PackedScene" uid="uid://dgxhd6jxpjlhl" path="res://core/lane/Lane.tscn" id="1_c2ibq"]
 [ext_resource type="Script" uid="uid://lleuox8u80ym" path="res://Main.gd" id="1_main"]
 [ext_resource type="Script" uid="uid://bgwe5hm4yfknu" path="res://core/ui/HUD.gd" id="2_j4qnp"]
-[ext_resource type="Script" uid="uid://der5hto6kr2ry" path="res://map_background.gd" id="3_5vw27"]
+[ext_resource type="Script" path="res://map_background.gd" id="3_5vw27"]
 [ext_resource type="Texture2D" uid="uid://dogedf4f8e6km" path="res://assets/ui/Map/map_1.png" id="7_272bh"]
 [ext_resource type="PackedScene" uid="uid://dt3fu2wae22rx" path="res://units/player/eritrosit/Eritrosit.tscn" id="8_devvj"]
 [ext_resource type="Script" uid="uid://dy4myjf16eds1" path="res://core/SlingshotController.gd" id="13_xrxkg"]
@@ -38,10 +38,27 @@ offset_right = 40.0
 offset_bottom = 23.0
 label_settings = SubResource("LabelSettings_efxa6")
 
+[node name="DeckBackground" type="ColorRect" parent="HUD"]
+offset_left = 260.0
+offset_top = 1580.0
+offset_right = 1060.0
+offset_bottom = 1900.0
+color = Color(0.36, 0.23, 0.13, 1)
+
+[node name="NextLabel" type="Label" parent="HUD"]
+offset_left = 80.0
+offset_top = 1560.0
+offset_right = 200.0
+offset_bottom = 1610.0
+theme_override_fonts/font = ExtResource("15_font")
+theme_override_font_sizes/font_size = 40
+text = "Next:"
+
 [node name="OxygenBar" type="ProgressBar" parent="HUD"]
-offset_top = 1500.0
-offset_right = 400.0
-offset_bottom = 1550.0
+offset_left = 280.0
+offset_top = 1840.0
+offset_right = 1040.0
+offset_bottom = 1880.0
 show_percentage = false
 
 [node name="TimerLabel" type="Label" parent="HUD"]
