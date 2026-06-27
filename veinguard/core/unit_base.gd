@@ -66,6 +66,9 @@ func _physics_process(delta: float) -> void:
 		State.DIE:      _process_die(delta)
 		State.PATCHING: _process_patching(delta)
 		State.EAT:      _process_eat(delta)
+		
+	# Jaga agar semua unit tidak keluar dari layar/arena (pagar batas)
+	global_position.x = clamp(global_position.x, 30.0, 1050.0)
 
 
 # --- Override state handlers di child class ---

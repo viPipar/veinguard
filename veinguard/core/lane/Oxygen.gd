@@ -5,7 +5,7 @@
 class_name Oxygen
 extends Area2D
 
-@export var oxygen_value : int = 50   # nilai poin yang diberikan ke GameManager
+@export var oxygen_value : float = 1.0   # nilai poin yang diberikan ke GameManager
 
 var _is_taken : bool = false          # sudah diambil Eritrosit atau belum
 
