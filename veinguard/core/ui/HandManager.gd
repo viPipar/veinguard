@@ -49,10 +49,10 @@ const _POOL_ENTRIES: Array = [
 ]
 
 # ── Konstanta layout ───────────────────────────────────────────────────────
-const CARD_SCALE          : Vector2 = Vector2(0.165, 0.165)
-const NEXT_CARD_SCALE     : Vector2 = Vector2(0.12, 0.12)
-const CARD_CENTER_Y       : float   = 1710.0
-const NEXT_CARD_CENTER_Y  : float   = 1710.0
+const TARGET_CARD_WIDTH       : float   = 173.0
+const TARGET_NEXT_CARD_WIDTH  : float   = 126.0
+const CARD_CENTER_Y           : float   = 1710.0
+const NEXT_CARD_CENTER_Y      : float   = 1710.0
 const SLOT_CENTER_X       : Array   = [370.0, 565.0, 760.0, 955.0]
 const NEXT_CARD_CENTER_X  : float   = 120.0
 
@@ -98,15 +98,13 @@ func _create_card_slots() -> void:
 	for i in 4:
 		var card          := UnitCard.new()
 		card.name          = "HandSlot%d" % i
-		card.scale         = CARD_SCALE
-		# Posisi diset secara dinamis di _assign_slot setelah tekstur dimuat
+		# Posisi dan skala diset secara dinamis di _assign_slot setelah tekstur dimuat
 		add_child(card)   # _ready() kartu dipanggil di sini
 		_slots.append(card)
 
 	# Buat Next Card slot
 	_next_card_slot       = UnitCard.new()
 	_next_card_slot.name  = "NextCardSlot"
-	_next_card_slot.scale = NEXT_CARD_SCALE
 	_next_card_slot.modulate.a = 0.8  # Sedikit transparan
 	_next_card_slot.mouse_filter = Control.MOUSE_FILTER_IGNORE # Tidak bisa diklik
 	add_child(_next_card_slot)
@@ -177,10 +175,14 @@ func _assign_slot(slot_idx: int, pool_idx: int, animate: bool, from_next: bool =
 	if data.front_tex:
 		card.texture_normal = data.front_tex
 		card.size           = data.front_tex.get_size()
+		
+		var s: float = TARGET_CARD_WIDTH / card.size.x
+		card.scale = Vector2(s, s)
+		card.base_scale = card.scale
 
 	card._recompute_center()
 	
-	# Posisikan dengan akurat berdasarkan pivot center
+	# Posisikan dengan akurat berdasarkan pivot center dan ukuran asli
 	card.position = Vector2(SLOT_CENTER_X[slot_idx], CARD_CENTER_Y) - (card.size / 2.0)
 	card.base_pos = card.position
 
@@ -202,6 +204,10 @@ func _assign_next_card(animate: bool) -> void:
 	if data.front_tex:
 		_next_card_slot.texture_normal = data.front_tex
 		_next_card_slot.size = data.front_tex.get_size()
+		
+		var s: float = TARGET_NEXT_CARD_WIDTH / _next_card_slot.size.x
+		_next_card_slot.scale = Vector2(s, s)
+		_next_card_slot.base_scale = _next_card_slot.scale
 		
 	_next_card_slot._recompute_center()
 	

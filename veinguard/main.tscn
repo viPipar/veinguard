@@ -1,9 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://cxaaatifup2f"]
+[gd_scene load_steps=15 format=3 uid="uid://cxaaatifup2f"]
 
 [ext_resource type="PackedScene" uid="uid://dgxhd6jxpjlhl" path="res://core/lane/Lane.tscn" id="1_c2ibq"]
 [ext_resource type="Script" uid="uid://lleuox8u80ym" path="res://Main.gd" id="1_main"]
 [ext_resource type="Script" uid="uid://bgwe5hm4yfknu" path="res://core/ui/HUD.gd" id="2_j4qnp"]
-[ext_resource type="Script" uid="uid://der5hto6kr2ry" path="res://map_background.gd" id="3_5vw27"]
+[ext_resource type="Script" path="res://map_background.gd" id="3_5vw27"]
 [ext_resource type="Texture2D" uid="uid://ciggr6l5wjlam" path="res://assets/ui/Map/Map3.png" id="7_272bh"]
 [ext_resource type="PackedScene" uid="uid://dt3fu2wae22rx" path="res://units/player/eritrosit/Eritrosit.tscn" id="8_devvj"]
 [ext_resource type="Script" uid="uid://dy4myjf16eds1" path="res://core/SlingshotController.gd" id="13_xrxkg"]
@@ -13,6 +13,54 @@
 [sub_resource type="LabelSettings" id="LabelSettings_efxa6"]
 font = ExtResource("15_font")
 font_size = 64
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_deck"]
+bg_color = Color(0.36, 0.23, 0.13, 1)
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
+border_color = Color(0.2, 0.1, 0.05, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+shadow_color = Color(0, 0, 0, 0.4)
+shadow_size = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_empty_slot"]
+bg_color = Color(0.18, 0.1, 0.05, 0.7)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.1, 0.05, 0.02, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_elixir_bg"]
+bg_color = Color(0.15, 0.1, 0.1, 0.8)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_elixir_fill"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 0.5)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_main")
@@ -38,27 +86,70 @@ offset_right = 40.0
 offset_bottom = 23.0
 label_settings = SubResource("LabelSettings_efxa6")
 
-[node name="DeckBackground" type="ColorRect" parent="HUD"]
+[node name="DeckBackground" type="Panel" parent="HUD"]
 offset_left = 260.0
 offset_top = 1580.0
 offset_right = 1060.0
 offset_bottom = 1900.0
-color = Color(0.36, 0.23, 0.13, 1)
+theme_override_styles/panel = SubResource("StyleBoxFlat_deck")
+
+[node name="EmptySlot0" type="Panel" parent="HUD/DeckBackground"]
+layout_mode = 0
+offset_left = 23.0
+offset_top = 14.0
+offset_right = 196.0
+offset_bottom = 247.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_empty_slot")
+
+[node name="EmptySlot1" type="Panel" parent="HUD/DeckBackground"]
+layout_mode = 0
+offset_left = 218.0
+offset_top = 14.0
+offset_right = 391.0
+offset_bottom = 247.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_empty_slot")
+
+[node name="EmptySlot2" type="Panel" parent="HUD/DeckBackground"]
+layout_mode = 0
+offset_left = 413.0
+offset_top = 14.0
+offset_right = 586.0
+offset_bottom = 247.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_empty_slot")
+
+[node name="EmptySlot3" type="Panel" parent="HUD/DeckBackground"]
+layout_mode = 0
+offset_left = 608.0
+offset_top = 14.0
+offset_right = 781.0
+offset_bottom = 247.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_empty_slot")
 
 [node name="NextLabel" type="Label" parent="HUD"]
 offset_left = 80.0
 offset_top = 1560.0
 offset_right = 200.0
 offset_bottom = 1610.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
 theme_override_fonts/font = ExtResource("15_font")
 theme_override_font_sizes/font_size = 40
 text = "Next:"
+
+[node name="NextEmptySlot" type="Panel" parent="HUD"]
+offset_left = 57.0
+offset_top = 1625.0
+offset_right = 183.0
+offset_bottom = 1794.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_empty_slot")
 
 [node name="OxygenBar" type="ProgressBar" parent="HUD"]
 offset_left = 280.0
 offset_top = 1840.0
 offset_right = 1040.0
 offset_bottom = 1880.0
+theme_override_styles/background = SubResource("StyleBoxFlat_elixir_bg")
+theme_override_styles/fill = SubResource("StyleBoxFlat_elixir_fill")
 show_percentage = false
 
 [node name="TimerLabel" type="Label" parent="HUD"]

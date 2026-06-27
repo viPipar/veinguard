@@ -3,10 +3,10 @@ extends Node
 var bgm_player: AudioStreamPlayer
 
 var select_sfx = preload("res://audio/select.mp3")
-var in_game_bgm = preload("res://audio/music in game.mp3")
+var in_game_bgm = preload("res://audio/Stronghold 1 Soundtrack - 03 Castlejam.mp3")
 var plop_sfx = preload("res://audio/plop.mp3")
 var winning_sfx = preload("res://audio/winning.mp3")
-var last_second_sfx = preload("res://audio/last second.mp3")
+var last_second_sfx = preload("res://audio/Stronghold 1 Soundtrack - 03 Castlejam.mp3")
 
 func _ready() -> void:
 	bgm_player = AudioStreamPlayer.new()
