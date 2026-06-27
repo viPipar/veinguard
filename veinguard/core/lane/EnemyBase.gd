@@ -62,9 +62,11 @@ func _spawn_enemy() -> void:
 	if get_tree().get_nodes_in_group("enemies").size() >= max_enemies:
 		return
 
-	# Weighted spawn: 70% bacteria, 30% virus after level 1
+	# Weighted spawn: 70% bacteria, 30% virus
 	var scene_to_spawn = enemy_scene
-	if GameManager.current_level > 1 and virus_scene != null and randf() < 0.3:
+	
+	# Berikan probabilitas 30% untuk spawn Virus jika Virus sudah disetup
+	if virus_scene != null and randf() < 0.3:
 		scene_to_spawn = virus_scene
 
 	var enemy = scene_to_spawn.instantiate()

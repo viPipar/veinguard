@@ -22,7 +22,7 @@ var _is_overtime   : bool  = false
 var _has_played_last_second: bool = false
 
 # --- Passive Oxygen Config ---
-@export var passive_oxygen_rate     : float = 0.035 # oxygen per tick (~1 per 2.8s)
+@export var passive_oxygen_rate     : float = 0.005 # oxygen per tick (~1 per 20s)
 @export var passive_oxygen_interval : float = 0.1   # detik antar tick
 var _passive_oxygen_timer : float = 0.0
 
