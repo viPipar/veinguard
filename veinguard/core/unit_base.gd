@@ -127,8 +127,11 @@ func _process_die(_delta: float) -> void:
 		return
 	_is_dying = true
 	if sprite:
-		# Stop current animation if any
-		sprite.stop()
+		# Play die animation if available, otherwise stop sprite
+		if sprite.sprite_frames.has_animation("die"):
+			sprite.play("die")
+		else:
+			sprite.stop()
 		var tween := create_tween()
 		# Perlahan berubah putih dan fade out
 		tween.tween_property(sprite, "modulate", Color(10, 10, 10, 0), 0.5)

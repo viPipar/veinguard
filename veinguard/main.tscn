@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://dgxhd6jxpjlhl" path="res://core/lane/Lane.tscn" id="1_c2ibq"]
 [ext_resource type="Script" uid="uid://lleuox8u80ym" path="res://Main.gd" id="1_main"]
 [ext_resource type="Script" uid="uid://bgwe5hm4yfknu" path="res://core/ui/HUD.gd" id="2_j4qnp"]
-[ext_resource type="Script" path="res://map_background.gd" id="3_5vw27"]
+[ext_resource type="Script" uid="uid://der5hto6kr2ry" path="res://map_background.gd" id="3_5vw27"]
 [ext_resource type="Texture2D" uid="uid://ciggr6l5wjlam" path="res://assets/ui/Map/Map3.png" id="7_272bh"]
 [ext_resource type="PackedScene" uid="uid://dt3fu2wae22rx" path="res://units/player/eritrosit/Eritrosit.tscn" id="8_devvj"]
 [ext_resource type="Script" uid="uid://dy4myjf16eds1" path="res://core/SlingshotController.gd" id="13_xrxkg"]

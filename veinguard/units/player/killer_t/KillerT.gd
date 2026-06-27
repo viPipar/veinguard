@@ -29,6 +29,9 @@ func _on_ready() -> void:
 func _process_idle(_delta: float) -> void:
 	velocity = Vector2.ZERO
 	move_and_slide()
+	
+	if sprite and sprite.sprite_frames.has_animation("idle"):
+		sprite.play("idle")
 
 
 func _process_move(delta: float) -> void:
@@ -41,8 +44,10 @@ func _process_move(delta: float) -> void:
 	velocity = dir * stats.move_speed
 	move_and_slide()
 	
-	if sprite.sprite_frames.has_animation("walk"):
+	if sprite and sprite.sprite_frames.has_animation("walk"):
 		sprite.play("walk")
+	if velocity.x != 0 and sprite:
+		sprite.flip_h = velocity.x < 0
 
 
 func _process_attack(delta: float) -> void:
@@ -66,8 +71,10 @@ func _process_attack(delta: float) -> void:
 			velocity = dir * stats.move_speed
 			attack_area.look_at(current_target.global_position) # <-- Fix: Area harus ikut muter saat ngejar
 			move_and_slide()
-			if sprite.sprite_frames.has_animation("walk"):
+			if sprite and sprite.sprite_frames.has_animation("walk"):
 				sprite.play("walk")
+			if velocity.x != 0 and sprite:
+				sprite.flip_h = velocity.x < 0
 			return
 		
 		# Masuk jangkauan, mulai charge!
@@ -106,12 +113,16 @@ func _start_charge() -> void:
 	_attack_phase = AttackPhase.CHARGING
 	_charge_timer = 0.0
 	velocity = Vector2.ZERO
-	if sprite.sprite_frames.has_animation("charge"):
+	if sprite and sprite.sprite_frames.has_animation("charge"):
 		sprite.play("charge")
 		
 	# Putar area serangan agar menghadap target
 	if is_instance_valid(current_target):
 		attack_area.look_at(current_target.global_position)
+		if sprite:
+			var dir := global_position.direction_to(current_target.global_position)
+			if dir.x != 0:
+				sprite.flip_h = dir.x < 0
 		
 	print("[%s] Mulai Charge!" % name)
 
@@ -120,15 +131,19 @@ func _start_dash() -> void:
 	_attack_phase = AttackPhase.DASHING
 	_dash_timer   = 0.0
 	_hit_enemies.clear()
-	sprite.modulate = Color.WHITE # reset warna
+	if sprite:
+		sprite.modulate = Color.WHITE # reset warna
 	
-	if sprite.sprite_frames.has_animation("dash"):
+	if sprite and sprite.sprite_frames.has_animation("dash"):
 		sprite.play("dash")
 	
 	if is_instance_valid(current_target):
 		_dash_dir = global_position.direction_to(current_target.global_position)
 	else:
 		_dash_dir = Vector2(0, -1) # default lurus ke atas kalau target tiba-tiba mati
+		
+	if _dash_dir.x != 0 and sprite:
+		sprite.flip_h = _dash_dir.x < 0
 		
 	# Matikan tabrakan fisik dengan musuh (asumsi musuh di layer 2) agar bisa nembus
 	set_collision_mask_value(2, false)
