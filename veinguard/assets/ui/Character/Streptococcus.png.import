@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://d252b0mxfdq10"
-path="res://.godot/imported/Streptococcus.png-5de6f86ff9dde5067fa834b520990eec.ctex"
+path="res://.godot/imported/Streptococcus.png-2c8f49f947c29952ae8edb5127f3d718.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ui/character/Streptococcus.png"
-dest_files=["res://.godot/imported/Streptococcus.png-5de6f86ff9dde5067fa834b520990eec.ctex"]
+source_file="res://assets/ui/Character/Streptococcus.png"
+dest_files=["res://.godot/imported/Streptococcus.png-2c8f49f947c29952ae8edb5127f3d718.ctex"]
 
 [params]
 

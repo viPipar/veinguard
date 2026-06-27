@@ -5,6 +5,7 @@
 [resource]
 script = ExtResource("1_xwsf3")
 unit_name = "Killer T"
+description = ""
 max_hp = 100.0
 move_speed = 80.0
 damage = 10.0
