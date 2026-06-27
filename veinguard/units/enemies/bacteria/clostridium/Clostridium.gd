@@ -18,7 +18,7 @@ func _on_ready() -> void:
 	change_state(State.MOVE)
 
 func _physics_process(delta: float) -> void:
-	if is_stunned:
+	if self.is_stunned:
 		velocity = Vector2.ZERO
 		return
 	if current_state == State.DIE:

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://casvak2rs38ov"
-path="res://.godot/imported/bakteri-sprite.png-608a0e7228f130668cb2db2c38634181.ctex"
+path="res://.godot/imported/bakteri-sprite.png-f2e2d13b38cb12e1269e31fbf0cdda3c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://units/enemies/bacteria/Streptococcus_pneumoniae/bakteri-sprite.png"
-dest_files=["res://.godot/imported/bakteri-sprite.png-608a0e7228f130668cb2db2c38634181.ctex"]
+source_file="res://units/enemies/bacteria/streptococcus_pneumoniae/bakteri-sprite.png"
+dest_files=["res://.godot/imported/bakteri-sprite.png-f2e2d13b38cb12e1269e31fbf0cdda3c.ctex"]
 
 [params]
 
