@@ -13,6 +13,7 @@ var _time: float = 0.0
 var level_container: VBoxContainer
 
 func _ready() -> void:
+	AudioManager.play_idle_bgm()
 	credits_popup.visible = false
 	credits_popup.modulate.a = 0.0
 	credits_popup.scale = Vector2(0.8, 0.8)

@@ -7,6 +7,7 @@ extends UnitBase
 # --- Runtime variables ---
 var _chew_timer     : float = 0.0
 var _retarget_timer : float = 0.0
+var _eat_audio_player: AudioStreamPlayer2D
 
 
 func _on_ready() -> void:
@@ -16,6 +17,12 @@ func _on_ready() -> void:
 
 	aggro_area.body_entered.connect(_on_aggro_entered)
 	aggro_area.body_exited.connect(_on_aggro_exited)
+	
+	_eat_audio_player = AudioStreamPlayer2D.new()
+	_eat_audio_player.stream = AudioManager.eat_sfx
+	_eat_audio_player.volume_db = -8.0
+	_eat_audio_player.finished.connect(func(): if current_state == State.EAT: _eat_audio_player.play())
+	add_child(_eat_audio_player)
 	
 	add_to_group("players")
 	change_state(State.IDLE)
@@ -29,10 +36,14 @@ func _on_state_changed(new_state: State) -> void:
 			sprite.modulate = Color(0.8, 1.0, 0.8)
 			if sprite.sprite_frames.has_animation("eat"):
 				sprite.play("eat")
+		if _eat_audio_player and not _eat_audio_player.playing:
+			_eat_audio_player.play()
 	else:
 		if sprite:
 			sprite.scale = Vector2.ONE
 			sprite.modulate = Color.WHITE
+		if _eat_audio_player and _eat_audio_player.playing:
+			_eat_audio_player.stop()
 
 
 func _process_idle(delta: float) -> void:

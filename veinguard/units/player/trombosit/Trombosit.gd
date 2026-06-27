@@ -128,5 +128,6 @@ func _throw_clot_projectile() -> void:
 func _on_body_entered(_body: Node2D) -> void:
 	pass
 
-
-
+func take_damage(amount: float) -> void:
+	AudioManager.play_punch_sfx()
+	super.take_damage(amount)

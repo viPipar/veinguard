@@ -8,6 +8,11 @@ var in_game_bgm = preload("res://audio/Stronghold 1 Soundtrack - 03 Castlejam.mp
 var plop_sfx = preload("res://audio/plop.mp3")
 var winning_sfx = preload("res://audio/winning.mp3")
 var last_second_sfx = preload("res://audio/Stronghold 1 Soundtrack - 03 Castlejam.mp3")
+var sword_slash_sfx = preload("res://audio/54427377-sword-slash-476148.mp3")
+var hit_natural_killer_sfx = preload("res://audio/hitnaturaltkiller.mp3")
+var eat_sfx = preload("res://audio/audiopapkin-monster-eating-295849.mp3")
+var punch_sfx = preload("res://audio/universfield-punch-03-352040.mp3")
+var idle_bgm = preload("res://audio/music idle.mp3")
 
 # Volume properties (linear 0.0 to 1.0)
 var master_volume: float = 1.0
@@ -18,6 +23,8 @@ func _ready() -> void:
 	bgm_player = AudioStreamPlayer.new()
 	bgm_player.process_mode = Node.PROCESS_MODE_ALWAYS
 	bgm_player.bus = "Music"
+	# Auto loop BGM
+	bgm_player.finished.connect(func(): bgm_player.play())
 	add_child(bgm_player)
 	
 	load_settings()
@@ -34,13 +41,26 @@ func play_winning_sfx() -> void:
 	bgm_player.play()
 
 func play_last_second_sfx() -> void:
-	_play_one_shot(last_second_sfx)
+	_play_one_shot(last_second_sfx, -5.0)
 
-func _play_one_shot(stream: AudioStream) -> void:
+func play_sword_slash_sfx() -> void:
+	_play_one_shot(sword_slash_sfx)
+
+func play_hit_natural_killer_sfx() -> void:
+	_play_one_shot(hit_natural_killer_sfx, -12.0)
+
+func play_eat_sfx() -> void:
+	_play_one_shot(eat_sfx)
+
+func play_punch_sfx() -> void:
+	_play_one_shot(punch_sfx, -12.0)
+
+func _play_one_shot(stream: AudioStream, vol: float = 0.0) -> void:
 	var p = AudioStreamPlayer.new()
 	p.process_mode = Node.PROCESS_MODE_ALWAYS
 	p.bus = "SFX"
 	p.stream = stream
+	p.volume_db = vol
 	add_child(p)
 	p.play()
 	p.finished.connect(p.queue_free)
@@ -48,6 +68,14 @@ func _play_one_shot(stream: AudioStream) -> void:
 func play_in_game_bgm() -> void:
 	if bgm_player.stream != in_game_bgm:
 		bgm_player.stream = in_game_bgm
+		bgm_player.volume_db = -10.0
+	if not bgm_player.playing:
+		bgm_player.play()
+
+func play_idle_bgm() -> void:
+	if bgm_player.stream != idle_bgm:
+		bgm_player.stream = idle_bgm
+		bgm_player.volume_db = -8.0
 	if not bgm_player.playing:
 		bgm_player.play()
 
