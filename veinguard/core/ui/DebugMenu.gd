@@ -22,6 +22,14 @@ func _ready() -> void:
 	spawn_hiv_btn.pressed.connect(func(): _force_spawn("hiv"))
 	
 	@warning_ignore("unsafe_property_access")
+	var win_btn: Button = $PanelContainer/MarginContainer/VBoxContainer/WinBtn
+	if win_btn:
+		win_btn.pressed.connect(func():
+			GameManager.is_game_over = true
+			GameManager.player_won.emit()
+		)
+	
+	@warning_ignore("unsafe_property_access")
 	var info2_btn: Button = $PanelContainer/MarginContainer/VBoxContainer/InfO2Btn
 	if info2_btn:
 		info2_btn.pressed.connect(func():

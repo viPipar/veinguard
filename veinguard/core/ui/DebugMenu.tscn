@@ -98,5 +98,12 @@ size_flags_vertical = 3
 theme_override_font_sizes/font_size = 28
 text = "Spawn HIV (Boss)"
 
+[node name="WinBtn" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 1, 0, 1)
+theme_override_font_sizes/font_size = 32
+text = "INSTANT WIN"
+
 
 [connection signal="pressed" from="ToggleBtn" to="." method="_on_toggle_button_pressed"]

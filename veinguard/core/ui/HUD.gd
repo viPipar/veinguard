@@ -26,7 +26,34 @@ func _ready() -> void:
 	timer_label.text       = "2:00"
 	overtime_label.visible = false
 	
+	var q_btn = Button.new()
+	q_btn.text = "?"
+	q_btn.add_theme_font_override("font", load("res://assets/ui/Font/LilitaOne-Regular.ttf"))
+	q_btn.add_theme_font_size_override("font_size", 40)
+	q_btn.size = Vector2(60, 60)
+	q_btn.position = Vector2(40, 150) # Below oxygen label
+	
+	var sb = StyleBoxFlat.new()
+	sb.bg_color = Color(0.2, 0.4, 0.8)
+	sb.corner_radius_top_left = 15
+	sb.corner_radius_top_right = 15
+	sb.corner_radius_bottom_left = 15
+	sb.corner_radius_bottom_right = 15
+	q_btn.add_theme_stylebox_override("normal", sb)
+	
+	var sb_hover = sb.duplicate()
+	sb_hover.bg_color = Color(0.3, 0.5, 0.9)
+	q_btn.add_theme_stylebox_override("hover", sb_hover)
+	
+	q_btn.pressed.connect(_on_q_btn_pressed)
+	add_child(q_btn)
+	
 	_setup_oxygen_dividers()
+
+func _on_q_btn_pressed() -> void:
+	get_tree().paused = true
+	var overlay = MiniEncyclopediaOverlay.new()
+	add_child(overlay)
 
 func _setup_oxygen_dividers() -> void:
 	await get_tree().process_frame # Wait for layout to calculate size
