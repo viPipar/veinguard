@@ -1,7 +1,7 @@
 [gd_scene load_steps=18 format=3 uid="uid://c1wa4x48rnxvq"]
 
-[ext_resource type="Script" uid="uid://cy766ira17i67" path="res://units/enemies/virus/Virus.gd" id="1_virus"]
-[ext_resource type="Resource" uid="uid://c0a45x48rnxvq" path="res://units/enemies/virus/virus_stats.tres" id="2_stats"]
+[ext_resource type="Script" path="res://units/enemies/streptococcus/Streptococcus.gd" id="1_virus"]
+[ext_resource type="Resource" uid="uid://c0a45x48rnxvq" path="res://units/enemies/streptococcus/streptococcus_stats.tres" id="2_stats"]
 [ext_resource type="Texture2D" uid="uid://d252b0mxfdq10" path="res://assets/ui/Character/Streptococcus.png" id="3_tex"]
 [ext_resource type="PackedScene" path="res://core/ui/HealthBar.tscn" id="4_hb"]
 
@@ -159,7 +159,7 @@ radius = 8.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_aggro"]
 radius = 600.0
 
-[node name="Virus" type="CharacterBody2D"]
+[node name="Streptococcus" type="CharacterBody2D"]
 collision_layer = 2
 script = ExtResource("1_virus")
 stats = ExtResource("2_stats")

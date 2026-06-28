@@ -6,7 +6,7 @@
 script = ExtResource("1_2n7c1")
 unit_name = "HIV"
 description = "Mini Boss"
-max_hp = 500.0
+max_hp = 800.0
 move_speed = 35.0
 damage = 150.0
 attack_range = 350.0

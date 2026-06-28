@@ -2,7 +2,7 @@ extends UnitBase
 
 var _attack_timer: float = 0.0
 
-var projectile_scene: PackedScene = preload("res://units/enemies/virus/VirusProjectile.tscn")
+var projectile_scene: PackedScene = preload("res://units/enemies/streptococcus/StreptococcusProjectile.tscn")
 
 func _on_ready() -> void:
 	add_to_group("enemies")

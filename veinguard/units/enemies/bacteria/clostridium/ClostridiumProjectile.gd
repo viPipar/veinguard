@@ -22,10 +22,10 @@ func _on_body_entered(body: Node2D) -> void:
 			body.apply_slow(0.5, 3.0)
 			print("[ClostridiumProjectile] Terapkan Slow ke: ", body.name)
 		
-		# Terapkan Stun (30% peluang untuk stun selama 1.5 detik)
-		if body.has_method("apply_stun") and randf() < 0.3:
-			body.apply_stun(1.5)
-			print("[ClostridiumProjectile] Terapkan Stun ke: ", body.name)
+		# Terapkan Stun / Immobilize (100% peluang untuk stun selama 0.2 detik)
+		if body.has_method("apply_stun"):
+			body.apply_stun(0.2)
+			print("[ClostridiumProjectile] Terapkan Stun/Immobilize ke: ", body.name)
 			
 		queue_free()
 	elif body.is_in_group("player_base"):

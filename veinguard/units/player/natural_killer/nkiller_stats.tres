@@ -6,11 +6,11 @@
 script = ExtResource("1_0erf0")
 unit_name = "Natural Killer"
 description = ""
-max_hp = 80.0
+max_hp = 140.0
 move_speed = 100.0
-damage = 50.0
+damage = 35.0
 attack_range = 120.0
-attack_speed = 0.7
+attack_speed = 0.5
 windup_time = 0.3
 cost = 4
 metadata/_custom_type_script = "uid://c5gbukkn4s3uk"

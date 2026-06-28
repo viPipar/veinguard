@@ -4,12 +4,13 @@
 
 [resource]
 script = ExtResource("1_stats")
-unit_name = "Virus Ranged"
+unit_name = "Streptococcus Ranged"
 description = ""
-max_hp = 60.0
+max_hp = 85.0
 move_speed = 70.0
 damage = 7.0
 attack_range = 350.0
 attack_speed = 0.8
+windup_time = 0.3
 cost = 0
 metadata/_custom_type_script = "uid://c5gbukkn4s3uk"

@@ -11,6 +11,7 @@ var _charge_duration : float = 2.5    # Lama waktu charge
 var _hit_enemies     : Array[Node2D] = []
 var _has_started_moving : bool = false
 var _is_slashing     : bool = false
+var _ghost_timer     : float = 0.0
 
 
 func _on_ready() -> void:
@@ -133,6 +134,7 @@ func _process_attack(delta: float) -> void:
 				_has_started_moving = true
 				_is_slashing = true
 				AudioManager.play_sword_slash_sfx()
+				_spawn_sword_slash_arc() # Efek tebasan pedang sabit bercahaya
 				if sprite:
 					sprite.modulate = Color.WHITE # reset warna
 					sprite.scale = get_sprite_base_scale() # Kembalikan ke normal secara instan saat dash
@@ -158,6 +160,12 @@ func _process_attack(delta: float) -> void:
 			velocity = _dash_dir * _dash_speed
 			move_and_slide()
 			
+			# Spawn ghost trail
+			_ghost_timer += delta
+			if _ghost_timer >= 0.04:
+				_ghost_timer = 0.0
+				_spawn_ghost_trail()
+			
 			# Berikan damage ke musuh yang dilewati
 			_check_dash_hits()
 			
@@ -168,6 +176,7 @@ func _process_attack(delta: float) -> void:
 func _start_dash() -> void:
 	_attack_phase = KillerAttackPhase.DASHING
 	_dash_timer   = 0.0
+	_ghost_timer  = 0.0
 	_has_started_moving = false
 	_hit_enemies.clear()
 	
@@ -238,3 +247,57 @@ func _on_aggro_exited(body: Node2D) -> void:
 	if body == current_target and _attack_phase == KillerAttackPhase.IDLE:
 		_retarget_timer = 0.0
 		_pick_nearest_target()
+
+
+func _spawn_sword_slash_arc() -> void:
+	# Efek tebasan pedang/cakar berbentuk sabit bercahaya cyan
+	var slash_arc = Line2D.new()
+	get_parent().add_child(slash_arc)
+	slash_arc.width = 18.0
+	slash_arc.default_color = Color(0.2, 0.85, 1.0, 0.95) # Cyan bercahaya
+	
+	var dir = _dash_dir
+	if dir == Vector2.ZERO:
+		dir = Vector2(0, -1)
+		
+	var perp = dir.orthogonal()
+	
+	var points : Array[Vector2] = []
+	var num_points = 10
+	var arc_length = 70.0
+	var width_spread = 45.0
+	
+	for i in range(num_points):
+		var t = float(i) / (num_points - 1)
+		var angle = lerp(-PI/2.5, PI/2.5, t)
+		var pt = dir * cos(angle) * arc_length + perp * sin(angle) * width_spread
+		points.append(pt)
+		
+	slash_arc.points = PackedVector2Array(points)
+	slash_arc.global_position = global_position
+	
+	# Animasi slash melebar lalu memudar
+	var tween = create_tween().set_parallel(true)
+	tween.tween_property(slash_arc, "modulate:a", 0.0, 0.22)
+	tween.tween_property(slash_arc, "width", 0.0, 0.22)
+	tween.chain().tween_callback(slash_arc.queue_free)
+
+
+func _spawn_ghost_trail() -> void:
+	if not sprite:
+		return
+	var ghost = Sprite2D.new()
+	get_parent().add_child(ghost)
+	
+	# Dapatkan tekstur frame saat ini
+	var current_frame = sprite.sprite_frames.get_frame_texture(sprite.animation, sprite.frame)
+	ghost.texture = current_frame
+	ghost.global_position = sprite.global_position
+	ghost.scale = sprite.scale
+	ghost.flip_h = sprite.flip_h
+	ghost.modulate = Color(0.25, 0.8, 1.0, 0.55) # Bayangan cyan transparan
+	
+	# Animasi memudar
+	var tween = create_tween()
+	tween.tween_property(ghost, "modulate:a", 0.0, 0.28)
+	tween.tween_callback(ghost.queue_free)

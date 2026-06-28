@@ -2,8 +2,8 @@ class_name EnemyBase
 extends Area2D
 
 @export var enemy_scene     : PackedScene
-@export var spawn_interval  : float = 12.0
-@export var max_enemies     : int   = 5
+@export var spawn_interval  : float = 8.0
+@export var max_enemies     : int   = 7
 
 @export var max_health      : float = 400.0
 var current_health          : float
@@ -20,8 +20,8 @@ func _ready() -> void:
 	match lvl:
 		2:
 			max_health *= 1.5
-			spawn_interval /= 1.2
-			max_enemies += 1
+			spawn_interval /= 1.5
+			max_enemies += 3
 			var sprite = get_node_or_null("Sprite2D")
 			if sprite:
 				var new_tex = load("res://assets/ui/Map/EnemyBase3.png")
@@ -29,16 +29,12 @@ func _ready() -> void:
 					sprite.texture = new_tex
 		3:
 			max_health *= 2.0
-			spawn_interval /= 1.5
-			max_enemies += 2
+			spawn_interval /= 2.0
+			max_enemies += 5
 		4:
 			max_health *= 2.5
-			spawn_interval /= 2.0
-			max_enemies += 4
-		5:
-			max_health *= 3.5
 			spawn_interval /= 2.5
-			max_enemies += 6
+			max_enemies += 8
 			
 	current_health = max_health
 	var hb_scene = load("res://core/ui/HealthBar.tscn")

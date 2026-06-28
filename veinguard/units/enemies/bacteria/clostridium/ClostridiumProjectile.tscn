@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://dj3k2k3k2k3k" path="res://assets/ui/Character/ProjectileB.png" id="2_texture"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_proj"]
-radius = 12.0
+radius = 22.0
 
 [node name="ClostridiumProjectile" type="Area2D"]
 collision_layer = 8
@@ -13,7 +13,7 @@ script = ExtResource("1_script")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 modulate = Color(0.701961, 0.117647, 0.898039, 1)
-scale = Vector2(0.3, 0.3)
+scale = Vector2(0.7, 0.7)
 texture = ExtResource("2_texture")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
