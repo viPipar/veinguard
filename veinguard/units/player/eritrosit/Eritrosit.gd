@@ -85,6 +85,9 @@ func _process_die(_delta: float) -> void:
 
 
 func _on_oxygen_detected(area: Area2D) -> void:
+	if is_instance_valid(_carried_oxygen):
+		return # Jangan ter-distract jika sedang membawa oksigen
+		
 	if area is Oxygen and not area._is_taken:
 		# Ambil target baru jika belum punya target, atau target lama sudah diambil orang lain
 		if _target_oxygen == null or _target_oxygen._is_taken:
