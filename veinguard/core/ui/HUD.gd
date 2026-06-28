@@ -112,7 +112,7 @@ func _on_settings_button_pressed() -> void:
 	var settings_menu = load("res://core/ui/SettingsMenu.tscn").instantiate()
 	settings_menu.process_mode = Node.PROCESS_MODE_ALWAYS
 	get_tree().paused = true
-	settings_menu.tree_exited.connect(func(): get_tree().paused = false)
+	settings_menu.tree_exited.connect(func(): if get_tree(): get_tree().paused = false)
 	add_child(settings_menu)
 
 

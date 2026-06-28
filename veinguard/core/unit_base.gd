@@ -219,7 +219,7 @@ func _process_die(_delta: float) -> void:
 			sprite.stop()
 		var tween := create_tween()
 		# Perlahan berubah putih dan fade out
-		tween.tween_property(sprite, "modulate", Color(10, 10, 10, 0), 0.5)
+		tween.tween_property(sprite, "modulate", Color(1, 1, 1, 0), 0.5)
 		await tween.finished
 	else:
 		await get_tree().create_timer(0.5).timeout

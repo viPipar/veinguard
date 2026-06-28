@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bkip7vur8776r"
-path="res://.godot/imported/trombosit_walk.png-657e6089754798cc4084ebcae2ccd734.ctex"
+uid="uid://c7tbeu0l7hsw3"
+path="res://.godot/imported/HIV.png-29aa22b27cf56e4c95295097a2c5c77b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ui/character/trombosit_walk.png"
-dest_files=["res://.godot/imported/trombosit_walk.png-657e6089754798cc4084ebcae2ccd734.ctex"]
+source_file="res://assets/ui/character/HIV.png"
+dest_files=["res://.godot/imported/HIV.png-29aa22b27cf56e4c95295097a2c5c77b.ctex"]
 
 [params]
 

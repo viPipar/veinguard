@@ -64,6 +64,7 @@ corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
 [node name="Main" type="Node2D"]
+y_sort_enabled = true
 script = ExtResource("1_main")
 
 [node name="MapBackground" type="Sprite2D" parent="."]

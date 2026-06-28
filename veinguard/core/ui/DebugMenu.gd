@@ -5,6 +5,7 @@ extends CanvasLayer
 @onready var spawn_bac_btn: Button = $PanelContainer/MarginContainer/VBoxContainer/SpawnBacBtn
 @onready var spawn_vir_btn: Button = $PanelContainer/MarginContainer/VBoxContainer/SpawnVirBtn
 @onready var spawn_clostridium_btn: Button = $PanelContainer/MarginContainer/VBoxContainer/SpawnClostridiumBtn
+@onready var spawn_hiv_btn: Button = $PanelContainer/MarginContainer/VBoxContainer/SpawnHivBtn
 @onready var panel: PanelContainer = $PanelContainer
 
 func _ready() -> void:
@@ -17,6 +18,15 @@ func _ready() -> void:
 	spawn_bac_btn.pressed.connect(func(): _force_spawn("bacteria"))
 	spawn_vir_btn.pressed.connect(func(): _force_spawn("virus"))
 	spawn_clostridium_btn.pressed.connect(func(): _force_spawn("clostridium"))
+	spawn_hiv_btn.pressed.connect(func(): _force_spawn("hiv"))
+	
+	@warning_ignore("unsafe_property_access")
+	var info2_btn: Button = $PanelContainer/MarginContainer/VBoxContainer/InfO2Btn
+	if info2_btn:
+		info2_btn.pressed.connect(func():
+			GameManager.is_infinite_oxygen = not GameManager.is_infinite_oxygen
+			info2_btn.text = "Inf O2: ON" if GameManager.is_infinite_oxygen else "Infinite Oxygen"
+		)
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventKey and event.pressed:

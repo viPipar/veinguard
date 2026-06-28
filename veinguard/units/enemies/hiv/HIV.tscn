@@ -1,0 +1,141 @@
+[gd_scene load_steps=22 format=3 uid="uid://9395e836b8f6"]
+
+[ext_resource type="Script" path="res://units/enemies/hiv/HIV.gd" id="1_hiv"]
+[ext_resource type="Resource" path="res://units/enemies/hiv/hiv_stats.tres" id="2_stats"]
+[ext_resource type="Texture2D" path="res://assets/ui/character/HIV.png" id="3_tex"]
+[ext_resource type="PackedScene" path="res://core/ui/HealthBar.tscn" id="4_hp"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hiv_0"]
+atlas = ExtResource("3_tex")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hiv_1"]
+atlas = ExtResource("3_tex")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hiv_2"]
+atlas = ExtResource("3_tex")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hiv_3"]
+atlas = ExtResource("3_tex")
+region = Rect2(384, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hiv_4"]
+atlas = ExtResource("3_tex")
+region = Rect2(512, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hiv_5"]
+atlas = ExtResource("3_tex")
+region = Rect2(640, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hiv_6"]
+atlas = ExtResource("3_tex")
+region = Rect2(768, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hiv_7"]
+atlas = ExtResource("3_tex")
+region = Rect2(896, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hiv_8"]
+atlas = ExtResource("3_tex")
+region = Rect2(1024, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hiv_9"]
+atlas = ExtResource("3_tex")
+region = Rect2(1152, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hiv_10"]
+atlas = ExtResource("3_tex")
+region = Rect2(1280, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hiv_11"]
+atlas = ExtResource("3_tex")
+region = Rect2(1408, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hiv_12"]
+atlas = ExtResource("3_tex")
+region = Rect2(1536, 0, 128, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_hiv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hiv_9")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hiv_10")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hiv_11")
+}],
+"loop": true,
+"name": &"charge",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hiv_12")
+}],
+"loop": true,
+"name": &"charged",
+"speed": 5.0
+}, {
+"frames": [{"duration": 1.0, "texture": SubResource("AtlasTexture_hiv_0")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_hiv_1")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_hiv_2")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_hiv_3")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_hiv_4")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_hiv_5")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_hiv_6")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_hiv_7")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_hiv_8")}],
+"loop": false,
+"name": &"die",
+"speed": 8.0
+}, {
+"frames": [{"duration": 1.0, "texture": SubResource("AtlasTexture_hiv_0")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_hiv_1")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_hiv_2")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_hiv_3")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_hiv_4")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_hiv_5")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_hiv_6")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_hiv_7")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_hiv_8")}],
+"loop": true,
+"name": &"idle",
+"speed": 8.0
+}, {
+"frames": [{"duration": 1.0, "texture": SubResource("AtlasTexture_hiv_0")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_hiv_1")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_hiv_2")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_hiv_3")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_hiv_4")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_hiv_5")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_hiv_6")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_hiv_7")}, {"duration": 1.0, "texture": SubResource("AtlasTexture_hiv_8")}],
+"loop": true,
+"name": &"walk",
+"speed": 10.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hiv1"]
+radius = 45.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hiv2"]
+radius = 400.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hiv3"]
+radius = 50.0
+
+[node name="HIV" type="CharacterBody2D"]
+y_sort_enabled = true
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("1_hiv")
+stats = ExtResource("2_stats")
+gameplay_scale = 2.0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+y_sort_enabled = true
+sprite_frames = SubResource("SpriteFrames_hiv")
+animation = &"idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_hiv1")
+
+[node name="AggroArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AggroArea"]
+shape = SubResource("CircleShape2D_hiv2")
+
+[node name="AttackArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea"]
+shape = SubResource("CircleShape2D_hiv3")
+
+[node name="HealthBar" parent="." instance=ExtResource("4_hp")]
+offset_top = -140.0
+offset_bottom = -130.0

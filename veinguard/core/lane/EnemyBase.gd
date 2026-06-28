@@ -197,6 +197,11 @@ func spawn_specific_enemy(type: String) -> void:
 		if loaded_clostridium:
 			scene_to_spawn = loaded_clostridium
 			clostridium_scene = loaded_clostridium
+	elif type == "hiv":
+		var loaded_hiv = load("res://units/enemies/hiv/HIV.tscn")
+		if loaded_hiv:
+			scene_to_spawn = loaded_hiv
+			
 			
 	var enemy = scene_to_spawn.instantiate()
 	get_parent().add_child(enemy)

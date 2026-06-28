@@ -31,6 +31,7 @@ var _heartbeat_timer  : float = 0.0
 @export var passive_oxygen_rate     : float = 0.1  # 0.1 oksigen per detik
 @export var passive_oxygen_interval : float = 1.0  # Detik antar tick
 var _passive_oxygen_timer : float = 0.0
+var is_infinite_oxygen : bool = false
 
 
 func _process(delta: float) -> void:
@@ -54,10 +55,14 @@ func _process(delta: float) -> void:
 		print("⚡ OVERTIME! Spawn dan regen dipercepat!")
 
 	# --- Passive Oxygen ---
-	_passive_oxygen_timer += delta
-	if _passive_oxygen_timer >= passive_oxygen_interval:
-		_passive_oxygen_timer = 0.0
-		add_oxygen(passive_oxygen_rate)
+	if is_infinite_oxygen:
+		if oxygen_points < MAX_OXYGEN:
+			add_oxygen(MAX_OXYGEN)
+	else:
+		_passive_oxygen_timer += delta
+		if _passive_oxygen_timer >= passive_oxygen_interval:
+			_passive_oxygen_timer = 0.0
+			add_oxygen(passive_oxygen_rate)
 
 	# --- Heartbeat Rush Timer (Level 2+) ---
 	if is_wave_active and current_level >= 2:

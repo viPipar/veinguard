@@ -34,6 +34,7 @@ shader_parameter/softness = 0.08
 radius = 120.0
 
 [node name="Lane" type="Node2D"]
+y_sort_enabled = true
 script = ExtResource("1_j8vas")
 bacteria_scene = ExtResource("3_1t5db")
 
