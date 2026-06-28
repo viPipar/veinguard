@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="UnitStats" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://core/resources/UnitStats.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+unit_name = "Escherichia coli"
+description = "Bakteri Gram-negatif berbentuk batang yang umum ditemukan dalam usus makhluk hidup. Sebagian besar strain tidak berbahaya, tetapi beberapa dapat menyebabkan keracunan makanan dan infeksi saluran kemih."
+max_hp = 120.0
+move_speed = 60.0
+damage = 10.0
+attack_range = 80.0
+attack_speed = 0.8
+windup_time = 0.3
+cost = 0

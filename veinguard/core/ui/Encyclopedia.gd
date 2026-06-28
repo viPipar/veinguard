@@ -1,10 +1,10 @@
 extends Control
 
-@onready var grid_container: GridContainer = $MarginContainer/VBoxContainer/ScrollContainer/GridContainer
+@onready var scroll_container: ScrollContainer = $MarginContainer/VBoxContainer/ScrollContainer
 @onready var back_button: Button = $MarginContainer/VBoxContainer/BackButton
 @onready var title_label: Label = $MarginContainer/VBoxContainer/HeaderArea/Title
 
-const _POOL_ENTRIES: Array = [
+const _IMMUNE_ENTRIES: Array = [
 	[
 		"res://units/player/natural_killer/nkiller_stats.tres",
 		"res://assets/ui/unit_cards/card_front_natural_killer.png",
@@ -37,6 +37,29 @@ const _POOL_ENTRIES: Array = [
 	],
 ]
 
+const _PATHOGEN_ENTRIES: Array = [
+	[
+		"res://units/enemies/bacteria/clostridium/clostridium_stats.tres",
+		"res://assets/ui/unit_cards/Card Front Clostridium tetani.png",
+		"res://assets/ui/unit_cards/Card Back Clostridium tetani.png",
+	],
+	[
+		"res://units/enemies/streptococcus/streptococcus_stats.tres",
+		"res://assets/ui/unit_cards/Card Front Streptococcus.png",
+		"res://assets/ui/unit_cards/Card Back Streptococcus.png",
+	],
+	[
+		"res://units/enemies/hiv/hiv_stats.tres",
+		"res://assets/ui/unit_cards/Card Front HIV.png",
+		"res://assets/ui/unit_cards/Card Back HIV.png",
+	],
+	[
+		"res://units/enemies/bacteria/ecoli_stats.tres",
+		"res://assets/ui/unit_cards/Card Front E. Coli.png",
+		"res://assets/ui/unit_cards/Card Back E.Coli.png",
+	],
+]
+
 var _inspect_overlay: CardInspectOverlay = null
 var _time: float = 0.0
 
@@ -52,20 +75,69 @@ func _ready() -> void:
 	back_button.pivot_offset = back_button.size / 2.0
 	back_button.pressed.connect(_on_back_pressed)
 	
-	# Populate the grid with cards
-	_populate_grid()
+	# Populate the grid with cards under two segments
+	_populate_segmented_grids()
 
 func _process(delta: float) -> void:
 	_time += delta
 	# Subtle floating rotation for title
 	title_label.rotation = sin(_time * 1.5) * 0.01
 
-func _populate_grid() -> void:
-	# Clear existing children just in case
-	for child in grid_container.get_children():
+func _populate_segmented_grids() -> void:
+	# Clear existing children from scroll container
+	for child in scroll_container.get_children():
 		child.queue_free()
 		
-	for entry in _POOL_ENTRIES:
+	# Create parent VBoxContainer inside ScrollContainer
+	var scroll_vbox = VBoxContainer.new()
+	scroll_vbox.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	scroll_vbox.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	scroll_vbox.add_theme_constant_override("separation", 35)
+	scroll_container.add_child(scroll_vbox)
+	
+	# ---------------- IMMUNE CELLS SEGMENT ----------------
+	var immune_header = Label.new()
+	immune_header.text = "IMMUNE CELLS"
+	immune_header.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	immune_header.add_theme_font_override("font", back_button.get_theme_font("font"))
+	immune_header.add_theme_font_size_override("font_size", 44)
+	immune_header.add_theme_color_override("font_color", Color(0.3, 0.9, 1.0)) # Cyan
+	scroll_vbox.add_child(immune_header)
+	
+	var immune_grid = GridContainer.new()
+	immune_grid.columns = 2
+	immune_grid.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	immune_grid.add_theme_constant_override("h_separation", 40)
+	immune_grid.add_theme_constant_override("v_separation", 50)
+	scroll_vbox.add_child(immune_grid)
+	
+	_add_cards_to_grid(immune_grid, _IMMUNE_ENTRIES)
+	
+	# Spacer
+	var spacer = Control.new()
+	spacer.custom_minimum_size = Vector2(0, 30)
+	scroll_vbox.add_child(spacer)
+	
+	# ---------------- PATHOGENS / ENEMIES SEGMENT ----------------
+	var pathogen_header = Label.new()
+	pathogen_header.text = "PATHOGENS & ENEMIES"
+	pathogen_header.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	pathogen_header.add_theme_font_override("font", back_button.get_theme_font("font"))
+	pathogen_header.add_theme_font_size_override("font_size", 44)
+	pathogen_header.add_theme_color_override("font_color", Color(0.95, 0.25, 0.35)) # Reddish
+	scroll_vbox.add_child(pathogen_header)
+	
+	var pathogen_grid = GridContainer.new()
+	pathogen_grid.columns = 2
+	pathogen_grid.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	pathogen_grid.add_theme_constant_override("h_separation", 40)
+	pathogen_grid.add_theme_constant_override("v_separation", 50)
+	scroll_vbox.add_child(pathogen_grid)
+	
+	_add_cards_to_grid(pathogen_grid, _PATHOGEN_ENTRIES)
+
+func _add_cards_to_grid(grid: GridContainer, entries: Array) -> void:
+	for entry in entries:
 		var stats: UnitStats = load(entry[0])
 		var front_tex: Texture2D = load(entry[1])
 		var back_tex: Texture2D = load(entry[2])
@@ -79,7 +151,7 @@ func _populate_grid() -> void:
 		card_btn.ignore_texture_size = true
 		card_btn.stretch_mode = TextureButton.STRETCH_KEEP_ASPECT_CENTERED
 		
-		# Set card dimensions: we want them to look good in 2 columns (e.g. 450x675)
+		# Set card dimensions
 		card_btn.custom_minimum_size = Vector2(440, 660)
 		card_btn.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 		card_btn.size_flags_vertical = Control.SIZE_SHRINK_CENTER
@@ -93,11 +165,10 @@ func _populate_grid() -> void:
 		card_btn.mouse_exited.connect(_on_card_unhover.bind(card_btn))
 		card_btn.pressed.connect(_on_card_pressed.bind(stats, front_tex, back_tex))
 		
-		grid_container.add_child(card_btn)
+		grid.add_child(card_btn)
 
 func _on_card_hover(btn: TextureButton) -> void:
 	var tween = create_tween().set_parallel(true)
-	# Zoom card up
 	tween.tween_property(btn, "scale", Vector2(1.05, 1.05), 0.15).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 	tween.tween_property(btn, "modulate", Color(1.1, 1.1, 1.1, 1.0), 0.15)
 
@@ -121,7 +192,6 @@ func _on_button_unhover(btn: Button) -> void:
 	tween.tween_property(btn, "modulate", Color(1.0, 1.0, 1.0, 1.0), 0.15)
 
 func _on_back_pressed() -> void:
-	# Click bounce and transition back to menu
 	var tween = create_tween()
 	tween.tween_property(back_button, "scale", Vector2(0.9, 0.9), 0.08)
 	tween.tween_property(back_button, "scale", Vector2(1.1, 1.1), 0.08)
