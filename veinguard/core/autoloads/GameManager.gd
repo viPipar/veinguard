@@ -28,13 +28,13 @@ var is_heartbeat_rush : bool  = false
 var _heartbeat_timer  : float = 0.0
 
 # --- Passive Oxygen Config ---
-@export var passive_oxygen_rate     : float = 0.01 # oxygen per tick (~1 per 10s)
-@export var passive_oxygen_interval : float = 0.1   # detik antar tick
+@export var passive_oxygen_rate     : float = 0.1  # 0.1 oksigen per detik (1 oksigen per 10s)
+@export var passive_oxygen_interval : float = 1.0  # Detik antar tick
 var _passive_oxygen_timer : float = 0.0
 
 
 func _process(delta: float) -> void:
-	if is_game_over:
+	if not is_wave_active or is_game_over:
 		return
 
 	# --- Match Timer ---
@@ -49,8 +49,8 @@ func _process(delta: float) -> void:
 	if match_time >= OVERTIME_THRESHOLD and not _is_overtime:
 		_is_overtime = true
 		overtime_started.emit()
-		# Percepat regen oxygen saat overtime
-		passive_oxygen_interval = max(0.1, passive_oxygen_interval / 2.0)
+		# Percepat regen oxygen saat overtime (setengah interval, jadi 1 oksigen per 5s)
+		passive_oxygen_interval = 0.5
 		print("⚡ OVERTIME! Spawn dan regen dipercepat!")
 
 	# --- Passive Oxygen ---
@@ -113,6 +113,7 @@ func start_wave() -> void:
 	_is_overtime   = false
 	_has_played_last_second = false
 	_heartbeat_timer = 0.0
+	passive_oxygen_interval = 1.0 # Reset interval ke default
 	oxygen_points = MAX_OXYGEN # Mulai wave dengan Oksigen penuh!
 	oxygen_changed.emit(oxygen_points)
 	print("Wave %d dimulai!" % wave_number)

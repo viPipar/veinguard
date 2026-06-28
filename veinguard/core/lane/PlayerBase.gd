@@ -1,14 +1,38 @@
 # PlayerBase.gd
-# Base pemain — kalau musuh sampai sini, game over!
+# Base pemain — kalau musuh sampai sini dan merusak base sampai hancur, game over!
 
 class_name PlayerBase
 extends Area2D
 
 @onready var sprite : Sprite2D = $Sprite2D
 
+@export var max_health : float = 1000.0
+var current_health : float
+var _health_bar : Node2D = null
+
 var _float_time : float = 0.0
 
 func _ready() -> void:
+	# Sesuaikan max_health berdasarkan level agar seimbang
+	var lvl = GameManager.current_level
+	match lvl:
+		1: max_health = 1000.0
+		2: max_health = 1200.0
+		3: max_health = 1500.0
+		4: max_health = 1800.0
+		_: max_health = 1000.0
+		
+	current_health = max_health
+	
+	# Load dan setup HealthBar
+	var hb_scene = load("res://core/ui/HealthBar.tscn")
+	if hb_scene:
+		_health_bar = hb_scene.instantiate()
+		add_child(_health_bar)
+		# Tempatkan sedikit di atas base sprite
+		_health_bar.position = Vector2(-24, -130)
+		_health_bar.setup(max_health)
+		
 	body_entered.connect(_on_body_entered)
 
 
@@ -21,10 +45,27 @@ func _process(delta: float) -> void:
 
 
 func _on_body_entered(body: Node2D) -> void:
-	# Kalau musuh (enemy) menyentuh base ini
-	if body.is_in_group("enemies"):
-		GameManager.trigger_game_over()
+	# Jika musuh menyentuh base, mereka tetap menyerang menggunakan take_damage.
+	# Kita bisa memberikan damage penalti kecil/sekali masuk agar base terluka jika musuh mencapainya
+	if body is UnitBase and body.is_in_group("enemies") and body.current_state != UnitBase.State.DIE:
+		take_damage(body.stats.damage * 1.5)
+		print("[PlayerBase] Musuh masuk base! Menerima damage awal: ", body.stats.damage * 1.5)
+
 
 func take_damage(amount: float) -> void:
-	# Jika diserang jarak jauh / melee musuh
-	GameManager.trigger_game_over()
+	if current_health <= 0.0:
+		return
+		
+	current_health = max(0.0, current_health - amount)
+	if _health_bar:
+		_health_bar.update(current_health, max_health)
+		
+	# Hit flash effect (berkedip putih sebentar)
+	if sprite:
+		var tween = create_tween()
+		sprite.modulate = Color(5.0, 5.0, 5.0, 1.0)
+		tween.tween_property(sprite, "modulate", Color.WHITE, 0.1)
+		
+	if current_health <= 0.0:
+		print("[PlayerBase] HANCUR! Game Over!")
+		GameManager.trigger_game_over()
