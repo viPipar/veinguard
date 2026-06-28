@@ -66,9 +66,13 @@ func show_win() -> void:
 	
 	# Tampilkan / Sembunyikan Next Level Button berdasarkan level saat ini
 	if next_level_button:
-		if GameManager.current_level < 4:
+		if GameManager.current_level <= 4:
 			next_level_button.show()
 			_style_next_button(Color(0.2, 0.6, 0.2))
+			if GameManager.current_level == 4:
+				next_level_button.text = "LIHAT ENDING"
+			else:
+				next_level_button.text = "NEXT LEVEL"
 		else:
 			next_level_button.hide()
 	
@@ -158,5 +162,7 @@ func _on_next_level() -> void:
 	
 	if GameManager.current_level <= 4:
 		get_tree().change_scene_to_file("res://core/ui/Cutscene.tscn")
+	elif GameManager.current_level == 5:
+		get_tree().change_scene_to_file("res://core/ui/CutsceneEnding.tscn")
 	else:
-		get_tree().change_scene_to_file("res://main.tscn")
+		get_tree().change_scene_to_file("res://core/ui/MainMenu.tscn")

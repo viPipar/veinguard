@@ -1,0 +1,103 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://core/ui/CutsceneEnding.gd" id="1_script"]
+[ext_resource type="FontFile" uid="uid://bpuk0y8kyjxs2" path="res://assets/ui/Font/LilitaOne-Regular.ttf" id="2_font"]
+
+[node name="CutsceneEnding" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_script")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Panels" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -540.0
+offset_top = -724.0
+offset_right = 540.0
+offset_bottom = 724.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel1" type="TextureRect" parent="Panels"]
+layout_mode = 0
+offset_left = -1100.0
+offset_right = -20.0
+offset_bottom = 362.0
+expand_mode = 1
+
+[node name="Panel2" type="TextureRect" parent="Panels"]
+layout_mode = 0
+offset_left = 1100.0
+offset_top = 362.0
+offset_right = 2180.0
+offset_bottom = 724.0
+expand_mode = 1
+
+[node name="Panel3" type="TextureRect" parent="Panels"]
+layout_mode = 0
+offset_left = -1100.0
+offset_top = 724.0
+offset_right = -20.0
+offset_bottom = 1086.0
+expand_mode = 1
+
+[node name="Panel4" type="TextureRect" parent="Panels"]
+layout_mode = 0
+offset_left = 1100.0
+offset_top = 1086.0
+offset_right = 2180.0
+offset_bottom = 1448.0
+expand_mode = 1
+
+[node name="PromptLbl" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -540.0
+offset_top = -240.0
+offset_right = 540.0
+offset_bottom = -180.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 32
+text = "KETUK UNTUK LANJUT"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SkipBtn" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -300.0
+offset_top = -140.0
+offset_right = -60.0
+offset_bottom = -60.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 32
+text = "LEWATI (SKIP)"
