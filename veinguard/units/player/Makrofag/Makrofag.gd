@@ -144,13 +144,13 @@ func _process_eat(delta: float) -> void:
 
 
 func _pick_nearest_target() -> void:
-	if current_state == State.EAT or not aggro_area or not aggro_area.monitoring:
+	if current_state == State.EAT:
 		return
 		
 	var nearest : Node2D = null
 	var nearest_dist : float = INF
-	for body in aggro_area.get_overlapping_bodies():
-		if body is UnitBase and body.is_in_group("enemies"):
+	for body in get_tree().get_nodes_in_group("enemies"):
+		if body is UnitBase and body.current_state != State.DIE:
 			var d := global_position.distance_to(body.global_position)
 			if d < nearest_dist:
 				nearest_dist = d

@@ -145,6 +145,9 @@ func get_sprite_base_scale() -> Vector2:
 
 
 func _play_hit_effect() -> void:
+	if is_in_group("players"):
+		_spawn_slash_effect()
+
 	if not sprite:
 		return
 	var tween := create_tween()
@@ -158,6 +161,36 @@ func _play_hit_effect() -> void:
 		 .set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BOUNCE)
 	# Balik warna normal
 	tween.tween_callback(func(): sprite.modulate = Color.WHITE)
+
+func _spawn_slash_effect() -> void:
+	# Tebasan 1 (Badan): offset (0, -25)
+	_create_single_slash(Vector2(randf_range(-15, 15), -25 + randf_range(-10, 10)))
+	# Tebasan 2 (Kepala): offset (0, -75)
+	_create_single_slash(Vector2(randf_range(-15, 15), -75 + randf_range(-10, 10)))
+
+func _create_single_slash(offset: Vector2) -> void:
+	var slash = Line2D.new()
+	get_parent().add_child(slash)
+	slash.width = 6.0
+	slash.default_color = Color(1.0, 0.15, 0.15, 0.95) # Merah terang
+	
+	# Posisikan titik origin Line2D di pusat tebasan agar mengecil di tempat
+	slash.global_position = global_position + offset
+	
+	# Garis digambar simetris dari pusat (Vector2.ZERO)
+	var length = randf_range(25.0, 35.0)
+	var angle = randf_range(-PI/6, PI/6) + (PI/4 if randi() % 2 == 0 else -PI/4)
+	var p1 = Vector2(-length, 0).rotated(angle)
+	var p2 = Vector2(length, 0).rotated(angle)
+	
+	slash.add_point(p1)
+	slash.add_point(p2)
+	
+	# Animasi memudar dan menyusut di tempat
+	var tween = create_tween().set_parallel(true)
+	tween.tween_property(slash, "modulate:a", 0.0, 0.22)
+	tween.tween_property(slash, "scale", Vector2.ZERO, 0.22)
+	tween.chain().tween_callback(slash.queue_free)
 
 
 var _is_dying : bool = false

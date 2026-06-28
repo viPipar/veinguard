@@ -9,8 +9,8 @@ extends Node2D
 
 # --- PENGATURAN UNTUK MODE PORTRAIT (VERTIKAL) ---
 @export var lane_x       : float = 540.0
-@export var lane_y_min   : float = 500.0
-@export var lane_y_max   : float = 600.0
+@export var lane_y_min   : float = 1000.0
+@export var lane_y_max   : float = 1250.0
 @export var spawn_x_offset: float = 200.0  # seberapa jauh ke kiri/kanan
 
 var _timer : float = 0.0
