@@ -10,6 +10,7 @@ var winning_sfx = preload("res://audio/winning.mp3")
 var last_second_sfx = preload("res://audio/Stronghold 1 Soundtrack - 03 Castlejam.mp3")
 var sword_slash_sfx = preload("res://audio/54427377-sword-slash-476148.mp3")
 var hit_natural_killer_sfx = preload("res://audio/hitnaturaltkiller.mp3")
+var shot_natural_killer_sfx = preload("res://audio/shotnaturalkiller.mp3")
 var eat_sfx = preload("res://audio/audiopapkin-monster-eating-295849.mp3")
 var punch_sfx = preload("res://audio/universfield-punch-03-352040.mp3")
 var idle_bgm = preload("res://audio/music idle.mp3")
@@ -49,6 +50,9 @@ func play_sword_slash_sfx() -> void:
 func play_hit_natural_killer_sfx() -> void:
 	_play_one_shot(hit_natural_killer_sfx, -12.0)
 
+func play_shot_natural_killer_sfx() -> void:
+	_play_one_shot(shot_natural_killer_sfx, -5.0)
+
 func play_eat_sfx() -> void:
 	_play_one_shot(eat_sfx)
 
@@ -75,7 +79,7 @@ func play_in_game_bgm() -> void:
 func play_idle_bgm() -> void:
 	if bgm_player.stream != idle_bgm:
 		bgm_player.stream = idle_bgm
-		bgm_player.volume_db = -8.0
+		bgm_player.volume_db = -2.0
 	if not bgm_player.playing:
 		bgm_player.play()
 

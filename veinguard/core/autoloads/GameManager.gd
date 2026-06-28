@@ -28,7 +28,7 @@ var is_heartbeat_rush : bool  = false
 var _heartbeat_timer  : float = 0.0
 
 # --- Passive Oxygen Config ---
-@export var passive_oxygen_rate     : float = 0.1  # 0.1 oksigen per detik (1 oksigen per 10s)
+@export var passive_oxygen_rate     : float = 0.1  # 0.1 oksigen per detik
 @export var passive_oxygen_interval : float = 1.0  # Detik antar tick
 var _passive_oxygen_timer : float = 0.0
 

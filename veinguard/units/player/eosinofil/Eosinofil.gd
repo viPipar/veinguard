@@ -164,6 +164,8 @@ func _fire() -> void:
 	if not is_instance_valid(current_target) or not _eo_stats:
 		return
 		
+	AudioManager.play_shot_natural_killer_sfx()
+		
 	if sprite and sprite.sprite_frames.has_animation("attack"):
 		sprite.play("attack")
 		

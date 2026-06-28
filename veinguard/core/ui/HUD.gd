@@ -25,6 +25,26 @@ func _ready() -> void:
 	oxygen_label.text      = "O₂: 0.0 / %.1f" % GameManager.MAX_OXYGEN
 	timer_label.text       = "2:00"
 	overtime_label.visible = false
+	
+	_setup_oxygen_dividers()
+
+func _setup_oxygen_dividers() -> void:
+	await get_tree().process_frame # Wait for layout to calculate size
+	
+	var max_o2 = GameManager.MAX_OXYGEN
+	var bar_width = oxygen_bar.size.x
+	var bar_height = oxygen_bar.size.y
+	
+	for i in range(1, int(max_o2)):
+		var divider = ColorRect.new()
+		divider.color = Color(0, 0, 0, 0.6) # Dark transparent line
+		divider.size = Vector2(2, bar_height)
+		
+		var x_pos = (float(i) / max_o2) * bar_width
+		divider.position = Vector2(x_pos - (divider.size.x / 2.0), 0)
+		
+		oxygen_bar.add_child(divider)
+
 
 
 # --- Oxygen ---

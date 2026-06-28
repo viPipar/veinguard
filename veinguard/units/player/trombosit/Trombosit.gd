@@ -118,6 +118,7 @@ func _throw_clot_projectile() -> void:
 
 	# Kurangi HP Base saat mendarat
 	if is_instance_valid(_enemy_base) and _enemy_base.has_method("take_damage"):
+		AudioManager.play_punch_sfx()
 		_enemy_base.take_damage(stats.damage)
 		
 		# Efek ledakan plasma kecil berwarna putih
@@ -143,5 +144,4 @@ func _on_body_entered(_body: Node2D) -> void:
 	pass
 
 func take_damage(amount: float) -> void:
-	AudioManager.play_punch_sfx()
 	super.take_damage(amount)
