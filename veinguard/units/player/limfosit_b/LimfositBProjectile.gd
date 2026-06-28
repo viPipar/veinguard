@@ -1,4 +1,4 @@
-class_name EosinofilProjectile
+class_name LimfositBProjectile
 extends Area2D
 
 @export var cloud_scene : PackedScene
@@ -6,14 +6,14 @@ extends Area2D
 
 var _direction     : Vector2
 var _target        : Node2D
-var _eo_stats      : EosinophilStats
+var _eo_stats      : LimfositBStats
 var _start_pos     : Vector2
 var _max_distance  : float
 var _trail_points  : Array[Vector2] = []
 
 @onready var trail : Line2D = get_node_or_null("Trail")
 
-func setup(dir: Vector2, target: Node2D, stats: EosinophilStats) -> void:
+func setup(dir: Vector2, target: Node2D, stats: LimfositBStats) -> void:
 	_direction = dir
 	_target    = target
 	_eo_stats  = stats
@@ -32,7 +32,7 @@ func setup(dir: Vector2, target: Node2D, stats: EosinophilStats) -> void:
 	if sprite:
 		# Meregang ke depan, memipih ke samping
 		sprite.scale = Vector2(0.18, 0.08)
-		# Beri warna merah-muda asam menyala khas eosinofil
+		# Beri warna merah-muda asam menyala khas LimfositB
 		sprite.modulate = Color(1.0, 0.35, 0.72)
 
 
@@ -77,7 +77,7 @@ func _explode() -> void:
 	if cloud_scene and _eo_stats:
 		var cloud = cloud_scene.instantiate()
 		cloud.global_position = global_position
-		# Setup awan racun dengan stats dari Eosinofil
+		# Setup awan racun dengan stats dari LimfositB
 		if cloud.has_method("setup"):
 			cloud.setup(_eo_stats)
 			

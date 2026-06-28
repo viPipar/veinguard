@@ -1,11 +1,11 @@
-class_name Eosinofil
+class_name LimfositB
 extends UnitBase
 
 @export var projectile_scene : PackedScene
 
 var _attack_timer   : float = 0.0
 var _wobble_time    : float = 0.0
-var _eo_stats       : EosinophilStats
+var _eo_stats       : LimfositBStats
 
 func _on_ready() -> void:
 	sprite      = $AnimatedSprite2D
@@ -18,11 +18,11 @@ func _on_ready() -> void:
 		if not sprite.animation_finished.is_connected(_on_animation_finished):
 			sprite.animation_finished.connect(_on_animation_finished)
 	
-	# Casting stat ke kelas spesifik Eosinofil agar bisa mengakses variabel khususnya
-	if stats is EosinophilStats:
-		_eo_stats = stats as EosinophilStats
+	# Casting stat ke kelas spesifik LimfositB agar bisa mengakses variabel khususnya
+	if stats is LimfositBStats:
+		_eo_stats = stats as LimfositBStats
 	else:
-		push_error("[%s] Resource stats BUKAN EosinophilStats!" % name)
+		push_error("[%s] Resource stats BUKAN LimfositBStats!" % name)
 		
 	add_to_group("players")
 	change_state(State.IDLE)

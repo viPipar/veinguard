@@ -1,12 +1,12 @@
-class_name EosinofilCloud
+class_name LimfositBCloud
 extends Area2D
 
-var _eo_stats : EosinophilStats
+var _eo_stats : LimfositBStats
 
 @onready var life_timer : Timer = $LifeTimer
 @onready var tick_timer : Timer = $TickTimer
 
-func setup(stats: EosinophilStats) -> void:
+func setup(stats: LimfositBStats) -> void:
 	_eo_stats = stats
 
 func _ready() -> void:
@@ -62,4 +62,4 @@ func _on_tick() -> void:
 	for body in get_overlapping_bodies():
 		if body.is_in_group("enemies") and body.has_method("take_damage"):
 			body.take_damage(_eo_stats.dot_damage)
-			print("[EosinofilCloud] Memberikan %f DoT ke %s" % [_eo_stats.dot_damage, body.name])
+			print("[LimfositBCloud] Memberikan %f DoT ke %s" % [_eo_stats.dot_damage, body.name])

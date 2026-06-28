@@ -1,13 +1,13 @@
 [gd_scene load_steps=5 format=3 uid="uid://c5ndfu63e1sed"]
 
-[ext_resource type="Script" uid="uid://2me8x5jrt155" path="res://units/player/eosinofil/EosinofilProjectile.gd" id="1_ja5ko"]
-[ext_resource type="PackedScene" uid="uid://elx057imjf5c" path="res://units/player/eosinofil/EosinofilCloud.tscn" id="2_353d2"]
+[ext_resource type="Script" uid="uid://2me8x5jrt155" path="res://units/player/limfosit_b/limfosit_bProjectile.gd" id="1_ja5ko"]
+[ext_resource type="PackedScene" uid="uid://elx057imjf5c" path="res://units/player/limfosit_b/limfosit_bCloud.tscn" id="2_353d2"]
 [ext_resource type="Texture2D" uid="uid://cc55bypt0p7uo" path="res://assets/ui/Character/ProjectileB.png" id="3_cpvj7"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ik2t2"]
 radius = 25.0
 
-[node name="EosinofilProjectile" type="Area2D"]
+[node name="limfosit_bProjectile" type="Area2D"]
 z_index = -1
 collision_mask = 2
 script = ExtResource("1_ja5ko")

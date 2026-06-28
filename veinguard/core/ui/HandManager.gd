@@ -36,8 +36,8 @@ const _POOL_ENTRIES: Array = [
 		"res://assets/ui/unit_cards/card_back_t_killer.png",
 	],
 	[
-		"res://units/player/eosinofil/Eosinofil.tscn",
-		"res://units/player/eosinofil/eosinofil_stats.tres",
+		"res://units/player/limfosit_b/LimfositB.tscn",
+		"res://units/player/limfosit_b/limfosit_b_stats.tres",
 		"res://assets/ui/unit_cards/card_front_limfosit_b.png",
 		"res://assets/ui/unit_cards/card_back_limfosit_b.png",
 	],
@@ -91,11 +91,11 @@ func _load_pool() -> void:
 		# Index 0: NKiller (Level 1+)
 		# Index 1: Trombosit (Level 1+)
 		# Index 2: T Killer (Level 2+)
-		# Index 3: Eosinofil (Level 4+)
+		# Index 3: limfosit_b (Level 4+)
 		# Index 4: Makrofag (Level 3+)
 		if idx == 2 and lvl < 2: continue # T Killer locked
 		if idx == 4 and lvl < 3: continue # Makrofag locked
-		if idx == 3 and lvl < 4: continue # Eosinofil locked
+		if idx == 3 and lvl < 4: continue # limfosit_b locked
 		
 		var entry = _POOL_ENTRIES[idx]
 		var front : Texture2D = _safe_load(entry[2])

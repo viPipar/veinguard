@@ -26,7 +26,7 @@ const _POOL_ENTRIES: Array = [
 		"res://assets/ui/unit_cards/card_back_t_killer.png",
 	],
 	[
-		"res://units/player/eosinofil/eosinofil_stats.tres",
+		"res://units/player/limfosit_b/limfosit_b_stats.tres",
 		"res://assets/ui/unit_cards/card_front_limfosit_b.png",
 		"res://assets/ui/unit_cards/card_back_limfosit_b.png",
 	],

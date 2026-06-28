@@ -4,7 +4,7 @@ class_name OxygenSpawner
 extends Node2D
 
 @export var oxygen_scene    : PackedScene
-@export var spawn_interval  : float = 10.0      # detik antar spawn
+@export var spawn_interval  : float = 3.0      # detik antar spawn
 @export var max_oxygen_count: int   = 5        # maks oxygen di layar sekaligus
 
 # --- PENGATURAN UNTUK MODE PORTRAIT (VERTIKAL) ---
@@ -17,16 +17,7 @@ var _timer : float = 0.0
 
 func _process(delta: float) -> void:
 	_timer += delta
-	
-	var current_interval = spawn_interval
-	if GameManager.current_level >= 4:
-		current_interval = 2.0  # Sangat cepat untuk level 4
-	elif GameManager.current_level >= 2:
-		current_interval = 3.0
-	else:
-		current_interval = 4.0  # Default level 1
-		
-	if _timer >= current_interval:
+	if _timer >= spawn_interval:
 		_timer = 0.0
 		_try_spawn()
 

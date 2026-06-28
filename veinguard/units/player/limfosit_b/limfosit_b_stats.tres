@@ -1,6 +1,6 @@
-[gd_resource type="Resource" script_class="EosinophilStats" load_steps=2 format=3 uid="uid://dgbslmifeq7wl"]
+[gd_resource type="Resource" script_class="LimfositBStats" load_steps=2 format=3 uid="uid://dgbslmifeq7wl"]
 
-[ext_resource type="Script" uid="uid://bx18vuvqmrno0" path="res://units/player/eosinofil/EosinophilStats.gd" id="1_n10i2"]
+[ext_resource type="Script" uid="uid://bx18vuvqmrno0" path="res://units/player/limfosit_b/LimfositBStats.gd" id="1_n10i2"]
 
 [resource]
 script = ExtResource("1_n10i2")

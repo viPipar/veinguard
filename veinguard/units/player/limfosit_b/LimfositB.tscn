@@ -1,8 +1,8 @@
 [gd_scene load_steps=32 format=3 uid="uid://bjkffycbmqlbn"]
 
-[ext_resource type="Script" uid="uid://df8ndet3q6s57" path="res://units/player/eosinofil/Eosinofil.gd" id="1_pbhqp"]
-[ext_resource type="PackedScene" uid="uid://c5ndfu63e1sed" path="res://units/player/eosinofil/EosinofilProjectile.tscn" id="2_umwlp"]
-[ext_resource type="Resource" uid="uid://dgbslmifeq7wl" path="res://units/player/eosinofil/eosinofil_stats.tres" id="3_4nxdy"]
+[ext_resource type="Script" uid="uid://df8ndet3q6s57" path="res://units/player/limfosit_b/limfosit_b.gd" id="1_pbhqp"]
+[ext_resource type="PackedScene" uid="uid://c5ndfu63e1sed" path="res://units/player/limfosit_b/limfosit_bProjectile.tscn" id="2_umwlp"]
+[ext_resource type="Resource" uid="uid://dgbslmifeq7wl" path="res://units/player/limfosit_b/limfosit_b_stats.tres" id="3_4nxdy"]
 [ext_resource type="Texture2D" uid="uid://cp44pny52xmxq" path="res://assets/ui/Character/Eusinofil_Idle.png" id="4_idle"]
 [ext_resource type="Texture2D" uid="uid://r5pfib6giqhv" path="res://assets/ui/Character/Eusinofil_walk.png" id="5_walk"]
 [ext_resource type="Texture2D" uid="uid://ba1mssbk4ce0y" path="res://assets/ui/Character/Eusinofil_attack.png" id="6_attack"]
@@ -182,7 +182,7 @@ radius = 600.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_4nxdy"]
 radius = 600.0
 
-[node name="Eosinofil" type="CharacterBody2D"]
+[node name="limfosit_b" type="CharacterBody2D"]
 collision_mask = 2
 script = ExtResource("1_pbhqp")
 projectile_scene = ExtResource("2_umwlp")
