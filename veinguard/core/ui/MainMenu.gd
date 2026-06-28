@@ -31,14 +31,14 @@ func _ready() -> void:
 	close_button.mouse_entered.connect(_on_button_hover.bind(close_button))
 	close_button.mouse_exited.connect(_on_button_unhover.bind(close_button))
 	close_button.pivot_offset = close_button.size / 2.0
+	
+	_setup_level_container()
 
 func _on_dev_button_pressed() -> void:
 	var dev_scene = load("res://core/ui/BalancingPanel.tscn")
 	if dev_scene:
 		var panel = dev_scene.instantiate()
 		add_child(panel)
-
-	_setup_level_container()
 
 func _setup_level_container() -> void:
 	level_container = VBoxContainer.new()

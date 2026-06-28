@@ -124,6 +124,12 @@ func start_wave() -> void:
 	_has_played_last_second = false
 	_heartbeat_timer = 0.0
 	passive_oxygen_interval = 1.0 # Reset interval ke default
+	
+	if current_level == 4:
+		passive_oxygen_rate = 0.8
+	else:
+		passive_oxygen_rate = 0.25
+		
 	oxygen_points = max_oxygen # Mulai wave dengan Oksigen penuh!
 	oxygen_changed.emit(oxygen_points)
 	print("Wave %d dimulai!" % wave_number)

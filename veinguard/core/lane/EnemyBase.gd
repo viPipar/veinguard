@@ -23,16 +23,16 @@ func _ready() -> void:
 	print("Menjalankan Level: ", lvl)
 	
 	# Default Level 1 Setup
-	base_spawn_interval = 14.0
-	min_spawn_interval  = 8.0
-	max_enemies         = 7
+	base_spawn_interval = 6.0
+	min_spawn_interval  = 4.0
+	max_enemies         = 12
 	
 	match lvl:
 		2:
 			max_health *= 1.5
-			base_spawn_interval = 12.0
-			min_spawn_interval  = 6.5
-			max_enemies         = 10
+			base_spawn_interval = 4.0
+			min_spawn_interval  = 3.0
+			max_enemies         = 15
 			var sprite = get_node_or_null("Sprite2D")
 			if sprite:
 				var new_tex = load("res://assets/ui/Map/EnemyBase3.png")
@@ -40,13 +40,13 @@ func _ready() -> void:
 					sprite.texture = new_tex
 		3:
 			max_health *= 2.0
-			base_spawn_interval = 5.0
+			base_spawn_interval = 3.0
 			min_spawn_interval  = 1.5
 			max_enemies         = 25
 		4:
 			max_health *= 2.5
-			base_spawn_interval = 1.0
-			min_spawn_interval  = 0.5
+			base_spawn_interval = 2.0
+			min_spawn_interval  = 1.5
 			max_enemies         = 40
 			
 	current_health = max_health
@@ -232,6 +232,8 @@ func _animate_spawn(enemy: Node2D) -> void:
 	var spawn_pos = global_position
 	if GameManager.current_level >= 4:
 		spawn_pos.x += randf_range(-250.0, 250.0)
+	else:
+		spawn_pos.x += randf_range(-120.0, 120.0)
 		
 	enemy.global_position = spawn_pos + Vector2(0, -40)
 	

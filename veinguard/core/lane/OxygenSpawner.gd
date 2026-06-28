@@ -15,6 +15,12 @@ extends Node2D
 
 var _timer : float = 0.0
 
+func _ready() -> void:
+	if GameManager.current_level == 4:
+		spawn_interval = 0.75
+	else:
+		spawn_interval = 1.5
+
 func _process(delta: float) -> void:
 	_timer += delta
 	if _timer >= spawn_interval:

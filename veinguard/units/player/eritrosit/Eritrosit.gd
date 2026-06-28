@@ -43,10 +43,10 @@ func _process_move(_delta: float) -> void:
 
 	if global_position.distance_to(_target_oxygen.global_position) < 30.0:
 		if _target_oxygen.try_pickup():
-			_target_oxygen.queue_free()
-			_target_oxygen       = null
-			GameManager.add_oxygen(2.0)
-			_scan_existing_oxygen()
+			_carried_oxygen = _target_oxygen
+			_target_oxygen = null
+			oxygen_label.visible = true
+			change_state(State.ATTACK)
 		else:
 			# try_pickup gagal (race condition), cari oxygen lain
 			_target_oxygen = null
