@@ -61,7 +61,7 @@ func _process(delta: float) -> void:
 
 var _spawn_next_is_virus : bool = false
 
-@export var virus_scene : PackedScene = preload("res://units/enemies/virus/Virus.tscn") if ResourceLoader.exists("res://units/enemies/virus/Virus.tscn") else null
+@export var virus_scene : PackedScene = preload("res://units/enemies/streptococcus/Streptococcus.tscn") if ResourceLoader.exists("res://units/enemies/streptococcus/Streptococcus.tscn") else null
 @export var clostridium_scene : PackedScene = preload("res://units/enemies/bacteria/clostridium/Clostridium.tscn") if ResourceLoader.exists("res://units/enemies/bacteria/clostridium/Clostridium.tscn") else null
 
 func _spawn_enemy() -> void:
@@ -185,7 +185,7 @@ func spawn_specific_enemy(type: String) -> void:
 		scene_to_spawn = virus_scene
 	elif type == "virus" and virus_scene == null:
 		# Fallback if Virus not created yet
-		var loaded_virus = load("res://units/enemies/virus/Virus.tscn")
+		var loaded_virus = load("res://units/enemies/streptococcus/Streptococcus.tscn")
 		if loaded_virus:
 			scene_to_spawn = loaded_virus
 			virus_scene = loaded_virus
