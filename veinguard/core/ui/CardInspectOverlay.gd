@@ -38,6 +38,7 @@ func _build_ui() -> void:
 	add_child(dim)
 
 	_card_display = TextureRect.new()
+	_card_display.name          = "CardDisplay"
 	_card_display.expand_mode   = TextureRect.EXPAND_FIT_HEIGHT_PROPORTIONAL
 	_card_display.stretch_mode  = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 	_card_display.position      = Vector2(140.0, 360.0)
@@ -49,6 +50,7 @@ func _build_ui() -> void:
 
 	# --- Tombol TUTUP (kiri atas, merah) ---
 	_btn_close          = _make_button("X", Color(0.72, 0.07, 0.07))
+	_btn_close.name     = "CloseBtn"
 	_btn_close.position = Vector2(40.0, 40.0)
 	_btn_close.size     = Vector2(100.0, 100.0)
 	add_child(_btn_close)
@@ -125,6 +127,8 @@ func close() -> void:
 	await tween.finished
 	get_tree().paused = false
 	hide()
+	if GameManager.has_user_signal("tutorial_card_closed"):
+		GameManager.emit_signal("tutorial_card_closed")
 
 
 var _swipe_start_pos := Vector2.ZERO
@@ -169,4 +173,8 @@ func _do_flip() -> void:
 	tween.tween_property(_card_display, "scale:x", 1.0, 0.16) \
 		.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
 	# Re-enable setelah animasi selesai
-	tween.tween_callback(func(): _is_flipping = false)
+	tween.tween_callback(func(): 
+		_is_flipping = false
+		if GameManager.has_user_signal("tutorial_card_flipped"):
+			GameManager.emit_signal("tutorial_card_flipped")
+	)

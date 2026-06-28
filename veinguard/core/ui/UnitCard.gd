@@ -47,6 +47,8 @@ func _process(delta: float) -> void:
 			_is_holding = false
 			_hold_timer = 0.0
 			card_inspected.emit(self)
+			if GameManager.has_user_signal("tutorial_card_inspected"):
+				GameManager.emit_signal("tutorial_card_inspected")
 
 
 # Hitung posisi & skala tengah layar berdasarkan ukuran texture aktif
@@ -83,6 +85,8 @@ func _gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
 			card_inspected.emit(self)
+			if GameManager.has_user_signal("tutorial_card_inspected"):
+				GameManager.emit_signal("tutorial_card_inspected")
 			accept_event()
 			return
 		elif event.button_index == MOUSE_BUTTON_LEFT:
@@ -110,6 +114,10 @@ func _on_pressed() -> void:
 	if not is_playable:
 		return
 	if is_focused:
+		# Blokir deselect jika tutorial sedang berjalan
+		if get_tree().root.find_child("TutorialManager", true, false) != null:
+			return
+			
 		# Klik kartu yang sudah di tengah → batal pilih
 		set_focus(false)
 		card_toggled.emit(self, false)
@@ -118,6 +126,8 @@ func _on_pressed() -> void:
 		get_tree().call_group("unit_cards", "set_focus", false)
 		set_focus(true)
 		card_toggled.emit(self, true)
+		if GameManager.has_user_signal("tutorial_card_selected"):
+			GameManager.emit_signal("tutorial_card_selected")
 
 
 # ── Focus: kartu terbang ke tengah layar ─────────────────────────────────

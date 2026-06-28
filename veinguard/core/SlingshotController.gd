@@ -107,7 +107,9 @@ func _launch_unit(touch_pos: Vector2) -> void:
 
 	# ── Simpan kartu yang akan di-discard ──────────────────────────────
 	var card_to_discard := _selected_card
-
+	if GameManager.has_user_signal("tutorial_unit_launched"):
+		GameManager.emit_signal("tutorial_unit_launched")
+		
 	# Reset state controller (tanpa defocus kartu yang akan dibuang)
 	_selected_scene = null
 	_selected_stats = null

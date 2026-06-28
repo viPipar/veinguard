@@ -27,6 +27,7 @@ func _ready() -> void:
 	overtime_label.visible = false
 	
 	var q_btn = Button.new()
+	q_btn.name = "MiniEncyBtn"
 	q_btn.text = "?"
 	q_btn.add_theme_font_override("font", load("res://assets/ui/Font/LilitaOne-Regular.ttf"))
 	q_btn.add_theme_font_size_override("font_size", 40)

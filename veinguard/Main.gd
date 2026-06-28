@@ -65,7 +65,13 @@ func _show_pre_battle_presentation() -> void:
 			"back": load(c[2])
 		})
 		
-	pres.presentation_finished.connect(func(): get_tree().paused = false)
+	pres.presentation_finished.connect(func():
+		if GameManager.current_level == 1:
+			var tut = TutorialManager.new()
+			add_child(tut)
+		else:
+			get_tree().paused = false
+	)
 	add_child(pres)
 
 
