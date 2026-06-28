@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://tbweh4qju5ff"
-path="res://.godot/imported/sel_t_killer.png-76886051719e9848df396a1934a11686.ctex"
+path="res://.godot/imported/sel_t_killer.png-7fc9ecdc3d833e01cca99895faa54100.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ui/Character/sel_t_killer.png"
-dest_files=["res://.godot/imported/sel_t_killer.png-76886051719e9848df396a1934a11686.ctex"]
+source_file="res://assets/ui/character/sel_t_killer.png"
+dest_files=["res://.godot/imported/sel_t_killer.png-7fc9ecdc3d833e01cca99895faa54100.ctex"]
 
 [params]
 

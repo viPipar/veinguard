@@ -22,6 +22,11 @@ var is_wave_active : bool = false
 var match_time     : float = 0.0
 var _is_overtime   : bool  = false
 var _has_played_last_second: bool = false
+var unlocked_level : int = 1
+
+func unlock_next_level() -> void:
+	if unlocked_level < 4:
+		unlocked_level += 1
 
 # --- Heartbeat Rush state ---
 var is_heartbeat_rush : bool  = false

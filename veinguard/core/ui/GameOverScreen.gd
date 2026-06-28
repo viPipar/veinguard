@@ -52,6 +52,9 @@ func show_win() -> void:
 	result_label.modulate = Color(0.3, 0.9, 0.3)
 	message_label.text = "Infeksi berhasil dihentikan!\nTubuh aman!"
 	
+	if GameManager.current_level == GameManager.unlocked_level:
+		GameManager.unlock_next_level()
+	
 	# Ganti warna border panel menjadi hijau
 	var stylebox = card.get_theme_stylebox("panel").duplicate() as StyleBoxFlat
 	if stylebox:

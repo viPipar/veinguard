@@ -46,6 +46,10 @@ func _setup_level_container() -> void:
 		btn.custom_minimum_size = Vector2(500, 90)
 		btn.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 		
+		if i > GameManager.unlocked_level:
+			btn.disabled = true
+			btn.text += " 🔒"
+		
 		btn.add_theme_font_override("font", start_button.get_theme_font("font"))
 		btn.add_theme_font_size_override("font_size", 40)
 		btn.add_theme_stylebox_override("normal", start_button.get_theme_stylebox("normal"))

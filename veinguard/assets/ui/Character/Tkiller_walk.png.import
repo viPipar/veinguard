@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dan7oidh22iwj"
-path="res://.godot/imported/Tkiller_walk.png-f26a07b44b47588b0e8a8dbb9cf9e6a7.ctex"
+path="res://.godot/imported/Tkiller_walk.png-15bef071027fbeb386254b7f580d3b5e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ui/Character/Tkiller_walk.png"
-dest_files=["res://.godot/imported/Tkiller_walk.png-f26a07b44b47588b0e8a8dbb9cf9e6a7.ctex"]
+source_file="res://assets/ui/character/Tkiller_walk.png"
+dest_files=["res://.godot/imported/Tkiller_walk.png-15bef071027fbeb386254b7f580d3b5e.ctex"]
 
 [params]
 

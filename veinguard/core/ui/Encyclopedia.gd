@@ -9,31 +9,37 @@ const _IMMUNE_ENTRIES: Array = [
 		"res://units/player/natural_killer/nkiller_stats.tres",
 		"res://assets/ui/unit_cards/card_front_natural_killer.png",
 		"res://assets/ui/unit_cards/card_back_natural_killer.png",
+		1
 	],
 	[
 		"res://units/player/eritrosit/eritrosit_stats.tres",
 		"res://assets/ui/unit_cards/card_front_eritrosit.png",
 		"res://assets/ui/unit_cards/card_back_eritrosit.png",
+		1
 	],
 	[
 		"res://units/player/trombosit/trombosit_stats.tres",
 		"res://assets/ui/unit_cards/card_front_trombosit.png",
 		"res://assets/ui/unit_cards/card_back_trombosit.png",
+		1
 	],
 	[
 		"res://units/player/killer_t/killert_stats.tres",
 		"res://assets/ui/unit_cards/card_front_t_killer.png",
 		"res://assets/ui/unit_cards/card_back_t_killer.png",
+		2
 	],
 	[
 		"res://units/player/limfosit_b/limfosit_b_stats.tres",
 		"res://assets/ui/unit_cards/card_front_limfosit_b.png",
 		"res://assets/ui/unit_cards/card_back_limfosit_b.png",
+		4
 	],
 	[
 		"res://units/player/Makrofag/makrofag_stats.tres",
 		"res://assets/ui/unit_cards/card_front_makrofag.png",
 		"res://assets/ui/unit_cards/card_back_makrofag.png",
+		3
 	],
 ]
 
@@ -42,21 +48,25 @@ const _PATHOGEN_ENTRIES: Array = [
 		"res://units/enemies/bacteria/clostridium/clostridium_stats.tres",
 		"res://assets/ui/unit_cards/Card Front Clostridium tetani.png",
 		"res://assets/ui/unit_cards/Card Back Clostridium tetani.png",
+		4
 	],
 	[
 		"res://units/enemies/streptococcus/streptococcus_stats.tres",
 		"res://assets/ui/unit_cards/Card Front Streptococcus.png",
 		"res://assets/ui/unit_cards/Card Back Streptococcus.png",
+		2
 	],
 	[
 		"res://units/enemies/hiv/hiv_stats.tres",
 		"res://assets/ui/unit_cards/Card Front HIV.png",
 		"res://assets/ui/unit_cards/Card Back HIV.png",
+		3
 	],
 	[
 		"res://units/enemies/bacteria/ecoli_stats.tres",
 		"res://assets/ui/unit_cards/Card Front E. Coli.png",
 		"res://assets/ui/unit_cards/Card Back E.Coli.png",
+		1
 	],
 ]
 
@@ -217,14 +227,27 @@ func _add_cards_to_grid(grid: GridContainer, entries: Array) -> void:
 		card_btn.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 		card_btn.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 		
+		var is_unlocked = (entry.size() > 3 and entry[3] <= GameManager.unlocked_level)
+		
 		# Set pivot offset for hover scale
 		card_btn.pivot_offset = Vector2(220, 330)
 		card_btn.mouse_filter = Control.MOUSE_FILTER_PASS
 		
-		# Connect signals
-		card_btn.mouse_entered.connect(_on_card_hover.bind(card_btn))
-		card_btn.mouse_exited.connect(_on_card_unhover.bind(card_btn))
-		card_btn.pressed.connect(_on_card_pressed.bind(stats, front_tex, back_tex))
+		if is_unlocked:
+			# Connect signals
+			card_btn.mouse_entered.connect(_on_card_hover.bind(card_btn))
+			card_btn.mouse_exited.connect(_on_card_unhover.bind(card_btn))
+			card_btn.pressed.connect(_on_card_pressed.bind(stats, front_tex, back_tex))
+		else:
+			card_btn.modulate = Color(0.1, 0.1, 0.1, 0.8) # Silhouette/greyed out
+			var q_mark = Label.new()
+			q_mark.text = "?"
+			q_mark.add_theme_font_override("font", load("res://assets/ui/Font/LilitaOne-Regular.ttf"))
+			q_mark.add_theme_font_size_override("font_size", 150)
+			q_mark.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
+			q_mark.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+			q_mark.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+			card_btn.add_child(q_mark)
 		
 		grid.add_child(card_btn)
 

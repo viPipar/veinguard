@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b4m4s051re6om"
-path="res://.godot/imported/Tkiller_Dash.png-7431469c33fd75b48d30764b031fd390.ctex"
+path="res://.godot/imported/Tkiller_Dash.png-c5f22ca6962610f2c2a07e1d8e319ae7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ui/Character/Tkiller_Dash.png"
-dest_files=["res://.godot/imported/Tkiller_Dash.png-7431469c33fd75b48d30764b031fd390.ctex"]
+source_file="res://assets/ui/character/Tkiller_Dash.png"
+dest_files=["res://.godot/imported/Tkiller_Dash.png-c5f22ca6962610f2c2a07e1d8e319ae7.ctex"]
 
 [params]
 
