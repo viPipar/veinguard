@@ -32,6 +32,8 @@ func _physics_process(delta: float) -> void:
 func _on_body_entered(body: Node2D) -> void:
 	if body is UnitBase and body.is_in_group("players"):
 		explode()
+	elif body.is_in_group("player_base"):
+		explode()
 
 func explode() -> void:
 	set_physics_process(false)
@@ -44,6 +46,14 @@ func explode() -> void:
 			var dist = global_position.distance_to(player.global_position)
 			if dist <= explosion_radius:
 				player.take_damage(damage)
+				
+	# Damaging Player Base if in range
+	var base = get_tree().get_first_node_in_group("player_base")
+	if base and is_instance_valid(base):
+		var dist = global_position.distance_to(base.global_position)
+		if dist <= explosion_radius:
+			if base.has_method("take_damage"):
+				base.take_damage(damage)
 				
 	# Visual Ledakan (AoE Shockwave)
 	if sprite:

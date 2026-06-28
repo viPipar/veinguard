@@ -1,14 +1,14 @@
 [gd_resource type="Resource" script_class="UnitStats" load_steps=2 format=3 uid="uid://c5q8v5g7k4n3x"]
 
-[ext_resource type="Script" path="res://core/resources/UnitStats.gd" id="1_2n7c1"]
+[ext_resource type="Script" uid="uid://c5gbukkn4s3uk" path="res://core/resources/UnitStats.gd" id="1_2n7c1"]
 
 [resource]
 script = ExtResource("1_2n7c1")
 unit_name = "HIV"
 description = "Mini Boss"
-max_hp = 800.0
+max_hp = 600.0
 move_speed = 35.0
-damage = 150.0
+damage = 250.0
 attack_range = 350.0
 attack_speed = 0.5
 windup_time = 0.5

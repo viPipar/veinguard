@@ -2,8 +2,8 @@ class_name EnemyBase
 extends Area2D
 
 @export var enemy_scene     : PackedScene
-@export var spawn_interval  : float = 8.0
-@export var max_enemies     : int   = 7
+@export var spawn_interval  : float = 12.0
+@export var max_enemies     : int   = 10
 
 @export var max_health      : float = 400.0
 var current_health          : float
@@ -12,16 +12,27 @@ var _health_bar             : Node2D = null
 var _timer      : float = 0.0
 var _is_patched : bool  = false
 
+# Progressive spawn variables
+var base_spawn_interval : float = 12.0
+var min_spawn_interval  : float = 6.0
+var _elapsed_time       : float = 0.0
+
 
 func _ready() -> void:
 	var lvl = GameManager.current_level
 	print("Menjalankan Level: ", lvl)
 	
+	# Default Level 1 Setup
+	base_spawn_interval = 14.0
+	min_spawn_interval  = 8.0
+	max_enemies         = 7
+	
 	match lvl:
 		2:
 			max_health *= 1.5
-			spawn_interval /= 1.5
-			max_enemies += 3
+			base_spawn_interval = 12.0
+			min_spawn_interval  = 6.5
+			max_enemies         = 10
 			var sprite = get_node_or_null("Sprite2D")
 			if sprite:
 				var new_tex = load("res://assets/ui/Map/EnemyBase3.png")
@@ -29,12 +40,14 @@ func _ready() -> void:
 					sprite.texture = new_tex
 		3:
 			max_health *= 2.0
-			spawn_interval /= 2.0
-			max_enemies += 5
+			base_spawn_interval = 5.0
+			min_spawn_interval  = 1.5
+			max_enemies         = 25
 		4:
 			max_health *= 2.5
-			spawn_interval /= 2.5
-			max_enemies += 8
+			base_spawn_interval = 9.0
+			min_spawn_interval  = 4.0
+			max_enemies         = 15
 			
 	current_health = max_health
 	var hb_scene = load("res://core/ui/HealthBar.tscn")
@@ -49,8 +62,13 @@ func _process(delta: float) -> void:
 	if _is_patched or not GameManager.is_wave_active:
 		return
 
+	_elapsed_time += delta
+	
+	# Kurangi interval secara progresif seiring waktu berjalan (tiap 20 detik berkurang 1.0s)
+	var current_interval = max(min_spawn_interval, base_spawn_interval - (_elapsed_time / 20.0))
+
 	_timer += delta
-	if _timer >= spawn_interval:
+	if _timer >= current_interval:
 		_timer = 0.0
 		_spawn_enemy()
 
@@ -59,6 +77,7 @@ var _spawn_next_is_virus : bool = false
 
 @export var virus_scene : PackedScene = preload("res://units/enemies/streptococcus/Streptococcus.tscn") if ResourceLoader.exists("res://units/enemies/streptococcus/Streptococcus.tscn") else null
 @export var clostridium_scene : PackedScene = preload("res://units/enemies/bacteria/clostridium/Clostridium.tscn") if ResourceLoader.exists("res://units/enemies/bacteria/clostridium/Clostridium.tscn") else null
+@export var hiv_scene : PackedScene = preload("res://units/enemies/hiv/HIV.tscn") if ResourceLoader.exists("res://units/enemies/hiv/HIV.tscn") else null
 
 func _spawn_enemy() -> void:
 	if enemy_scene == null:
@@ -97,9 +116,13 @@ func _spawn_enemy() -> void:
 			_animate_spawn(enemy)
 			
 	elif lvl == 3:
-		# Level 3: Muncul Bakteri Tank tebal (Clostridium) 35% peluang, sisanya normal Streptococcus / Virus
+		# Level 3: Muncul HIV (Mini Boss) 20% peluang, Bakteri Tank (Clostridium) 25% peluang, sisanya normal
 		var r = randf()
-		if r < 0.35 and clostridium_scene != null:
+		if r < 0.20 and hiv_scene != null:
+			var enemy = hiv_scene.instantiate()
+			get_parent().add_child(enemy)
+			_animate_spawn(enemy)
+		elif r < 0.45 and clostridium_scene != null:
 			var enemy = clostridium_scene.instantiate()
 			get_parent().add_child(enemy)
 			_animate_spawn(enemy)
@@ -273,11 +296,21 @@ func get_patched() -> void:
 
 func start_spawning() -> void:
 	GameManager.start_wave()
+	_elapsed_time = 0.0
+	_timer = 0.0
 	if not GameManager.overtime_started.is_connected(_on_overtime):
 		GameManager.overtime_started.connect(_on_overtime)
+		
+	# Spawn HIV dari awal jika Level 3
+	if GameManager.current_level == 3 and hiv_scene != null:
+		var enemy = hiv_scene.instantiate()
+		get_parent().add_child(enemy)
+		_animate_spawn(enemy)
 
 
 func _on_overtime() -> void:
-	spawn_interval = max(3.0, spawn_interval / 2.0)
-	max_enemies   += 2
-	print("⚡ EnemyBase: spawn sekarang tiap %.1fs, max %d musuh" % [spawn_interval, max_enemies])
+	# Overtime mempercepat spawning secara dramatis
+	base_spawn_interval = max(min_spawn_interval * 0.7, base_spawn_interval * 0.5)
+	min_spawn_interval = max(2.5, min_spawn_interval * 0.7)
+	max_enemies += 4
+	print("⚡ EnemyBase Overtime: min_interval %.1fs, max_enemies %d" % [min_spawn_interval, max_enemies])

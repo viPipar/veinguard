@@ -6,9 +6,9 @@
 script = ExtResource("1_isicu")
 unit_name = "Clostridium"
 description = "Bakteri pembentuk spora. Menembakkan racun saraf dari jauh yang memperlambat atau melumpuhkan unit imun."
-max_hp = 220.0
+max_hp = 300.0
 move_speed = 35.0
-damage = 8.0
+damage = 15.0
 attack_range = 280.0
 attack_speed = 0.5
 windup_time = 0.3

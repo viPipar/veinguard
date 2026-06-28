@@ -62,6 +62,17 @@ func _ready() -> void:
 		stats.move_speed *= 1.5
 		
 	_on_ready()  # hook untuk child class
+	
+	# Buff drastis semua stat hero pada level 3
+	if GameManager.current_level == 3 and is_in_group("players"):
+		stats.max_hp *= 2.5
+		stats.damage *= 2.5
+		stats.move_speed *= 1.5
+		if stats.attack_speed > 0:
+			stats.attack_speed *= 1.5
+		current_hp = stats.max_hp
+		print("[%s] Buff drastis diaplikasikan untuk Level 3! HP: %.1f, Damage: %.1f" % [name, stats.max_hp, stats.damage])
+		
 	# Temukan HealthBar child jika ada
 	_health_bar = get_node_or_null("HealthBar")
 	if _health_bar:
