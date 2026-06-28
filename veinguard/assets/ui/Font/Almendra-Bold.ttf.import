@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://10m7svyk0twb"
-path="res://.godot/imported/Comfortaa-Regular.ttf-a7260992096d53e87f49272acc3ddd02.fontdata"
+uid="uid://c7bqmwmj2ruqp"
+path="res://.godot/imported/Almendra-Bold.ttf-1c8f3f66cecbe61754611c4cfce4b827.fontdata"
 
 [deps]
 
-source_file="res://assets/ui/Font/Comfortaa-Regular.ttf"
-dest_files=["res://.godot/imported/Comfortaa-Regular.ttf-a7260992096d53e87f49272acc3ddd02.fontdata"]
+source_file="res://assets/ui/Font/Almendra-Bold.ttf"
+dest_files=["res://.godot/imported/Almendra-Bold.ttf-1c8f3f66cecbe61754611c4cfce4b827.fontdata"]
 
 [params]
 
