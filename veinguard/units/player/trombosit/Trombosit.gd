@@ -81,11 +81,11 @@ func _throw_clot_projectile() -> void:
 		spr_tween.tween_property(sprite, "scale", Vector2(base_scale.x * 0.85, base_scale.y * 1.2), 0.08)
 		spr_tween.tween_property(sprite, "scale", base_scale, 0.12)
 
-	# Buat proyektil keping plasma (clot) secara programatik
+	# Buat proyektil keping plasma (clot) secara programatik menggunakan ProjectileB (putih)
 	var proj := Sprite2D.new()
-	proj.texture = load("res://placeholder/Ellipse 1.png")
-	proj.scale = Vector2(0.04, 0.04)
-	proj.modulate = Color(1.0, 1.0, 1.0, 1.0) # Warna putih bersih sesuai permintaan
+	proj.texture = load("res://assets/ui/Character/ProjectileB.png")
+	proj.scale = Vector2(0.4, 0.4)
+	proj.modulate = Color(1.0, 1.0, 1.0, 1.0) # Putih bersih
 	get_tree().current_scene.add_child(proj)
 	proj.global_position = global_position
 
@@ -104,7 +104,7 @@ func _throw_clot_projectile() -> void:
 			proj.global_position = current_pos + Vector2(0, arc_height)
 			
 			# Skala membesar di puncak busur (tengah penerbangan) untuk ilusi ketinggian 3D
-			var current_scale = lerp(0.04, 0.08, sin(progress * PI))
+			var current_scale = lerp(0.4, 0.8, sin(progress * PI))
 			proj.scale = Vector2(current_scale, current_scale)
 			
 			# Putar proyektil saat terbang
@@ -122,8 +122,8 @@ func _throw_clot_projectile() -> void:
 		
 		# Efek ledakan plasma kecil berwarna putih
 		var splash := Sprite2D.new()
-		splash.texture = load("res://placeholder/Ellipse 1.png")
-		splash.scale = Vector2(0.06, 0.06)
+		splash.texture = load("res://assets/ui/Character/ProjectileB.png")
+		splash.scale = Vector2(0.6, 0.6)
 		splash.modulate = Color(1.0, 1.0, 1.0, 0.7) # Putih semi-transparan
 		get_tree().current_scene.add_child(splash)
 		splash.global_position = proj.global_position

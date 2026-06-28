@@ -40,7 +40,7 @@ func _setup_level_container() -> void:
 	btn_container.get_parent().add_child(level_container)
 	btn_container.get_parent().move_child(level_container, btn_container.get_index() + 1)
 	
-	for i in range(1, 6):
+	for i in range(1, 5):
 		var btn = Button.new()
 		btn.text = "LEVEL " + str(i)
 		btn.custom_minimum_size = Vector2(500, 90)
