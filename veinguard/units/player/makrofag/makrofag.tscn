@@ -1,7 +1,7 @@
 [gd_scene load_steps=28 format=3 uid="uid://25mwi6q6opia"]
 
-[ext_resource type="Script" uid="uid://8j8meeyd8cox" path="res://units/player/makrofag/makrofag.gd" id="1_mkrfg"]
-[ext_resource type="Resource" uid="uid://drdoija4jh7pq" path="res://units/player/makrofag/makrofag_stats.tres" id="2_kws7w"]
+[ext_resource type="Script" uid="uid://8j8meeyd8cox" path="res://units/player/Makrofag/makrofag.gd" id="1_mkrfg"]
+[ext_resource type="Resource" uid="uid://drdoija4jh7pq" path="res://units/player/Makrofag/makrofag_stats.tres" id="2_kws7w"]
 [ext_resource type="Texture2D" uid="uid://cokuw6xu75i3a" path="res://assets/ui/Character/Makrofag_Idle.png" id="3_avunn"]
 [ext_resource type="PackedScene" path="res://core/ui/HealthBar.tscn" id="4_mkrfg"]
 [ext_resource type="Texture2D" uid="uid://cfaqj2ad21ygv" path="res://assets/ui/Character/Makrofag_Walk.png" id="5_po6b7"]
