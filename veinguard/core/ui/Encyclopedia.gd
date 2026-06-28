@@ -63,6 +63,17 @@ const _PATHOGEN_ENTRIES: Array = [
 var _inspect_overlay: CardInspectOverlay = null
 var _time: float = 0.0
 
+# Dynamic tab references
+var _tab_immune: Button = null
+var _tab_pathogens: Button = null
+var _immune_grid_container: GridContainer = null
+var _pathogen_grid_container: GridContainer = null
+
+# Styleboxes
+var _style_inactive: StyleBoxFlat = null
+var _style_active_immune: StyleBoxFlat = null
+var _style_active_pathogens: StyleBoxFlat = null
+
 func _ready() -> void:
 	# Add the inspect overlay programmatically
 	_inspect_overlay = CardInspectOverlay.new()
@@ -75,15 +86,89 @@ func _ready() -> void:
 	back_button.pivot_offset = back_button.size / 2.0
 	back_button.pressed.connect(_on_back_pressed)
 	
-	# Populate the grid with cards under two segments
-	_populate_segmented_grids()
+	# Setup custom styleboxes for tabs
+	_setup_tab_styles()
+	
+	# Create tab headers container
+	_setup_tabs_ui()
+	
+	# Populate grids
+	_populate_grids()
+	
+	# Select default tab
+	_select_tab("immune", false)
 
 func _process(delta: float) -> void:
 	_time += delta
 	# Subtle floating rotation for title
 	title_label.rotation = sin(_time * 1.5) * 0.01
 
-func _populate_segmented_grids() -> void:
+func _setup_tab_styles() -> void:
+	_style_inactive = StyleBoxFlat.new()
+	_style_inactive.bg_color = Color(0.12, 0.05, 0.08, 0.6)
+	_style_inactive.border_color = Color(0.3, 0.3, 0.3, 0.4)
+	_style_inactive.border_width_left = 2
+	_style_inactive.border_width_top = 2
+	_style_inactive.border_width_right = 2
+	_style_inactive.border_width_bottom = 2
+	_style_inactive.corner_radius_top_left = 18
+	_style_inactive.corner_radius_top_right = 18
+	_style_inactive.corner_radius_bottom_right = 18
+	_style_inactive.corner_radius_bottom_left = 18
+	
+	_style_active_immune = StyleBoxFlat.new()
+	_style_active_immune.bg_color = Color(0.08, 0.25, 0.35, 0.8) # Dark cyan
+	_style_active_immune.border_color = Color(0.3, 0.9, 1.0) # Bright cyan glow
+	_style_active_immune.border_width_left = 2
+	_style_active_immune.border_width_top = 2
+	_style_active_immune.border_width_right = 2
+	_style_active_immune.border_width_bottom = 2
+	_style_active_immune.corner_radius_top_left = 18
+	_style_active_immune.corner_radius_top_right = 18
+	_style_active_immune.corner_radius_bottom_right = 18
+	_style_active_immune.corner_radius_bottom_left = 18
+	
+	_style_active_pathogens = StyleBoxFlat.new()
+	_style_active_pathogens.bg_color = Color(0.35, 0.08, 0.15, 0.8) # Dark red
+	_style_active_pathogens.border_color = Color(0.95, 0.25, 0.35) # Bright red/pink glow
+	_style_active_pathogens.border_width_left = 2
+	_style_active_pathogens.border_width_top = 2
+	_style_active_pathogens.border_width_right = 2
+	_style_active_pathogens.border_width_bottom = 2
+	_style_active_pathogens.corner_radius_top_left = 18
+	_style_active_pathogens.corner_radius_top_right = 18
+	_style_active_pathogens.corner_radius_bottom_right = 18
+	_style_active_pathogens.corner_radius_bottom_left = 18
+
+func _setup_tabs_ui() -> void:
+	var vbox = $MarginContainer/VBoxContainer
+	
+	var tabs_container = HBoxContainer.new()
+	tabs_container.alignment = BoxContainer.ALIGNMENT_CENTER
+	tabs_container.add_theme_constant_override("separation", 30)
+	vbox.add_child(tabs_container)
+	# Insert below HeaderArea (index 1) and above ScrollContainer (index 2)
+	vbox.move_child(tabs_container, 1)
+	
+	# Immune Tab Button
+	_tab_immune = Button.new()
+	_tab_immune.text = "IMMUNE CELLS"
+	_tab_immune.custom_minimum_size = Vector2(340, 70)
+	_tab_immune.add_theme_font_override("font", back_button.get_theme_font("font"))
+	_tab_immune.add_theme_font_size_override("font_size", 28)
+	_tab_immune.pressed.connect(func(): _select_tab("immune", true))
+	tabs_container.add_child(_tab_immune)
+	
+	# Pathogens Tab Button
+	_tab_pathogens = Button.new()
+	_tab_pathogens.text = "PATHOGENS & ENEMIES"
+	_tab_pathogens.custom_minimum_size = Vector2(340, 70)
+	_tab_pathogens.add_theme_font_override("font", back_button.get_theme_font("font"))
+	_tab_pathogens.add_theme_font_size_override("font_size", 28)
+	_tab_pathogens.pressed.connect(func(): _select_tab("pathogens", true))
+	tabs_container.add_child(_tab_pathogens)
+
+func _populate_grids() -> void:
 	# Clear existing children from scroll container
 	for child in scroll_container.get_children():
 		child.queue_free()
@@ -92,49 +177,25 @@ func _populate_segmented_grids() -> void:
 	var scroll_vbox = VBoxContainer.new()
 	scroll_vbox.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	scroll_vbox.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	scroll_vbox.add_theme_constant_override("separation", 35)
 	scroll_container.add_child(scroll_vbox)
 	
-	# ---------------- IMMUNE CELLS SEGMENT ----------------
-	var immune_header = Label.new()
-	immune_header.text = "IMMUNE CELLS"
-	immune_header.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	immune_header.add_theme_font_override("font", back_button.get_theme_font("font"))
-	immune_header.add_theme_font_size_override("font_size", 44)
-	immune_header.add_theme_color_override("font_color", Color(0.3, 0.9, 1.0)) # Cyan
-	scroll_vbox.add_child(immune_header)
+	# Create Immune Grid
+	_immune_grid_container = GridContainer.new()
+	_immune_grid_container.columns = 2
+	_immune_grid_container.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_immune_grid_container.add_theme_constant_override("h_separation", 40)
+	_immune_grid_container.add_theme_constant_override("v_separation", 50)
+	scroll_vbox.add_child(_immune_grid_container)
+	_add_cards_to_grid(_immune_grid_container, _IMMUNE_ENTRIES)
 	
-	var immune_grid = GridContainer.new()
-	immune_grid.columns = 2
-	immune_grid.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	immune_grid.add_theme_constant_override("h_separation", 40)
-	immune_grid.add_theme_constant_override("v_separation", 50)
-	scroll_vbox.add_child(immune_grid)
-	
-	_add_cards_to_grid(immune_grid, _IMMUNE_ENTRIES)
-	
-	# Spacer
-	var spacer = Control.new()
-	spacer.custom_minimum_size = Vector2(0, 30)
-	scroll_vbox.add_child(spacer)
-	
-	# ---------------- PATHOGENS / ENEMIES SEGMENT ----------------
-	var pathogen_header = Label.new()
-	pathogen_header.text = "PATHOGENS & ENEMIES"
-	pathogen_header.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	pathogen_header.add_theme_font_override("font", back_button.get_theme_font("font"))
-	pathogen_header.add_theme_font_size_override("font_size", 44)
-	pathogen_header.add_theme_color_override("font_color", Color(0.95, 0.25, 0.35)) # Reddish
-	scroll_vbox.add_child(pathogen_header)
-	
-	var pathogen_grid = GridContainer.new()
-	pathogen_grid.columns = 2
-	pathogen_grid.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	pathogen_grid.add_theme_constant_override("h_separation", 40)
-	pathogen_grid.add_theme_constant_override("v_separation", 50)
-	scroll_vbox.add_child(pathogen_grid)
-	
-	_add_cards_to_grid(pathogen_grid, _PATHOGEN_ENTRIES)
+	# Create Pathogen Grid
+	_pathogen_grid_container = GridContainer.new()
+	_pathogen_grid_container.columns = 2
+	_pathogen_grid_container.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_pathogen_grid_container.add_theme_constant_override("h_separation", 40)
+	_pathogen_grid_container.add_theme_constant_override("v_separation", 50)
+	scroll_vbox.add_child(_pathogen_grid_container)
+	_add_cards_to_grid(_pathogen_grid_container, _PATHOGEN_ENTRIES)
 
 func _add_cards_to_grid(grid: GridContainer, entries: Array) -> void:
 	for entry in entries:
@@ -166,6 +227,45 @@ func _add_cards_to_grid(grid: GridContainer, entries: Array) -> void:
 		card_btn.pressed.connect(_on_card_pressed.bind(stats, front_tex, back_tex))
 		
 		grid.add_child(card_btn)
+
+func _select_tab(tab_name: String, play_sfx: bool) -> void:
+	if play_sfx:
+		AudioManager.play_select_sfx()
+		
+	if tab_name == "immune":
+		_immune_grid_container.show()
+		_pathogen_grid_container.hide()
+		
+		# Style active tab
+		_tab_immune.add_theme_stylebox_override("normal", _style_active_immune)
+		_tab_immune.add_theme_stylebox_override("hover", _style_active_immune)
+		_tab_immune.add_theme_stylebox_override("pressed", _style_active_immune)
+		_tab_immune.add_theme_stylebox_override("focus", _style_active_immune)
+		_tab_immune.add_theme_color_override("font_color", Color(0.3, 0.9, 1.0)) # Cyan text
+		
+		# Style inactive tab
+		_tab_pathogens.add_theme_stylebox_override("normal", _style_inactive)
+		_tab_pathogens.add_theme_stylebox_override("hover", _style_inactive)
+		_tab_pathogens.add_theme_stylebox_override("pressed", _style_inactive)
+		_tab_pathogens.add_theme_stylebox_override("focus", _style_inactive)
+		_tab_pathogens.add_theme_color_override("font_color", Color(0.7, 0.7, 0.7)) # Muted grey text
+	else:
+		_immune_grid_container.hide()
+		_pathogen_grid_container.show()
+		
+		# Style active tab
+		_tab_pathogens.add_theme_stylebox_override("normal", _style_active_pathogens)
+		_tab_pathogens.add_theme_stylebox_override("hover", _style_active_pathogens)
+		_tab_pathogens.add_theme_stylebox_override("pressed", _style_active_pathogens)
+		_tab_pathogens.add_theme_stylebox_override("focus", _style_active_pathogens)
+		_tab_pathogens.add_theme_color_override("font_color", Color(0.95, 0.25, 0.35)) # Reddish text
+		
+		# Style inactive tab
+		_tab_immune.add_theme_stylebox_override("normal", _style_inactive)
+		_tab_immune.add_theme_stylebox_override("hover", _style_inactive)
+		_tab_immune.add_theme_stylebox_override("pressed", _style_inactive)
+		_tab_immune.add_theme_stylebox_override("focus", _style_inactive)
+		_tab_immune.add_theme_color_override("font_color", Color(0.7, 0.7, 0.7)) # Muted grey text
 
 func _on_card_hover(btn: TextureButton) -> void:
 	var tween = create_tween().set_parallel(true)
