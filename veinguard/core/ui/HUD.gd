@@ -82,6 +82,11 @@ func _on_overtime_started() -> void:
 		overtime_label.position.x, 0.05)
 
 # --- Settings ---
+func _on_exit_button_pressed() -> void:
+	AudioManager.play_select_sfx()
+	get_tree().paused = false # Pastikan game tidak di-pause saat keluar
+	get_tree().change_scene_to_file("res://core/ui/MainMenu.tscn")
+
 func _on_settings_button_pressed() -> void:
 	AudioManager.play_select_sfx()
 	var settings_menu = load("res://core/ui/SettingsMenu.tscn").instantiate()

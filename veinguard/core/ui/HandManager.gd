@@ -128,6 +128,7 @@ func _create_card_slots() -> void:
 	# Buat Next Card slot
 	_next_card_slot       = UnitCard.new()
 	_next_card_slot.name  = "NextCardSlot"
+	_next_card_slot.is_playable = false # Tidak bisa dimainkan secara langsung
 	_next_card_slot.modulate.a = 0.8  # Sedikit transparan
 	_next_card_slot.mouse_filter = Control.MOUSE_FILTER_IGNORE # Tidak bisa diklik
 	_next_card_slot.card_inspected.connect(_on_card_inspected)

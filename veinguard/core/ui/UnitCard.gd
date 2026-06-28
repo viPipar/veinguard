@@ -15,6 +15,7 @@ signal card_toggled(card_node: UnitCard, is_selected: bool)
 signal card_inspected(card_node: UnitCard)
 
 # ── State ─────────────────────────────────────────────────────────────────
+var is_playable   := true
 var is_focused    := false
 var base_scale    := Vector2.ONE
 var base_pos      := Vector2.ZERO
@@ -38,6 +39,8 @@ func _ready() -> void:
 	_recompute_center()
 
 func _process(delta: float) -> void:
+	if not is_playable:
+		return
 	if _is_holding:
 		_hold_timer += delta
 		if _hold_timer >= 0.4:
@@ -75,6 +78,8 @@ func _recompute_center() -> void:
 
 # ── Input ─────────────────────────────────────────────────────────────────
 func _gui_input(event: InputEvent) -> void:
+	if not is_playable:
+		return
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
 			card_inspected.emit(self)
@@ -102,6 +107,8 @@ func _gui_input(event: InputEvent) -> void:
 
 
 func _on_pressed() -> void:
+	if not is_playable:
+		return
 	if is_focused:
 		# Klik kartu yang sudah di tengah → batal pilih
 		set_focus(false)
@@ -175,7 +182,10 @@ func play_draw_animation(start_pos = null, start_scale = null) -> void:
 	tween.tween_property(self, "scale", base_scale, 0.35) \
 		.set_ease(Tween.EASE_OUT)
 	await tween.finished
-	mouse_filter = Control.MOUSE_FILTER_STOP     # Bisa diklik kembali
+	if is_playable:
+		mouse_filter = Control.MOUSE_FILTER_STOP     # Bisa diklik kembali
+	else:
+		mouse_filter = Control.MOUSE_FILTER_IGNORE   # Tetap tidak bisa diklik
 
 
 func update_energy_state(current_oxygen: float) -> void:

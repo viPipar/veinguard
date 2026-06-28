@@ -73,11 +73,19 @@ func _throw_clot_projectile() -> void:
 	if not is_instance_valid(_enemy_base):
 		return
 
+	# Animasi recoil pada tubuh Trombosit saat melempar (squash & stretch)
+	if sprite:
+		var base_scale = get_sprite_base_scale()
+		var spr_tween = create_tween()
+		spr_tween.tween_property(sprite, "scale", Vector2(base_scale.x * 1.15, base_scale.y * 0.8), 0.08)
+		spr_tween.tween_property(sprite, "scale", Vector2(base_scale.x * 0.85, base_scale.y * 1.2), 0.08)
+		spr_tween.tween_property(sprite, "scale", base_scale, 0.12)
+
 	# Buat proyektil keping plasma (clot) secara programatik
 	var proj := Sprite2D.new()
 	proj.texture = load("res://placeholder/Ellipse 1.png")
-	proj.scale = Vector2(0.06, 0.06)
-	proj.modulate = Color(1.0, 0.90, 0.4, 1.0) # Kuning keemasan plasma darah
+	proj.scale = Vector2(0.04, 0.04)
+	proj.modulate = Color(1.0, 1.0, 1.0, 1.0) # Warna putih bersih sesuai permintaan
 	get_tree().current_scene.add_child(proj)
 	proj.global_position = global_position
 
@@ -94,8 +102,13 @@ func _throw_clot_projectile() -> void:
 			# Tambahkan efek arc melengkung ke atas
 			var arc_height = sin(progress * PI) * -80.0
 			proj.global_position = current_pos + Vector2(0, arc_height)
+			
+			# Skala membesar di puncak busur (tengah penerbangan) untuk ilusi ketinggian 3D
+			var current_scale = lerp(0.04, 0.08, sin(progress * PI))
+			proj.scale = Vector2(current_scale, current_scale)
+			
 			# Putar proyektil saat terbang
-			proj.rotation += 0.15,
+			proj.rotation += 0.2,
 		0.0, 1.0, fly_duration
 	)
 
@@ -107,11 +120,11 @@ func _throw_clot_projectile() -> void:
 	if is_instance_valid(_enemy_base) and _enemy_base.has_method("take_damage"):
 		_enemy_base.take_damage(stats.damage)
 		
-		# Efek ledakan plasma kecil
+		# Efek ledakan plasma kecil berwarna putih
 		var splash := Sprite2D.new()
 		splash.texture = load("res://placeholder/Ellipse 1.png")
 		splash.scale = Vector2(0.06, 0.06)
-		splash.modulate = Color(1.0, 0.90, 0.4, 0.7)
+		splash.modulate = Color(1.0, 1.0, 1.0, 0.7) # Putih semi-transparan
 		get_tree().current_scene.add_child(splash)
 		splash.global_position = proj.global_position
 		

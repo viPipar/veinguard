@@ -41,7 +41,7 @@ func _on_card_toggled(card: UnitCard, is_selected: bool) -> void:
 		print("Kartu di-deselect")
 
 
-func _unhandled_input(event: InputEvent) -> void:
+func _input(event: InputEvent) -> void:
 	match _phase:
 		Phase.WAITING_TOUCH:
 			if _is_press(event):

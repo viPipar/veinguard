@@ -171,6 +171,15 @@ theme_override_fonts/font = ExtResource("15_font")
 theme_override_font_sizes/font_size = 60
 text = "⚡ OVERTIME! ⚡"
 
+[node name="ExitButton" type="Button" parent="HUD"]
+offset_left = 780.0
+offset_top = 40.0
+offset_right = 900.0
+offset_bottom = 120.0
+theme_override_fonts/font = ExtResource("15_font")
+theme_override_font_sizes/font_size = 24
+text = "EXIT"
+
 [node name="SettingsButton" type="Button" parent="HUD"]
 offset_left = 920.0
 offset_top = 40.0
@@ -206,4 +215,5 @@ text = "⚡ OVERTIME! ⚡"
 
 [node name="DebugMenu" parent="." instance=ExtResource("DebugMenuScene")]
 
+[connection signal="pressed" from="HUD/ExitButton" to="HUD" method="_on_exit_button_pressed"]
 [connection signal="pressed" from="HUD/SettingsButton" to="HUD" method="_on_settings_button_pressed"]
