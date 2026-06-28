@@ -85,7 +85,19 @@ func _ready() -> void:
 
 # ── Load seluruh resource pool ────────────────────────────────────────────
 func _load_pool() -> void:
-	for entry in _POOL_ENTRIES:
+	var lvl = GameManager.current_level
+	for idx in range(_POOL_ENTRIES.size()):
+		# Cek kecocokan level dengan indeks pool:
+		# Index 0: NKiller (Level 1+)
+		# Index 1: Trombosit (Level 1+)
+		# Index 2: T Killer (Level 2+)
+		# Index 3: Eosinofil (Level 4+)
+		# Index 4: Makrofag (Level 3+)
+		if idx == 2 and lvl < 2: continue # T Killer locked
+		if idx == 4 and lvl < 3: continue # Makrofag locked
+		if idx == 3 and lvl < 4: continue # Eosinofil locked
+		
+		var entry = _POOL_ENTRIES[idx]
 		var front : Texture2D = _safe_load(entry[2])
 		var back  : Texture2D = _safe_load(entry[3])
 		_pool.append({
@@ -162,21 +174,23 @@ func _on_oxygen_changed(new_amount: float) -> void:
 		_eritrosit_slot.update_energy_state(new_amount)
 
 
-# ── Inisialisasi tangan awal (4 kartu utama + 1 Next Card) ─────────────
 func _init_hand() -> void:
-	var indices := range(_pool.size())
-	indices.shuffle()
-	
+	var indices : Array = []
+	if _pool.size() >= 5:
+		indices = range(_pool.size())
+		indices.shuffle()
+	else:
+		# Pool kecil (Level 1/2/3), isi dengan indeks random dengan perulangan
+		for i in range(5):
+			indices.append(randi() % _pool.size())
+			
 	# Ambil 4 kartu untuk Hand
 	for i in 4:
 		_hand_indices[i] = indices[i]
 		_assign_slot(i, indices[i], false)
 		
 	# Ambil 1 kartu untuk Next Card
-	if _pool.size() > 4:
-		_next_card_idx = indices[4]
-	else:
-		_next_card_idx = indices[0]
+	_next_card_idx = indices[4]
 	_assign_next_card(false)
 
 

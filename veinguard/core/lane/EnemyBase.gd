@@ -71,28 +71,110 @@ func _spawn_enemy() -> void:
 		return
 
 	var lvl = GameManager.current_level
-	var scene_to_spawn = enemy_scene
 	
 	if lvl == 1:
 		# Level 1: Hanya Streptococcus (fighter) dan Virus (ranged) bergantian
+		var scene_to_spawn = enemy_scene
 		if virus_scene != null and _spawn_next_is_virus:
 			scene_to_spawn = virus_scene
 		if virus_scene != null:
 			_spawn_next_is_virus = not _spawn_next_is_virus
-	else:
-		# Level 2+: 20% peluang spawn Clostridium, sisanya bergantian Streptococcus/Virus
+			
+		var enemy = scene_to_spawn.instantiate()
+		get_parent().add_child(enemy)
+		_animate_spawn(enemy)
+		
+	elif lvl == 2:
+		# Level 2: Muncul Bakteri Swarm (kecil & banyak) 40% peluang, sisanya normal Streptococcus / Virus bergantian
 		var r = randf()
-		if r < 0.20 and clostridium_scene != null:
-			scene_to_spawn = clostridium_scene
+		if r < 0.40:
+			_spawn_bacteria_swarm()
 		else:
+			var scene_to_spawn = enemy_scene
 			if virus_scene != null and _spawn_next_is_virus:
 				scene_to_spawn = virus_scene
 			if virus_scene != null:
 				_spawn_next_is_virus = not _spawn_next_is_virus
+				
+			var enemy = scene_to_spawn.instantiate()
+			get_parent().add_child(enemy)
+			_animate_spawn(enemy)
+			
+	elif lvl == 3:
+		# Level 3: Muncul Bakteri Tank tebal (Clostridium) 35% peluang, sisanya normal Streptococcus / Virus
+		var r = randf()
+		if r < 0.35 and clostridium_scene != null:
+			var enemy = clostridium_scene.instantiate()
+			get_parent().add_child(enemy)
+			_animate_spawn(enemy)
+		else:
+			var scene_to_spawn = enemy_scene
+			if virus_scene != null and _spawn_next_is_virus:
+				scene_to_spawn = virus_scene
+			if virus_scene != null:
+				_spawn_next_is_virus = not _spawn_next_is_virus
+				
+			var enemy = scene_to_spawn.instantiate()
+			get_parent().add_child(enemy)
+			_animate_spawn(enemy)
+			
+	else: # Level 4+
+		# Level 4: Muncul Bakteri proyektil ramean (Virus Swarm) 35% peluang, Clostridium 20%, sisanya normal
+		var r = randf()
+		if r < 0.35 and virus_scene != null:
+			_spawn_virus_swarm()
+		elif r < 0.55 and clostridium_scene != null:
+			var enemy = clostridium_scene.instantiate()
+			get_parent().add_child(enemy)
+			_animate_spawn(enemy)
+		else:
+			var scene_to_spawn = enemy_scene
+			if virus_scene != null and _spawn_next_is_virus:
+				scene_to_spawn = virus_scene
+			if virus_scene != null:
+				_spawn_next_is_virus = not _spawn_next_is_virus
+				
+			var enemy = scene_to_spawn.instantiate()
+			get_parent().add_child(enemy)
+			_animate_spawn(enemy)
 
-	var enemy = scene_to_spawn.instantiate()
-	get_parent().add_child(enemy)
-	_animate_spawn(enemy)
+func _spawn_bacteria_swarm() -> void:
+	var count = 5
+	print("[EnemyBase] Spawning Bacteria Swarm (Skeleton Army style)!")
+	for i in range(count):
+		if get_tree().get_nodes_in_group("enemies").size() >= max_enemies + 3:
+			break
+		var enemy = enemy_scene.instantiate()
+		enemy.gameplay_scale = 1.0 # Lebih kecil dari normal (1.6)
+		enemy.stats = enemy.stats.duplicate()
+		enemy.stats.max_hp = 30.0
+		enemy.stats.damage = 5.0
+		
+		# Sebar posisi
+		var offset = Vector2(randf_range(-70.0, 70.0), randf_range(-40.0, 40.0))
+		enemy.position = global_position + offset
+		get_parent().add_child(enemy)
+		_animate_spawn(enemy)
+
+func _spawn_virus_swarm() -> void:
+	if virus_scene == null:
+		return
+	var count = 3
+	print("[EnemyBase] Spawning Virus Swarm (Spear Goblin style)!")
+	for i in range(count):
+		if get_tree().get_nodes_in_group("enemies").size() >= max_enemies + 3:
+			break
+		var enemy = virus_scene.instantiate()
+		enemy.gameplay_scale = 1.0 # Lebih kecil dari normal (1.6)
+		enemy.stats = enemy.stats.duplicate()
+		enemy.stats.max_hp = 25.0
+		enemy.stats.damage = 6.0
+		
+		# Sebar posisi
+		var offset = Vector2(randf_range(-60.0, 60.0), randf_range(-30.0, 30.0))
+		enemy.position = global_position + offset
+		get_parent().add_child(enemy)
+		_animate_spawn(enemy)
 
 func spawn_specific_enemy(type: String) -> void:
 	if get_tree().get_nodes_in_group("enemies").size() >= max_enemies + 2:
