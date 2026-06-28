@@ -20,9 +20,9 @@ func _ready() -> void:
 		GameManager.heartbeat_rush_ended.connect(_on_heartbeat_rush_ended)
 
 	oxygen_bar.min_value   = 0
-	oxygen_bar.max_value   = GameManager.MAX_OXYGEN
+	oxygen_bar.max_value   = GameManager.max_oxygen
 	oxygen_bar.value       = 0
-	oxygen_label.text      = "O₂: 0.0 / %.1f" % GameManager.MAX_OXYGEN
+	oxygen_label.text      = "O₂: 0.0 / %.1f" % GameManager.max_oxygen
 	timer_label.text       = "2:00"
 	overtime_label.visible = false
 	
@@ -59,7 +59,7 @@ func _on_q_btn_pressed() -> void:
 func _setup_oxygen_dividers() -> void:
 	await get_tree().process_frame # Wait for layout to calculate size
 	
-	var max_o2 = GameManager.MAX_OXYGEN
+	var max_o2 = GameManager.max_oxygen
 	var bar_width = oxygen_bar.size.x
 	var bar_height = oxygen_bar.size.y
 	
@@ -77,7 +77,7 @@ func _setup_oxygen_dividers() -> void:
 
 # --- Oxygen ---
 func _on_oxygen_changed(amount: float) -> void:
-	oxygen_label.text = "O₂: %.1f / %.1f" % [amount, GameManager.MAX_OXYGEN]
+	oxygen_label.text = "O₂: %.1f / %.1f" % [amount, GameManager.max_oxygen]
 
 	# Smooth bar update
 	var tween: Tween = create_tween()
@@ -85,7 +85,7 @@ func _on_oxygen_changed(amount: float) -> void:
 		 .set_ease(Tween.EASE_OUT)
 
 	# Update warna bar berdasarkan level
-	var ratio : float = float(amount) / float(GameManager.MAX_OXYGEN)
+	var ratio : float = float(amount) / float(GameManager.max_oxygen)
 	if ratio < 0.3:
 		oxygen_bar.modulate = Color(1.0, 0.3, 0.3)   # merah
 	elif ratio < 0.7:

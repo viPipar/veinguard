@@ -43,10 +43,10 @@ func _process_move(_delta: float) -> void:
 
 	if global_position.distance_to(_target_oxygen.global_position) < 30.0:
 		if _target_oxygen.try_pickup():
-			_carried_oxygen      = _target_oxygen
+			_target_oxygen.queue_free()
 			_target_oxygen       = null
-			oxygen_label.visible = true
-			change_state(State.ATTACK)
+			GameManager.add_oxygen(2.0)
+			_scan_existing_oxygen()
 		else:
 			# try_pickup gagal (race condition), cari oxygen lain
 			_target_oxygen = null
@@ -79,15 +79,13 @@ func _deliver_oxygen() -> void:
 
 
 func _process_die(_delta: float) -> void:
-	if is_instance_valid(_carried_oxygen):
-		_carried_oxygen.drop_back(global_position)
-		_carried_oxygen = null
-	oxygen_label.visible = false
+	if is_instance_valid(oxygen_label):
+		oxygen_label.visible = false
 	super(_delta)
 
 
 func _on_oxygen_detected(area: Area2D) -> void:
-	if area is Oxygen and _carried_oxygen == null and not area._is_taken:
+	if area is Oxygen and not area._is_taken:
 		# Ambil target baru jika belum punya target, atau target lama sudah diambil orang lain
 		if _target_oxygen == null or _target_oxygen._is_taken:
 			_target_oxygen = area

@@ -45,9 +45,9 @@ func _ready() -> void:
 			max_enemies         = 25
 		4:
 			max_health *= 2.5
-			base_spawn_interval = 9.0
-			min_spawn_interval  = 4.0
-			max_enemies         = 15
+			base_spawn_interval = 1.0
+			min_spawn_interval  = 0.5
+			max_enemies         = 40
 			
 	current_health = max_health
 	var hb_scene = load("res://core/ui/HealthBar.tscn")
@@ -230,6 +230,9 @@ func _animate_spawn(enemy: Node2D) -> void:
 	# --- Animasi Spawn Bakteri (Ejection & Elastic Pop) ---
 	# 1. Mulai dari posisi agak ke atas (seolah di dalam markas)
 	var spawn_pos = global_position
+	if GameManager.current_level >= 4:
+		spawn_pos.x += randf_range(-250.0, 250.0)
+		
 	enemy.global_position = spawn_pos + Vector2(0, -40)
 	
 	# 2. Set scale awal ke 0 dan sembunyikan alpha

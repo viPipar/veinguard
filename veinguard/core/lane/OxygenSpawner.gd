@@ -4,13 +4,13 @@ class_name OxygenSpawner
 extends Node2D
 
 @export var oxygen_scene    : PackedScene
-@export var spawn_interval  : float = 3.0      # detik antar spawn
-@export var max_oxygen_count: int   = 5        # maks oxygen di layar sekaligus
+@export var spawn_interval  : float = 2.0      # detik antar spawn
+@export var max_oxygen_count: int   = 8        # maks oxygen di layar sekaligus
 
 # --- PENGATURAN UNTUK MODE PORTRAIT (VERTIKAL) ---
 @export var lane_x       : float = 540.0
-@export var lane_y_min   : float = 1000.0
-@export var lane_y_max   : float = 1250.0
+@export var lane_y_min   : float = 700.0
+@export var lane_y_max   : float = 1600.0
 @export var spawn_x_offset: float = 200.0  # seberapa jauh ke kiri/kanan
 
 var _timer : float = 0.0

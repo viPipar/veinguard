@@ -43,3 +43,16 @@ func drop_back(drop_position: Vector2) -> void:
 	global_position = drop_position
 	show()
 	get_node("CollisionShape2D").set_deferred("disabled", false)
+
+func _input_event(_viewport: Viewport, event: InputEvent, _shape_idx: int) -> void:
+	if _is_taken: return
+	
+	if event is InputEventScreenTouch and event.pressed:
+		_collect_manual()
+	elif event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+		_collect_manual()
+
+func _collect_manual() -> void:
+	_is_taken = true
+	GameManager.add_oxygen(1.0)
+	queue_free()

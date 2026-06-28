@@ -8,6 +8,7 @@ extends Control
 @onready var credits_popup: Panel = $CreditsPopup
 @onready var close_button: Button = $CreditsPopup/Margin/VBox/CloseButton
 @onready var title_label: Label = $MarginContainer/VBoxContainer/HeaderArea/Title
+@onready var dev_button: Button = $MarginContainer/VBoxContainer/HeaderArea/Title/DevButton
 
 var _time: float = 0.0
 var level_container: VBoxContainer
@@ -18,6 +19,9 @@ func _ready() -> void:
 	credits_popup.modulate.a = 0.0
 	credits_popup.scale = Vector2(0.8, 0.8)
 	
+	if dev_button:
+		dev_button.pressed.connect(_on_dev_button_pressed)
+	
 	# Connect mouse enter and exit signals for buttons to animate them
 	for button in [start_button, encyclopedia_button, settings_button, credits_button, exit_button]:
 		button.mouse_entered.connect(_on_button_hover.bind(button))
@@ -27,6 +31,12 @@ func _ready() -> void:
 	close_button.mouse_entered.connect(_on_button_hover.bind(close_button))
 	close_button.mouse_exited.connect(_on_button_unhover.bind(close_button))
 	close_button.pivot_offset = close_button.size / 2.0
+
+func _on_dev_button_pressed() -> void:
+	var dev_scene = load("res://core/ui/BalancingPanel.tscn")
+	if dev_scene:
+		var panel = dev_scene.instantiate()
+		add_child(panel)
 
 	_setup_level_container()
 
@@ -113,20 +123,33 @@ func _on_start_button_pressed() -> void:
 	tween.tween_property(start_button, "scale", Vector2(1.0, 1.0), 0.08)
 	
 	await tween.finished
-	$MarginContainer/VBoxContainer/ButtonContainer.visible = false
-	level_container.visible = true
-	for c in level_container.get_children():
-		c.pivot_offset = c.size / 2.0
+	if not is_inside_tree(): return
+	var btn_container = get_node_or_null("MarginContainer/VBoxContainer/ButtonContainer")
+	if is_instance_valid(btn_container):
+		btn_container.visible = false
+	if is_instance_valid(level_container):
+		level_container.visible = true
+		for c in level_container.get_children():
+			if c is Control:
+				c.pivot_offset = c.size / 2.0
 
 func _on_level_back_pressed(btn: Button) -> void:
 	AudioManager.play_select_sfx()
-	btn.pivot_offset = btn.size / 2.0
-	var tween = create_tween()
-	tween.tween_property(btn, "scale", Vector2(0.9, 0.9), 0.08)
-	tween.tween_property(btn, "scale", Vector2(1.0, 1.0), 0.08)
-	await tween.finished
-	level_container.visible = false
-	$MarginContainer/VBoxContainer/ButtonContainer.visible = true
+	if is_instance_valid(btn):
+		btn.pivot_offset = btn.size / 2.0
+		var tween = create_tween()
+		tween.tween_property(btn, "scale", Vector2(0.9, 0.9), 0.08)
+		tween.tween_property(btn, "scale", Vector2(1.0, 1.0), 0.08)
+		await tween.finished
+	
+	if not is_inside_tree(): return
+	
+	if is_instance_valid(level_container):
+		level_container.visible = false
+	
+	var btn_container = get_node_or_null("MarginContainer/VBoxContainer/ButtonContainer")
+	if is_instance_valid(btn_container):
+		btn_container.visible = true
 
 func _on_level_selected(level: int, btn: Button) -> void:
 	AudioManager.play_select_sfx()

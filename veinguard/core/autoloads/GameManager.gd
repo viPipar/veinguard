@@ -9,8 +9,8 @@ signal time_updated(seconds_remaining: float)
 signal heartbeat_rush_started
 signal heartbeat_rush_ended
 
-# --- Constants ---
-const MAX_OXYGEN         : float = 10.0
+# --- Constants / Vars ---
+var max_oxygen         : float = 10.0
 const OVERTIME_THRESHOLD : float = 120.0  # 2 menit
 
 # --- State ---
@@ -61,8 +61,8 @@ func _process(delta: float) -> void:
 
 	# --- Passive Oxygen ---
 	if is_infinite_oxygen:
-		if oxygen_points < MAX_OXYGEN:
-			add_oxygen(MAX_OXYGEN)
+		if oxygen_points < max_oxygen:
+			add_oxygen(max_oxygen)
 	else:
 		_passive_oxygen_timer += delta
 		if _passive_oxygen_timer >= passive_oxygen_interval:
@@ -86,7 +86,7 @@ func add_oxygen(amount: float) -> void:
 	var final_amount = amount
 	if is_heartbeat_rush:
 		final_amount *= 2.0 # Lipatgandakan pertambahan oksigen saat Heartbeat Rush
-	oxygen_points = min(oxygen_points + final_amount, MAX_OXYGEN)
+	oxygen_points = min(oxygen_points + final_amount, max_oxygen)
 	oxygen_changed.emit(oxygen_points)
 
 
@@ -124,7 +124,7 @@ func start_wave() -> void:
 	_has_played_last_second = false
 	_heartbeat_timer = 0.0
 	passive_oxygen_interval = 1.0 # Reset interval ke default
-	oxygen_points = MAX_OXYGEN # Mulai wave dengan Oksigen penuh!
+	oxygen_points = max_oxygen # Mulai wave dengan Oksigen penuh!
 	oxygen_changed.emit(oxygen_points)
 	print("Wave %d dimulai!" % wave_number)
 

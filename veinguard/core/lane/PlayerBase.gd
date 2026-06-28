@@ -13,14 +13,8 @@ var _health_bar : Node2D = null
 var _float_time : float = 0.0
 
 func _ready() -> void:
-	# Sesuaikan max_health berdasarkan level agar seimbang
-	var lvl = GameManager.current_level
-	match lvl:
-		1: max_health = 1000.0
-		2: max_health = 1200.0
-		3: max_health = 1500.0
-		4: max_health = 1800.0
-		_: max_health = 1000.0
+	# Sesuaikan max_health (di-fix 500 sesuai rebalancing)
+	max_health = 500.0
 		
 	current_health = max_health
 	
