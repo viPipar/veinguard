@@ -40,7 +40,7 @@ bacteria_scene = ExtResource("3_1t5db")
 [node name="Background" type="Sprite2D" parent="."]
 
 [node name="PlayerBase" type="Area2D" parent="." groups=["player_base"]]
-position = Vector2(540, 1020)
+position = Vector2(540, 1400)
 script = ExtResource("1_b4d85")
 
 [node name="Sprite2D" type="Sprite2D" parent="PlayerBase"]

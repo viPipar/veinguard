@@ -12,6 +12,14 @@ func _ready() -> void:
 	GameManager.player_won.connect(_on_player_won)
 	$Lane/EnemyBase.start_spawning()
 
+	# Spawn 2 unit Eritrosit tambahan di awal (Balancing Level 2)
+	var eritrosit_scene = preload("res://units/player/eritrosit/Eritrosit.tscn")
+	if eritrosit_scene:
+		for i in range(2):
+			var e = eritrosit_scene.instantiate()
+			add_child(e)
+			e.global_position = Vector2(460 + i * 160, 650)
+
 	# Buat HandManager secara programatik (mengelola 3 kartu di tangan)
 	_hand_manager      = HandManager.new()
 	_hand_manager.name = "HandManager"

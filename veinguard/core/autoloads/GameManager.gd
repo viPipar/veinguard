@@ -73,7 +73,10 @@ func _process(delta: float) -> void:
 
 
 func add_oxygen(amount: float) -> void:
-	oxygen_points = min(oxygen_points + amount, MAX_OXYGEN)
+	var final_amount = amount
+	if is_heartbeat_rush:
+		final_amount *= 2.0 # Lipatgandakan pertambahan oksigen saat Heartbeat Rush
+	oxygen_points = min(oxygen_points + final_amount, MAX_OXYGEN)
 	oxygen_changed.emit(oxygen_points)
 
 
@@ -110,6 +113,8 @@ func start_wave() -> void:
 	_is_overtime   = false
 	_has_played_last_second = false
 	_heartbeat_timer = 0.0
+	oxygen_points = MAX_OXYGEN # Mulai wave dengan Oksigen penuh!
+	oxygen_changed.emit(oxygen_points)
 	print("Wave %d dimulai!" % wave_number)
 
 

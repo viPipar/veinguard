@@ -138,7 +138,10 @@ func _on_level_selected(level: int, btn: Button) -> void:
 	fade_tween.tween_property(self, "scale", Vector2(1.05, 1.05), 0.3)
 	
 	await fade_tween.finished
-	get_tree().change_scene_to_file("res://Main.tscn")
+	if level == 1 or level == 2 or level == 3:
+		get_tree().change_scene_to_file("res://core/ui/Cutscene.tscn")
+	else:
+		get_tree().change_scene_to_file("res://Main.tscn")
 
 func _on_encyclopedia_button_pressed() -> void:
 	AudioManager.play_select_sfx()

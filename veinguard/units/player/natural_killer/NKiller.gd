@@ -158,8 +158,19 @@ func _deal_damage() -> void:
 	if sprite and sprite.sprite_frames.has_animation("attack"):
 		sprite.play("attack")
 		
-	if current_target is UnitBase:
-		current_target.take_damage(stats.damage)
+	# Damage target utama secara langsung (menghindari delay/masalah tabrakan)
+	current_target.take_damage(stats.damage)
+	print("[NTKiller] Shotgun blast hit primary target: ", current_target.name, " for ", stats.damage, " damage!")
+	
+	# Shotgun AOE damage: damage musuh lain di sekitarnya dalam arah kerucut (cone)
+	var dir := global_position.direction_to(current_target.global_position)
+	for body in attack_area.get_overlapping_bodies():
+		if body is UnitBase and body.is_in_group("enemies") and body != current_target and body.current_state != State.DIE:
+			var dir_to_body := global_position.direction_to(body.global_position)
+			# Dot product > 0.5 berarti berada dalam kerucut 120 derajat ke depan
+			if dir.dot(dir_to_body) > 0.5:
+				body.take_damage(stats.damage)
+				print("[NTKiller] Shotgun blast hit collateral: ", body.name, " for ", stats.damage, " damage!")
 
 
 func _pick_nearest_target() -> void:

@@ -181,7 +181,7 @@ theme_override_font_sizes/font_size = 32
 text = "⚙"
 
 [node name="SlingshotController" type="Node2D" parent="."]
-position = Vector2(540, 1020)
+position = Vector2(540, 1400)
 script = ExtResource("13_xrxkg")
 
 [node name="PreviewLine" type="Line2D" parent="SlingshotController"]

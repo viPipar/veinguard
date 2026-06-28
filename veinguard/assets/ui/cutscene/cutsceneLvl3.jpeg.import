@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ey4kcseckuua"
-path="res://.godot/imported/Makrofag_Eat.png-2ca72396737dc8be0f5061232ebb681b.ctex"
+uid="uid://6loxvqckgyl3"
+path="res://.godot/imported/cutsceneLvl3.jpeg-5cf4be113b181200a4c937389870249b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ui/Character/Makrofag_Eat.png"
-dest_files=["res://.godot/imported/Makrofag_Eat.png-2ca72396737dc8be0f5061232ebb681b.ctex"]
+source_file="res://assets/ui/cutscene/cutsceneLvl3.jpeg"
+dest_files=["res://.godot/imported/cutsceneLvl3.jpeg-5cf4be113b181200a4c937389870249b.ctex"]
 
 [params]
 
