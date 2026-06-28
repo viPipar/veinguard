@@ -3,8 +3,7 @@
 [ext_resource type="Script" uid="uid://w8j8tulooq2k" path="res://core/ui/MainMenu.gd" id="1_abcde"]
 [ext_resource type="Texture2D" uid="uid://b1cwvflir0x5y" path="res://assets/ui/map/MenuBackground.png" id="2_bg"]
 [ext_resource type="FontFile" uid="uid://bpuk0y8kyjxs2" path="res://assets/ui/font/LilitaOne-Regular.ttf" id="3_font"]
-[ext_resource type="FontFile" path="res://assets/ui/font/AlmendraSC-Regular.ttf" id="4_almendra"]
-[ext_resource type="FontFile" path="res://assets/ui/Font/KellySlab-Regular.ttf" id="5_kelly"]
+[ext_resource type="FontFile" uid="uid://dh3v2w3vaiamd" path="res://assets/ui/font/AlmendraSC-Regular.ttf" id="4_almendra"]
 
 [sub_resource type="Gradient" id="Gradient_particles"]
 colors = PackedColorArray(0.85098, 0.156863, 0.231373, 0.4, 0.941176, 0.352941, 0.392157, 0)
@@ -19,17 +18,9 @@ fill_from = Vector2(0.5, 0.5)
 [sub_resource type="LabelSettings" id="LabelSettings_title"]
 font = ExtResource("4_almendra")
 font_size = 180
-font_color = Color(1, 1, 1, 1)
 shadow_size = 16
 shadow_color = Color(0.2, 0.02, 0.05, 0.8)
 shadow_offset = Vector2(0, 8)
-
-[sub_resource type="LabelSettings" id="LabelSettings_subtitle"]
-font = ExtResource("5_kelly")
-font_size = 36
-font_color = Color(0.941176, 0.470588, 0.509804, 1)
-outline_size = 8
-outline_color = Color(0.12, 0.02, 0.05, 0.8)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_start_hover"]
 bg_color = Color(0.9, 0.18, 0.28, 1)

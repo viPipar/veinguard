@@ -3,12 +3,12 @@
 importer="font_data_dynamic"
 type="FontFile"
 uid="uid://dh3v2w3vaiamd"
-path="res://.godot/imported/AlmendraSC-Regular.ttf-9363bcb5d81e7b11b60879b56feec2d5.fontdata"
+path="res://.godot/imported/AlmendraSC-Regular.ttf-2252f1dca509b0659825a1606aa51167.fontdata"
 
 [deps]
 
-source_file="res://assets/ui/Font/AlmendraSC-Regular.ttf"
-dest_files=["res://.godot/imported/AlmendraSC-Regular.ttf-9363bcb5d81e7b11b60879b56feec2d5.fontdata"]
+source_file="res://assets/ui/font/AlmendraSC-Regular.ttf"
+dest_files=["res://.godot/imported/AlmendraSC-Regular.ttf-2252f1dca509b0659825a1606aa51167.fontdata"]
 
 [params]
 

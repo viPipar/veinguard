@@ -6,10 +6,11 @@
 script = ExtResource("1_anfj4")
 unit_name = "Trombosit"
 description = ""
-max_hp = 75.0
+max_hp = 25.0
 move_speed = 80.0
 damage = 15.0
-attack_range = 220.0
+attack_range = 150.0
 attack_speed = 1.2
+windup_time = 0.3
 cost = 2
 metadata/_custom_type_script = "uid://c5gbukkn4s3uk"

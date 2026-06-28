@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ba1mssbk4ce0y"
-path="res://.godot/imported/Eusinofil_attack.png-1dfceddd08a568b2491fde5ed039c055.ctex"
+path="res://.godot/imported/Eusinofil_attack.png-37ea17b38a8eb139afd3a5b3ba416daa.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ui/Character/Eusinofil_attack.png"
-dest_files=["res://.godot/imported/Eusinofil_attack.png-1dfceddd08a568b2491fde5ed039c055.ctex"]
+source_file="res://assets/ui/character/Eusinofil_attack.png"
+dest_files=["res://.godot/imported/Eusinofil_attack.png-37ea17b38a8eb139afd3a5b3ba416daa.ctex"]
 
 [params]
 

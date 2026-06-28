@@ -137,5 +137,4 @@ collision_mask = 1
 shape = SubResource("CircleShape2D_hiv3")
 
 [node name="HealthBar" parent="." instance=ExtResource("4_hp")]
-offset_top = -140.0
-offset_bottom = -130.0
+position = Vector2(-24, -140)

@@ -193,14 +193,4 @@ func _on_aggro_exited(body: Node2D) -> void:
 	if body == current_target:
 		_pick_nearest_target()
 
-func _process_die(_delta: float) -> void:
-	velocity = Vector2.ZERO
-	_stop_pulse_effect()
-	if sprite:
-		if sprite.animation != "die":
-			sprite.play("die")
-		
-		# Fade out opacity untuk HIV mati perlahan
-		sprite.modulate.a = max(0.0, sprite.modulate.a - 0.05)
-		if sprite.modulate.a <= 0.0:
-			queue_free()
+

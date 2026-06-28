@@ -156,4 +156,4 @@ func _on_next_level() -> void:
 	if GameManager.current_level <= 4:
 		get_tree().change_scene_to_file("res://core/ui/Cutscene.tscn")
 	else:
-		get_tree().change_scene_to_file("res://Main.tscn")
+		get_tree().change_scene_to_file("res://main.tscn")

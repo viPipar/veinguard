@@ -141,7 +141,7 @@ func _on_level_selected(level: int, btn: Button) -> void:
 	if level == 1 or level == 2 or level == 3 or level == 4:
 		get_tree().change_scene_to_file("res://core/ui/Cutscene.tscn")
 	else:
-		get_tree().change_scene_to_file("res://Main.tscn")
+		get_tree().change_scene_to_file("res://main.tscn")
 
 func _on_encyclopedia_button_pressed() -> void:
 	AudioManager.play_select_sfx()

@@ -86,6 +86,7 @@ func _populate_grid() -> void:
 		
 		# Set pivot offset for hover scale
 		card_btn.pivot_offset = Vector2(220, 330)
+		card_btn.mouse_filter = Control.MOUSE_FILTER_PASS
 		
 		# Connect signals
 		card_btn.mouse_entered.connect(_on_card_hover.bind(card_btn))

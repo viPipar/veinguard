@@ -3,12 +3,12 @@
 importer="font_data_dynamic"
 type="FontFile"
 uid="uid://c4cokwgvf8fdk"
-path="res://.godot/imported/KellySlab-Regular.ttf-41280316bbabf32f48b0eed5fef609c4.fontdata"
+path="res://.godot/imported/KellySlab-Regular.ttf-0ceb7e3691ffc88dc13feaf5a12c9e7e.fontdata"
 
 [deps]
 
-source_file="res://assets/ui/Font/KellySlab-Regular.ttf"
-dest_files=["res://.godot/imported/KellySlab-Regular.ttf-41280316bbabf32f48b0eed5fef609c4.fontdata"]
+source_file="res://assets/ui/font/KellySlab-Regular.ttf"
+dest_files=["res://.godot/imported/KellySlab-Regular.ttf-0ceb7e3691ffc88dc13feaf5a12c9e7e.fontdata"]
 
 [params]
 

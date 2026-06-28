@@ -9,6 +9,7 @@ extends CanvasLayer
 @onready var panel: PanelContainer = $PanelContainer
 
 func _ready() -> void:
+	process_mode = Node.PROCESS_MODE_ALWAYS
 	layer = 120
 	panel.visible = false
 	

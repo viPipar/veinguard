@@ -57,13 +57,13 @@ func _ready() -> void:
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventScreenTouch and event.pressed:
-		_on_screen_tapped()
+		_on_screen_tapped(event.position)
 	elif event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
-		_on_screen_tapped()
+		_on_screen_tapped(event.position)
 
-func _on_screen_tapped() -> void:
+func _on_screen_tapped(pos: Vector2) -> void:
 	# Jika skip button ditekan, abaikan tap layar biasa
-	if skip_btn.get_global_rect().has_point(get_global_mouse_position()):
+	if skip_btn.get_global_rect().has_point(pos):
 		return
 		
 	if is_animating:
@@ -117,4 +117,4 @@ func _on_skip_pressed() -> void:
 	_start_game()
 
 func _start_game() -> void:
-	get_tree().change_scene_to_file("res://Main.tscn")
+	get_tree().change_scene_to_file("res://main.tscn")
